@@ -6,29 +6,29 @@ A modern, responsive corporate website showcasing technology services and soluti
 
 ## Features
 
-- 🎨 Modern UI with glass morphism design
-- 🎭 Smooth animations with Framer Motion
-- 🎮 Interactive 3D visualizations with Three.js
-- 📱 Fully responsive design
-- ♿ WCAG 2.1 AA accessibility compliant
-- ⚡ Optimized performance with lazy loading
-- 🎯 Smooth scroll navigation
+- 🎨 **Modern UI**: Glass morphism design with a premium feel.
+- ✨ **Interactive Particles**: Custom 3D particle background using OGL.
+- 🎭 **Smooth Animations**: Powered by Framer Motion for engaging transitions.
+- 📱 **Fully Responsive**: Optimized for all devices and screen sizes.
+- ⚡ **High Performance**: Fast loading times and optimized assets.
+- ♿ **Accessible**: Follows WCAG 2.1 AA standards.
 
 ## Tech Stack
 
 - **Framework:** React 18 + TypeScript
 - **Build Tool:** Vite
-- **Styling:** Tailwind CSS
-- **UI Components:** Radix UI + shadcn/ui
-- **Animations:** Framer Motion
-- **3D Graphics:** Three.js + React Three Fiber
+- **Styling:** Tailwind CSS + CSS Modules
+- **UI Components:** Radix UI Primitives (Toast, Tooltip) + Sonner
+- **Animations:** Framer Motion + GSAP
+- **3D Graphics:** OGL (Lightweight WebGL)
 - **Routing:** React Router (HashRouter)
+- **Icons:** Lucide React
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 
 ### Installation
@@ -52,16 +52,19 @@ npm run preview
 ```
 src/
 ├── components/       # React components
-│   ├── ui/          # Reusable UI components
-│   └── ...          # Feature components
-├── pages/           # Page components
+│   ├── ui/          # Reusable UI components (Particles, Button, etc.)
+│   └── ...          # Feature-specific components (Hero, Navigation, etc.)
+├── pages/           # Page components (Home, Services, Contact, etc.)
+│   ├── company/     # Company-related pages
+│   ├── industries/  # Industry-specific pages
+│   └── services/    # Service-specific pages
 ├── hooks/           # Custom React hooks
 └── lib/             # Utility functions
 ```
 
 ## Development
 
-The development server runs on `http://localhost:8080`
+The development server runs on `http://localhost:8080` by default.
 
 ## Build
 

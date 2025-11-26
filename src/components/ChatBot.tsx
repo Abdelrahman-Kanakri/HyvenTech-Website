@@ -14,7 +14,7 @@ const Chatbot = () => {
   const chatRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
-  // Close when clicking outside
+  /// Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (chatRef.current && !chatRef.current.contains(event.target as Node) && isOpen) {
@@ -31,34 +31,47 @@ const Chatbot = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
 
-  const handleSendMessage = (e?: React.FormEvent) => {
+  // --- UPDATED FUNCTION BELOW ---
+  const handleSendMessage = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!inputValue.trim()) return;
 
-    // Add user message
-    setMessages((prev) => [...prev, { text: inputValue, isUser: true }]);
     const userText = inputValue;
+
+    // 1. Add user message to UI immediately
+    setMessages((prev) => [...prev, { text: userText, isUser: true }]);
     setInputValue("");
 
-    // Simulate bot response
-    setTimeout(() => {
-      let response = "Thank you for your message. Our team will get back to you shortly.";
-      
-      if (userText.toLowerCase().includes("service")) {
-        response = "We offer a wide range of services including AI Solutions, Cyber Security, and Digital Development. Which one are you interested in?";
-      } else if (userText.toLowerCase().includes("contact") || userText.toLowerCase().includes("email")) {
-        response = "You can reach us at contact@fusioninnovation.it or call +1 (555) 123-4567.";
-      } else if (userText.toLowerCase().includes("price") || userText.toLowerCase().includes("cost")) {
-        response = "Our pricing is tailored to each project's specific needs. Please contact us for a custom quote.";
-      }
-      else if (userText.toLowerCase().includes("team") || userText.toLowerCase().includes("someone")) {
-        response = "Our team is made up of highly skilled professionals with years of experience in their respective fields.";
+    try {
+      // 2. Send data to n8n
+      const response = await fetch(N8N_WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ chatInput: userText }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
       }
 
-      setMessages((prev) => [...prev, { text: response, isUser: false }]);
-    }, 1000);
+      const data = await response.json();
+
+      // 3. Handle the response from n8n
+      // This checks for an "output" property, or "text" property from your n8n node
+      const botReply = data.output || data.text || "I received your message but the server returned no text.";
+
+      setMessages((prev) => [...prev, { text: botReply, isUser: false }]);
+
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setMessages((prev) => [
+        ...prev,
+        { text: "Sorry, I'm having trouble connecting to the server right now.", isUser: false }
+      ]);
+    }
   };
-
   return (
     <div className="fixed bottom-36 right-4 lg:bottom-24 lg:right-6 z-50 flex flex-col items-end" ref={chatRef}>
       <AnimatePresence>
