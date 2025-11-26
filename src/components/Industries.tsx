@@ -1,0 +1,127 @@
+import { motion } from "framer-motion";
+import { Heart, ShoppingCart, Factory, DollarSign, GraduationCap, Truck, Leaf, Rocket } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Link } from "react-router-dom";
+
+const industries = [
+  {
+    icon: Heart,
+    name: "Healthcare",
+    description: "HIPAA-compliant solutions for hospitals, clinics, and healthcare providers",
+    solutions: ["EMR Systems", "Patient Portals", "Telemedicine"],
+    link: "/industries/healthcare"
+  },
+  {
+    icon: DollarSign,
+    name: "Finance & Banking",
+    description: "Secure, scalable fintech solutions with regulatory compliance",
+    solutions: ["Payment Systems", "Trading Platforms", "Risk Management"],
+    link: "/industries/finance"
+  },
+  {
+    icon: ShoppingCart,
+    name: "Retail & E-Commerce",
+    description: "Omnichannel retail solutions driving customer engagement",
+    solutions: ["E-Commerce Platforms", "POS Systems", "Inventory Management"],
+    link: "/industries/retail"
+  },
+  {
+    icon: Factory,
+    name: "Manufacturing",
+    description: "Industry 4.0 solutions for smart manufacturing and supply chain",
+    solutions: ["MES Systems", "IoT Monitoring", "Predictive Maintenance"],
+    link: "/industries/manufacturing"
+  },
+
+  {
+    icon: GraduationCap,
+    name: "Education",
+    description: "EdTech platforms enhancing learning experiences",
+    solutions: ["LMS Platforms", "Student Portals", "Virtual Classrooms"],
+    link: "/industries/education"
+  },
+  {
+    icon: Truck,
+    name: "Logistics",
+    description: "Supply chain optimization and fleet management solutions",
+    solutions: ["Route Optimization", "Warehouse Management", "Tracking Systems"],
+    link: "/industries/logistics"
+  },
+  {
+    icon: Leaf,
+    name: "Energy & Utilities",
+    description: "Smart grid and renewable energy management systems",
+    solutions: ["Smart Metering", "Energy Analytics", "Grid Management"],
+    link: "/industries/energy"
+  },
+];
+
+const Industries = () => {
+  return (
+    <section className="py-12 sm:py-16 md:py-20 bg-muted/20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-10 sm:mb-12 md:mb-16"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
+            <span className="glow rounded-xl px-4 py-2 inline-block">Industries We <span className="text-primary">Serve</span></span>
+          </h2>
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-0">
+            Delivering tailored solutions across diverse sectors
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
+          {industries.map((industry, index) => {
+            const Icon = industry.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05, duration: 0.5 }}
+              >
+                <Card className="glass glow h-full hover:glow-strong transition-all duration-300 group relative">
+                  <CardHeader className="pb-3">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                      <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
+                    </div>
+                    <CardTitle className="text-base sm:text-lg">{industry.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+                      {industry.description}
+                    </p>
+                    <div className="space-y-1">
+                      {industry.solutions.map((solution, sIndex) => (
+                        <div key={sIndex} className="flex items-center gap-2">
+                          <div className="w-1 h-1 rounded-full bg-primary" />
+                          <span className="text-xs text-foreground">{solution}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                  
+                  {/* Rocket Icon Link */}
+                  <Link 
+                    to={industry.link}
+                    className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-primary/10 hover:bg-primary/20 flex items-center justify-center transition-all group-hover:scale-110"
+                  >
+                    <Rocket className="h-4 w-4 text-primary" />
+                  </Link>
+                </Card>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Industries;
