@@ -129,6 +129,15 @@ const AboutUsDetailed = () => {
               </div>
             ))}
           </div>
+          
+          {/* Visit Services Button */}
+          <div className="text-center mt-12">
+            <Button asChild size="lg" className="glow text-lg px-8">
+              <Link to="/services">
+                Visit Services <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
