@@ -14,7 +14,7 @@ const Chatbot = () => {
   const chatRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
-  /// Close when clicking outside
+  // 1. Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (chatRef.current && !chatRef.current.contains(event.target as Node) && isOpen) {
@@ -26,48 +26,49 @@ const Chatbot = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  // Auto-scroll to bottom
+  // 2. Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
 
-  // --- UPDATED FUNCTION BELOW ---
+  // 3. Handle Send Message (The Logic connecting to n8n)
   const handleSendMessage = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!inputValue.trim()) return;
 
     const userText = inputValue;
 
-    // 1. Add user message to UI immediately
+    // Add user message to UI immediately
     setMessages((prev) => [...prev, { text: userText, isUser: true }]);
     setInputValue("");
 
     try {
-      // 2. Send data to n8n
+      // Send data to n8n
       const response = await fetch(N8N_WEBHOOK_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ chatInput: userText }),
+        body: JSON.stringify({ message: userText }),
       });
 
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
       }
 
-      const data = await response.json();
+      // Safe JSON Parsing: Read text first to avoid crashes on empty responses
+      const text = await response.text(); 
+      const data = text ? JSON.parse(text) : {};
 
-      // 3. Handle the response from n8n
-      // This checks for an "output" property, or "text" property from your n8n node
-      const botReply = data.output || data.text || "I received your message but the server returned no text.";
+      // Handle the response
+      const botReply = data.output || data.text || "I received your message but got no text back.";
 
       setMessages((prev) => [...prev, { text: botReply, isUser: false }]);
 
     } catch (error) {
       console.error("Error sending message:", error);
       setMessages((prev) => [
-        ...prev,
+        ...prev, 
         { text: "Sorry, I'm having trouble connecting to the server right now.", isUser: false }
       ]);
     }
