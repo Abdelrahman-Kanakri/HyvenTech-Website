@@ -60,26 +60,6 @@ const WhyUs = () => {
           </p>
         </motion.div>
 
-        {/* Stats / Trust Indicators (Optional Addition) */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-          {[
-            { label: "Client Satisfaction", value: "100%" },
-            { label: "Projects Delivered", value: "50+" },
-            { label: "Expert Developers", value: "15+" },
-            { label: "Years Experience", value: "10+" }
-          ].map((stat, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.1 }}
-              className="glass p-6 rounded-xl text-center border border-primary/20"
-            >
-              <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">{stat.value}</div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
 
         {/* Benefits Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
