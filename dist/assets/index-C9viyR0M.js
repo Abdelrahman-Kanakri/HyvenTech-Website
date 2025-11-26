@@ -8571,12 +8571,12 @@ function sortKeys(obj) {
   return sorted;
 }
 function dedupeLinkDescriptors(descriptors, preloads) {
-  let set = /* @__PURE__ */ new Set();
+  let set2 = /* @__PURE__ */ new Set();
   new Set(preloads);
   return descriptors.reduce((deduped, descriptor) => {
     let key = JSON.stringify(sortKeys(descriptor));
-    if (!set.has(key)) {
-      set.add(key);
+    if (!set2.has(key)) {
+      set2.add(key);
       deduped.push({ key, link: descriptor });
     }
     return deduped;
@@ -11750,7 +11750,7 @@ const getDefaultConfig = () => {
   const contrast = fromTheme("contrast");
   const grayscale = fromTheme("grayscale");
   const hueRotate = fromTheme("hueRotate");
-  const invert = fromTheme("invert");
+  const invert2 = fromTheme("invert");
   const gap = fromTheme("gap");
   const gradientColorStops = fromTheme("gradientColorStops");
   const gradientColorStopPositions = fromTheme("gradientColorStopPositions");
@@ -11763,7 +11763,7 @@ const getDefaultConfig = () => {
   const sepia = fromTheme("sepia");
   const skew = fromTheme("skew");
   const space = fromTheme("space");
-  const translate = fromTheme("translate");
+  const translate2 = fromTheme("translate");
   const getOverscroll = () => ["auto", "contain", "none"];
   const getOverflow = () => ["auto", "hidden", "clip", "visible", "scroll"];
   const getSpacingWithAutoAndArbitrary = () => ["auto", isArbitraryValue, spacing];
@@ -13235,7 +13235,7 @@ const getDefaultConfig = () => {
        * @see https://tailwindcss.com/docs/invert
        */
       invert: [{
-        invert: [invert]
+        invert: [invert2]
       }],
       /**
        * Saturate
@@ -13299,7 +13299,7 @@ const getDefaultConfig = () => {
        * @see https://tailwindcss.com/docs/backdrop-invert
        */
       "backdrop-invert": [{
-        "backdrop-invert": [invert]
+        "backdrop-invert": [invert2]
       }],
       /**
        * Backdrop Opacity
@@ -13442,14 +13442,14 @@ const getDefaultConfig = () => {
        * @see https://tailwindcss.com/docs/translate
        */
       "translate-x": [{
-        "translate-x": [translate]
+        "translate-x": [translate2]
       }],
       /**
        * Translate Y
        * @see https://tailwindcss.com/docs/translate
        */
       "translate-y": [{
-        "translate-y": [translate]
+        "translate-y": [translate2]
       }],
       /**
        * Skew X
@@ -14384,7 +14384,7 @@ const Toast = (props) => {
     heightIndex
   ]);
   const isDocumentHidden = useIsDocumentHidden();
-  const invert = toast2.invert || ToasterInvert;
+  const invert2 = toast2.invert || ToasterInvert;
   const disabled = toastType === "loading";
   offset2.current = React.useMemo(() => heightIndex * gap + toastsHeightBefore, [
     heightIndex,
@@ -14542,7 +14542,7 @@ const Toast = (props) => {
     "data-swiping": swiping,
     "data-dismissible": dismissible,
     "data-type": toastType,
-    "data-invert": invert,
+    "data-invert": invert2,
     "data-swipe-out": swipeOut,
     "data-swipe-direction": swipeOutDirection,
     "data-expanded": Boolean(expanded || expandByDefault && mounted),
@@ -14744,7 +14744,7 @@ function assignOffset(defaultOffset2, mobileOffset) {
   return styles;
 }
 const Toaster$1 = /* @__PURE__ */ React.forwardRef(function Toaster(props, ref) {
-  const { id: id2, invert, position = "bottom-right", hotkey = [
+  const { id: id2, invert: invert2, position = "bottom-right", hotkey = [
     "altKey",
     "KeyT"
   ], expand, closeButton, className, offset: offset2, mobileOffset, theme = "light", richColors, duration, style, visibleToasts = VISIBLE_TOASTS_AMOUNT, toastOptions, dir = getDocumentDirection(), gap = GAP, icons, containerAriaLabel = "Notifications" } = props;
@@ -14972,7 +14972,7 @@ const Toaster$1 = /* @__PURE__ */ React.forwardRef(function Toaster(props, ref) 
           duration: (_toastOptions_duration = toastOptions == null ? void 0 : toastOptions.duration) != null ? _toastOptions_duration : duration,
           className: toastOptions == null ? void 0 : toastOptions.className,
           descriptionClassName: toastOptions == null ? void 0 : toastOptions.descriptionClassName,
-          invert,
+          invert: invert2,
           visibleToasts,
           closeButton: (_toastOptions_closeButton = toastOptions == null ? void 0 : toastOptions.closeButton) != null ? _toastOptions_closeButton : closeButton,
           interacting,
@@ -15074,9 +15074,9 @@ function getAlignmentSides(placement, rects, rtl) {
   }
   const alignment = getAlignment(placement);
   const alignmentAxis = getAlignmentAxis(placement);
-  const length = getAxisLength(alignmentAxis);
+  const length2 = getAxisLength(alignmentAxis);
   let mainAlignmentSide = alignmentAxis === "x" ? alignment === (rtl ? "end" : "start") ? "right" : "left" : alignment === "start" ? "bottom" : "top";
-  if (rects.reference[length] > rects.floating[length]) {
+  if (rects.reference[length2] > rects.floating[length2]) {
     mainAlignmentSide = getOppositePlacement(mainAlignmentSide);
   }
   return [mainAlignmentSide, getOppositePlacement(mainAlignmentSide)];
@@ -15374,28 +15374,28 @@ const arrow$3 = (options) => ({
       y
     };
     const axis = getAlignmentAxis(placement);
-    const length = getAxisLength(axis);
+    const length2 = getAxisLength(axis);
     const arrowDimensions = await platform2.getDimensions(element);
     const isYAxis = axis === "y";
     const minProp = isYAxis ? "top" : "left";
     const maxProp = isYAxis ? "bottom" : "right";
     const clientProp = isYAxis ? "clientHeight" : "clientWidth";
-    const endDiff = rects.reference[length] + rects.reference[axis] - coords[axis] - rects.floating[length];
+    const endDiff = rects.reference[length2] + rects.reference[axis] - coords[axis] - rects.floating[length2];
     const startDiff = coords[axis] - rects.reference[axis];
     const arrowOffsetParent = await (platform2.getOffsetParent == null ? void 0 : platform2.getOffsetParent(element));
     let clientSize = arrowOffsetParent ? arrowOffsetParent[clientProp] : 0;
     if (!clientSize || !await (platform2.isElement == null ? void 0 : platform2.isElement(arrowOffsetParent))) {
-      clientSize = elements.floating[clientProp] || rects.floating[length];
+      clientSize = elements.floating[clientProp] || rects.floating[length2];
     }
     const centerToReference = endDiff / 2 - startDiff / 2;
-    const largestPossiblePadding = clientSize / 2 - arrowDimensions[length] / 2 - 1;
+    const largestPossiblePadding = clientSize / 2 - arrowDimensions[length2] / 2 - 1;
     const minPadding = min(paddingObject[minProp], largestPossiblePadding);
     const maxPadding = min(paddingObject[maxProp], largestPossiblePadding);
     const min$1 = minPadding;
-    const max2 = clientSize - arrowDimensions[length] - maxPadding;
-    const center = clientSize / 2 - arrowDimensions[length] / 2 + centerToReference;
+    const max2 = clientSize - arrowDimensions[length2] - maxPadding;
+    const center = clientSize / 2 - arrowDimensions[length2] / 2 + centerToReference;
     const offset2 = clamp$1(min$1, center, max2);
-    const shouldAddOffset = !middlewareData.arrow && getAlignment(placement) != null && center !== offset2 && rects.reference[length] / 2 - (center < min$1 ? minPadding : maxPadding) - arrowDimensions[length] / 2 < 0;
+    const shouldAddOffset = !middlewareData.arrow && getAlignment(placement) != null && center !== offset2 && rects.reference[length2] / 2 - (center < min$1 ? minPadding : maxPadding) - arrowDimensions[length2] / 2 < 0;
     const alignmentOffset = shouldAddOffset ? center < min$1 ? center - min$1 : center - max2 : 0;
     return {
       [axis]: coords[axis] + alignmentOffset,
@@ -16628,14 +16628,14 @@ function deepEqual(a, b) {
   if (typeof a === "function" && a.toString() === b.toString()) {
     return true;
   }
-  let length;
+  let length2;
   let i;
   let keys2;
   if (a && b && typeof a === "object") {
     if (Array.isArray(a)) {
-      length = a.length;
-      if (length !== b.length) return false;
-      for (i = length; i-- !== 0; ) {
+      length2 = a.length;
+      if (length2 !== b.length) return false;
+      for (i = length2; i-- !== 0; ) {
         if (!deepEqual(a[i], b[i])) {
           return false;
         }
@@ -16643,16 +16643,16 @@ function deepEqual(a, b) {
       return true;
     }
     keys2 = Object.keys(a);
-    length = keys2.length;
-    if (length !== Object.keys(b).length) {
+    length2 = keys2.length;
+    if (length2 !== Object.keys(b).length) {
       return false;
     }
-    for (i = length; i-- !== 0; ) {
+    for (i = length2; i-- !== 0; ) {
       if (!{}.hasOwnProperty.call(b, keys2[i])) {
         return false;
       }
     }
-    for (i = length; i-- !== 0; ) {
+    for (i = length2; i-- !== 0; ) {
       const key = keys2[i];
       if (key === "_owner" && a.$$typeof) {
         continue;
@@ -18498,7 +18498,7 @@ const alpha = {
   ...number,
   transform: (v) => clamp(0, 1, v)
 };
-const scale = {
+const scale$3 = {
   ...number,
   default: 1
 };
@@ -18559,10 +18559,10 @@ const transformValueTypes = {
   rotateX: degrees,
   rotateY: degrees,
   rotateZ: degrees,
-  scale,
-  scaleX: scale,
-  scaleY: scale,
-  scaleZ: scale,
+  scale: scale$3,
+  scaleX: scale$3,
+  scaleY: scale$3,
+  scaleZ: scale$3,
   skew: degrees,
   skewX: degrees,
   skewY: degrees,
@@ -18677,11 +18677,11 @@ const camelKeys = {
   offset: "strokeDashoffset",
   array: "strokeDasharray"
 };
-function buildSVGPath(attrs, length, spacing = 1, offset2 = 0, useDashCase = true) {
+function buildSVGPath(attrs, length2, spacing = 1, offset2 = 0, useDashCase = true) {
   attrs.pathLength = 1;
   const keys2 = useDashCase ? dashKeys : camelKeys;
   attrs[keys2.offset] = px.transform(-offset2);
-  const pathLength = px.transform(length);
+  const pathLength = px.transform(length2);
   const pathSpacing = px.transform(spacing);
   attrs[keys2.array] = `${pathLength} ${pathSpacing}`;
 }
@@ -21896,10 +21896,10 @@ const addPointerInfo = (handler) => {
 function addPointerEvent(target, eventName, handler, options) {
   return addDomEvent(target, eventName, addPointerInfo(handler), options);
 }
-const distance = (a, b) => Math.abs(a - b);
+const distance$1 = (a, b) => Math.abs(a - b);
 function distance2D(a, b) {
-  const xDelta = distance(a.x, b.x);
-  const yDelta = distance(a.y, b.y);
+  const xDelta = distance$1(a.x, b.x);
+  const yDelta = distance$1(a.y, b.y);
   return Math.sqrt(xDelta ** 2 + yDelta ** 2);
 }
 class PanSession {
@@ -22200,15 +22200,15 @@ function scalePoint(point2, scale2, originPoint) {
   const scaled = scale2 * distanceFromOrigin;
   return originPoint + scaled;
 }
-function applyPointDelta(point2, translate, scale2, originPoint, boxScale) {
+function applyPointDelta(point2, translate2, scale2, originPoint, boxScale) {
   if (boxScale !== void 0) {
     point2 = scalePoint(point2, boxScale, originPoint);
   }
-  return scalePoint(point2, scale2, originPoint) + translate;
+  return scalePoint(point2, scale2, originPoint) + translate2;
 }
-function applyAxisDelta(axis, translate = 0, scale2 = 1, originPoint, boxScale) {
-  axis.min = applyPointDelta(axis.min, translate, scale2, originPoint, boxScale);
-  axis.max = applyPointDelta(axis.max, translate, scale2, originPoint, boxScale);
+function applyAxisDelta(axis, translate2 = 0, scale2 = 1, originPoint, boxScale) {
+  axis.min = applyPointDelta(axis.min, translate2, scale2, originPoint, boxScale);
+  axis.max = applyPointDelta(axis.max, translate2, scale2, originPoint, boxScale);
 }
 function applyBoxDelta(box, { x: x2, y }) {
   applyAxisDelta(box.x, x2.translate, x2.scale, x2.originPoint);
@@ -22325,8 +22325,8 @@ class VisualElementDragControls {
           if (projection && projection.layout) {
             const measuredAxis = projection.layout.layoutBox[axis];
             if (measuredAxis) {
-              const length = calcLength(measuredAxis);
-              current = length * (parseFloat(current) / 100);
+              const length2 = calcLength(measuredAxis);
+              current = length2 * (parseFloat(current) / 100);
             }
           }
         }
@@ -22950,27 +22950,27 @@ function copyAxisDeltaInto(delta, originDelta) {
   delta.originPoint = originDelta.originPoint;
   delta.origin = originDelta.origin;
 }
-function removePointDelta(point2, translate, scale2, originPoint, boxScale) {
-  point2 -= translate;
+function removePointDelta(point2, translate2, scale2, originPoint, boxScale) {
+  point2 -= translate2;
   point2 = scalePoint(point2, 1 / scale2, originPoint);
   if (boxScale !== void 0) {
     point2 = scalePoint(point2, 1 / boxScale, originPoint);
   }
   return point2;
 }
-function removeAxisDelta(axis, translate = 0, scale2 = 1, origin = 0.5, boxScale, originAxis = axis, sourceAxis = axis) {
-  if (percent.test(translate)) {
-    translate = parseFloat(translate);
-    const relativeProgress = mixNumber$1(sourceAxis.min, sourceAxis.max, translate / 100);
-    translate = relativeProgress - sourceAxis.min;
+function removeAxisDelta(axis, translate2 = 0, scale2 = 1, origin = 0.5, boxScale, originAxis = axis, sourceAxis = axis) {
+  if (percent.test(translate2)) {
+    translate2 = parseFloat(translate2);
+    const relativeProgress = mixNumber$1(sourceAxis.min, sourceAxis.max, translate2 / 100);
+    translate2 = relativeProgress - sourceAxis.min;
   }
-  if (typeof translate !== "number")
+  if (typeof translate2 !== "number")
     return;
   let originPoint = mixNumber$1(originAxis.min, originAxis.max, origin);
   if (axis === originAxis)
-    originPoint -= translate;
-  axis.min = removePointDelta(axis.min, translate, scale2, originPoint, boxScale);
-  axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
+    originPoint -= translate2;
+  axis.min = removePointDelta(axis.min, translate2, scale2, originPoint, boxScale);
+  axis.max = removePointDelta(axis.max, translate2, scale2, originPoint, boxScale);
 }
 function removeAxisTransforms(axis, transforms, [key, scaleKey, originKey], origin, sourceAxis) {
   removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale, origin, sourceAxis);
@@ -23107,15 +23107,15 @@ function buildProjectionTransform(delta, treeScale, latestTransform) {
     transform += `scale(${1 / treeScale.x}, ${1 / treeScale.y}) `;
   }
   if (latestTransform) {
-    const { transformPerspective, rotate, rotateX, rotateY, skewX, skewY } = latestTransform;
+    const { transformPerspective, rotate: rotate2, rotateX: rotateX2, rotateY: rotateY2, skewX, skewY } = latestTransform;
     if (transformPerspective)
       transform = `perspective(${transformPerspective}px) ${transform}`;
-    if (rotate)
-      transform += `rotate(${rotate}deg) `;
-    if (rotateX)
-      transform += `rotateX(${rotateX}deg) `;
-    if (rotateY)
-      transform += `rotateY(${rotateY}deg) `;
+    if (rotate2)
+      transform += `rotate(${rotate2}deg) `;
+    if (rotateX2)
+      transform += `rotateX(${rotateX2}deg) `;
+    if (rotateY2)
+      transform += `rotateY(${rotateY2}deg) `;
     if (skewX)
       transform += `skewX(${skewX}deg) `;
     if (skewY)
@@ -24034,18 +24034,18 @@ function notifyLayoutUpdate(node) {
     if (animationType === "size") {
       eachAxis((axis) => {
         const axisSnapshot = isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
-        const length = calcLength(axisSnapshot);
+        const length2 = calcLength(axisSnapshot);
         axisSnapshot.min = layout2[axis].min;
-        axisSnapshot.max = axisSnapshot.min + length;
+        axisSnapshot.max = axisSnapshot.min + length2;
       });
     } else if (shouldAnimatePositionOnly(animationType, snapshot.layoutBox, layout2)) {
       eachAxis((axis) => {
         const axisSnapshot = isShared ? snapshot.measuredBox[axis] : snapshot.layoutBox[axis];
-        const length = calcLength(layout2[axis]);
-        axisSnapshot.max = axisSnapshot.min + length;
+        const length2 = calcLength(layout2[axis]);
+        axisSnapshot.max = axisSnapshot.min + length2;
         if (node.relativeTarget && !node.currentAnimation) {
           node.isProjectionDirty = true;
-          node.relativeTarget[axis].max = node.relativeTarget[axis].min + length;
+          node.relativeTarget[axis].max = node.relativeTarget[axis].min + length2;
         }
       });
     }
@@ -25029,11 +25029,11 @@ const keys = {
 };
 function updateAxisInfo(element, axisName, info, time2) {
   const axis = info[axisName];
-  const { length, position } = keys[axisName];
+  const { length: length2, position } = keys[axisName];
   const prev = axis.current;
   const prevTime = info.time;
   axis.current = element[`scroll${position}`];
-  axis.scrollLength = element[`scroll${length}`] - element[`client${length}`];
+  axis.scrollLength = element[`scroll${length2}`] - element[`client${length2}`];
   axis.offset.length = 0;
   axis.offset[0] = 0;
   axis.offset[1] = axis.scrollLength;
@@ -25084,7 +25084,7 @@ const namedEdges = {
   center: 0.5,
   end: 1
 };
-function resolveEdge(edge, length, inset = 0) {
+function resolveEdge(edge, length2, inset = 0) {
   let delta = 0;
   if (edge in namedEdges) {
     edge = namedEdges[edge];
@@ -25104,7 +25104,7 @@ function resolveEdge(edge, length, inset = 0) {
     }
   }
   if (typeof edge === "number") {
-    delta = length * edge;
+    delta = length2 * edge;
   }
   return inset + delta;
 }
@@ -25597,7 +25597,7 @@ const ScrollToTop = () => {
   return null;
 };
 const navItems = [
-  { name: "Home", href: "/#home" },
+  { name: "Home", href: "/" },
   {
     name: "Services",
     href: "/services",
@@ -25605,9 +25605,9 @@ const navItems = [
       { name: "Accounting Systems", href: "/services/accounting-systems", isHighlight: false },
       { name: "Digital Development", href: "/services/digital-development", isHighlight: false },
       { name: "Artificial Intelligence", href: "/services/ai-solutions", isHighlight: false },
-      { name: "Education", href: "/industries/education", isHighlight: false },
-      { name: "Logistics", href: "/industries/logistics", isHighlight: false },
-      { name: "Energy & Utilities", href: "/industries/energy", isHighlight: false }
+      { name: "Technical Hardware", href: "/services/technical-hardware", isHighlight: false },
+      { name: "Digital Marketing", href: "/services/digital-marketing", isHighlight: false },
+      { name: "Cyber Security", href: "/services/cyber-security", isHighlight: false }
     ]
   },
   {
@@ -25625,9 +25625,9 @@ const navItems = [
   },
   {
     name: "Company",
-    href: "/about-us",
+    href: "/about",
     dropdown: [
-      { name: "Corporate Profile", href: "/about-us", isHighlight: true },
+      { name: "Corporate Profile", href: "/company/profile", isHighlight: true },
       { name: "Leadership", href: "/company/leadership", isHighlight: false },
       { name: "Our Methodology", href: "/company/methodology", isHighlight: false },
       { name: "The Fusion Advantage", href: "/company/why-us", isHighlight: false }
@@ -25657,25 +25657,13 @@ const Navigation = () => {
   const handleDropdownToggle = (itemName) => {
     setOpenDropdown(openDropdown === itemName ? null : itemName);
   };
-  const handleLinkClick = (e, href) => {
+  const handleLinkClick = () => {
     setMobileMenuOpen(false);
     setOpenDropdown(null);
-    const [targetPath, targetHash] = href.split("#");
-    const currentPath = location.pathname;
-    if (currentPath === targetPath && targetHash) {
-      e.preventDefault();
-      const el = document.querySelector("#" + targetHash);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-      return;
-    }
   };
   const getLinkProps = (href) => {
-    const [path, hash] = href.split("#");
     return {
-      to: path || "/",
-      state: hash ? { scrollTo: hash } : void 0
+      to: href
     };
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -25695,7 +25683,7 @@ const Navigation = () => {
               ...getLinkProps("/"),
               className: "flex items-center gap-2 group",
               "aria-label": "Fusion Innovation IT Home",
-              onClick: (e) => handleLinkClick(e, "/"),
+              onClick: handleLinkClick,
               children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary font-bold text-base sm:text-lg", children: "FI" }) }),
                 /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "font-bold text-sm sm:text-base md:text-lg hidden sm:block", children: "Fusion Innovation IT" })
@@ -25708,7 +25696,7 @@ const Navigation = () => {
                 Link,
                 {
                   ...getLinkProps(item.href),
-                  onClick: (e) => handleLinkClick(e, item.href),
+                  onClick: handleLinkClick,
                   className: "text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer",
                   "aria-label": `Navigate to ${item.name} section`,
                   children: [
@@ -25745,7 +25733,7 @@ const Navigation = () => {
                     Link,
                     {
                       ...getLinkProps(dropItem.href),
-                      onClick: (e) => handleLinkClick(e, dropItem.href),
+                      onClick: handleLinkClick,
                       className: `block px-4 py-3 text-sm hover:bg-primary/10 transition-colors ${dropItem.isHighlight ? "text-primary font-semibold border-t border-border/50" : "text-foreground/80"}`,
                       role: "menuitem",
                       children: dropItem.name
@@ -25758,7 +25746,7 @@ const Navigation = () => {
               Link,
               {
                 ...getLinkProps(item.href),
-                onClick: (e) => handleLinkClick(e, item.href),
+                onClick: handleLinkClick,
                 className: "text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer",
                 "aria-label": `Navigate to ${item.name}`,
                 children: [
@@ -25772,7 +25760,7 @@ const Navigation = () => {
               {
                 asChild: true,
                 className: "glow bg-primary hover:bg-primary/90 text-primary-foreground px-6",
-                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { ...getLinkProps("/contact"), onClick: (e) => handleLinkClick(e, "/contact"), children: "Get Started" })
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { ...getLinkProps("/contact"), onClick: handleLinkClick, children: "Get Started" })
               }
             )
           ] }),
@@ -25835,7 +25823,7 @@ const Navigation = () => {
                         {
                           ...getLinkProps(dropItem.href),
                           className: "block py-2 text-foreground/70 hover:text-primary transition-colors",
-                          onClick: (e) => handleLinkClick(e, dropItem.href),
+                          onClick: handleLinkClick,
                           children: dropItem.name
                         },
                         index2
@@ -25846,7 +25834,7 @@ const Navigation = () => {
                   Link,
                   {
                     ...getLinkProps(item.href),
-                    onClick: (e) => handleLinkClick(e, item.href),
+                    onClick: handleLinkClick,
                     className: "block text-lg font-medium text-foreground hover:text-primary transition-colors py-2",
                     children: item.name
                   }
@@ -25856,7 +25844,7 @@ const Navigation = () => {
                   {
                     asChild: true,
                     className: "w-full glow bg-primary hover:bg-primary/90 text-primary-foreground mt-6",
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { ...getLinkProps("/contact"), onClick: (e) => handleLinkClick(e, "/contact"), children: "Get Started" })
+                    children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { ...getLinkProps("/contact"), onClick: handleLinkClick, children: "Get Started" })
                   }
                 )
               ] }) })
@@ -26176,49 +26164,49 @@ const industries = [
     name: "Healthcare",
     description: "HIPAA-compliant solutions for hospitals, clinics, and healthcare providers",
     solutions: ["EMR Systems", "Patient Portals", "Telemedicine"],
-    link: "/industries/healthcare"
+    link: "/key-sectors/healthcare"
   },
   {
     icon: DollarSign,
     name: "Finance & Banking",
     description: "Secure, scalable fintech solutions with regulatory compliance",
     solutions: ["Payment Systems", "Trading Platforms", "Risk Management"],
-    link: "/industries/finance"
+    link: "/key-sectors/finance"
   },
   {
     icon: ShoppingCart,
     name: "Retail & E-Commerce",
     description: "Omnichannel retail solutions driving customer engagement",
     solutions: ["E-Commerce Platforms", "POS Systems", "Inventory Management"],
-    link: "/industries/retail"
+    link: "/key-sectors/retail"
   },
   {
     icon: Factory,
     name: "Manufacturing",
     description: "Industry 4.0 solutions for smart manufacturing and supply chain",
     solutions: ["MES Systems", "IoT Monitoring", "Predictive Maintenance"],
-    link: "/industries/manufacturing"
+    link: "/key-sectors/manufacturing"
   },
   {
     icon: GraduationCap,
     name: "Education",
     description: "EdTech platforms enhancing learning experiences",
     solutions: ["LMS Platforms", "Student Portals", "Virtual Classrooms"],
-    link: "/industries/education"
+    link: "/key-sectors/education"
   },
   {
     icon: Truck,
     name: "Logistics",
     description: "Supply chain optimization and fleet management solutions",
     solutions: ["Route Optimization", "Warehouse Management", "Tracking Systems"],
-    link: "/industries/logistics"
+    link: "/key-sectors/logistics"
   },
   {
     icon: Leaf,
     name: "Energy & Utilities",
     description: "Smart grid and renewable energy management systems",
     solutions: ["Smart Metering", "Energy Analytics", "Grid Management"],
-    link: "/industries/energy"
+    link: "/key-sectors/energy"
   }
 ];
 const Industries = () => {
@@ -26440,7 +26428,7 @@ const clients = [
   {
     name: "KnowBe4",
     industry: "Cybersecurity",
-    logo: "dist/knowbe4-logo.svg",
+    logo: "knowbe4-logo.svg",
     link: "https://www.knowbe4.com/"
   }
 ];
@@ -26496,7 +26484,7 @@ const ClientLogos = () => {
     )) })
   ] }) });
 };
-const team$1 = [
+const team = [
   {
     name: "Hamzah Abu Jawhar",
     role: "Chief Technology Officer",
@@ -26549,7 +26537,7 @@ const Team = () => {
         ]
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto", children: team$1.map((member, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto", children: team.map((member, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       motion.div,
       {
         initial: { opacity: 0, y: 20 },
@@ -26631,7 +26619,7 @@ const About = () => {
               /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Profile" })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-4xl mx-auto px-2 sm:px-0 leading-relaxed mb-8 space-y-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Fusion Innovation IT is a leader in integrated technology, empowering sectors from Healthcare and Finance to Manufacturing and Logistics. We combine deep industry expertise with cutting-edge AI to deliver end-to-end solutions—from custom software and mobile apps to essential business hardware." }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/about-us", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { className: "glow bg-primary hover:bg-primary/90 text-primary-foreground px-8", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/company/profile", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { className: "glow bg-primary hover:bg-primary/90 text-primary-foreground px-8", children: [
               "Learn More",
               /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { className: "ml-2 h-4 w-4" })
             ] }) })
@@ -26840,8 +26828,7 @@ const Footer = () => {
   ];
   const legalLinks = [
     { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Terms of Service", href: "/terms-of-service" },
-    { label: "Cookie Policy", href: "/cookie-policy" }
+    { label: "Terms of Service", href: "/terms-of-service" }
   ];
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("footer", { className: "relative pt-16 pb-8 bg-background border-t border-border/50 overflow-hidden", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4 sm:px-6 lg:px-8 relative z-10", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12", children: [
@@ -26918,19 +26905,3042 @@ const Footer = () => {
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" })
   ] });
 };
+function length(a) {
+  let x2 = a[0];
+  let y = a[1];
+  let z2 = a[2];
+  return Math.sqrt(x2 * x2 + y * y + z2 * z2);
+}
+function copy$4(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  return out;
+}
+function set$4(out, x2, y, z2) {
+  out[0] = x2;
+  out[1] = y;
+  out[2] = z2;
+  return out;
+}
+function add$1(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  return out;
+}
+function subtract$1(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  return out;
+}
+function multiply$3(out, a, b) {
+  out[0] = a[0] * b[0];
+  out[1] = a[1] * b[1];
+  out[2] = a[2] * b[2];
+  return out;
+}
+function divide(out, a, b) {
+  out[0] = a[0] / b[0];
+  out[1] = a[1] / b[1];
+  out[2] = a[2] / b[2];
+  return out;
+}
+function scale$2(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  return out;
+}
+function distance(a, b) {
+  let x2 = b[0] - a[0];
+  let y = b[1] - a[1];
+  let z2 = b[2] - a[2];
+  return Math.sqrt(x2 * x2 + y * y + z2 * z2);
+}
+function squaredDistance(a, b) {
+  let x2 = b[0] - a[0];
+  let y = b[1] - a[1];
+  let z2 = b[2] - a[2];
+  return x2 * x2 + y * y + z2 * z2;
+}
+function squaredLength(a) {
+  let x2 = a[0];
+  let y = a[1];
+  let z2 = a[2];
+  return x2 * x2 + y * y + z2 * z2;
+}
+function negate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  return out;
+}
+function inverse(out, a) {
+  out[0] = 1 / a[0];
+  out[1] = 1 / a[1];
+  out[2] = 1 / a[2];
+  return out;
+}
+function normalize$2(out, a) {
+  let x2 = a[0];
+  let y = a[1];
+  let z2 = a[2];
+  let len = x2 * x2 + y * y + z2 * z2;
+  if (len > 0) {
+    len = 1 / Math.sqrt(len);
+  }
+  out[0] = a[0] * len;
+  out[1] = a[1] * len;
+  out[2] = a[2] * len;
+  return out;
+}
+function dot$2(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+}
+function cross(out, a, b) {
+  let ax = a[0], ay = a[1], az = a[2];
+  let bx = b[0], by = b[1], bz = b[2];
+  out[0] = ay * bz - az * by;
+  out[1] = az * bx - ax * bz;
+  out[2] = ax * by - ay * bx;
+  return out;
+}
+function lerp(out, a, b, t) {
+  let ax = a[0];
+  let ay = a[1];
+  let az = a[2];
+  out[0] = ax + t * (b[0] - ax);
+  out[1] = ay + t * (b[1] - ay);
+  out[2] = az + t * (b[2] - az);
+  return out;
+}
+function smoothLerp(out, a, b, decay, dt) {
+  const exp = Math.exp(-decay * dt);
+  let ax = a[0];
+  let ay = a[1];
+  let az = a[2];
+  out[0] = b[0] + (ax - b[0]) * exp;
+  out[1] = b[1] + (ay - b[1]) * exp;
+  out[2] = b[2] + (az - b[2]) * exp;
+  return out;
+}
+function transformMat4(out, a, m) {
+  let x2 = a[0], y = a[1], z2 = a[2];
+  let w = m[3] * x2 + m[7] * y + m[11] * z2 + m[15];
+  w = w || 1;
+  out[0] = (m[0] * x2 + m[4] * y + m[8] * z2 + m[12]) / w;
+  out[1] = (m[1] * x2 + m[5] * y + m[9] * z2 + m[13]) / w;
+  out[2] = (m[2] * x2 + m[6] * y + m[10] * z2 + m[14]) / w;
+  return out;
+}
+function scaleRotateMat4(out, a, m) {
+  let x2 = a[0], y = a[1], z2 = a[2];
+  let w = m[3] * x2 + m[7] * y + m[11] * z2 + m[15];
+  w = w || 1;
+  out[0] = (m[0] * x2 + m[4] * y + m[8] * z2) / w;
+  out[1] = (m[1] * x2 + m[5] * y + m[9] * z2) / w;
+  out[2] = (m[2] * x2 + m[6] * y + m[10] * z2) / w;
+  return out;
+}
+function transformMat3(out, a, m) {
+  let x2 = a[0], y = a[1], z2 = a[2];
+  out[0] = x2 * m[0] + y * m[3] + z2 * m[6];
+  out[1] = x2 * m[1] + y * m[4] + z2 * m[7];
+  out[2] = x2 * m[2] + y * m[5] + z2 * m[8];
+  return out;
+}
+function transformQuat(out, a, q) {
+  let x2 = a[0], y = a[1], z2 = a[2];
+  let qx = q[0], qy = q[1], qz = q[2], qw = q[3];
+  let uvx = qy * z2 - qz * y;
+  let uvy = qz * x2 - qx * z2;
+  let uvz = qx * y - qy * x2;
+  let uuvx = qy * uvz - qz * uvy;
+  let uuvy = qz * uvx - qx * uvz;
+  let uuvz = qx * uvy - qy * uvx;
+  let w2 = qw * 2;
+  uvx *= w2;
+  uvy *= w2;
+  uvz *= w2;
+  uuvx *= 2;
+  uuvy *= 2;
+  uuvz *= 2;
+  out[0] = x2 + uvx + uuvx;
+  out[1] = y + uvy + uuvy;
+  out[2] = z2 + uvz + uuvz;
+  return out;
+}
+const angle = /* @__PURE__ */ (function() {
+  const tempA = [0, 0, 0];
+  const tempB = [0, 0, 0];
+  return function(a, b) {
+    copy$4(tempA, a);
+    copy$4(tempB, b);
+    normalize$2(tempA, tempA);
+    normalize$2(tempB, tempB);
+    let cosine = dot$2(tempA, tempB);
+    if (cosine > 1) {
+      return 0;
+    } else if (cosine < -1) {
+      return Math.PI;
+    } else {
+      return Math.acos(cosine);
+    }
+  };
+})();
+function exactEquals(a, b) {
+  return a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
+}
+class Vec3 extends Array {
+  constructor(x2 = 0, y = x2, z2 = x2) {
+    super(x2, y, z2);
+    return this;
+  }
+  get x() {
+    return this[0];
+  }
+  get y() {
+    return this[1];
+  }
+  get z() {
+    return this[2];
+  }
+  set x(v) {
+    this[0] = v;
+  }
+  set y(v) {
+    this[1] = v;
+  }
+  set z(v) {
+    this[2] = v;
+  }
+  set(x2, y = x2, z2 = x2) {
+    if (x2.length) return this.copy(x2);
+    set$4(this, x2, y, z2);
+    return this;
+  }
+  copy(v) {
+    copy$4(this, v);
+    return this;
+  }
+  add(va, vb) {
+    if (vb) add$1(this, va, vb);
+    else add$1(this, this, va);
+    return this;
+  }
+  sub(va, vb) {
+    if (vb) subtract$1(this, va, vb);
+    else subtract$1(this, this, va);
+    return this;
+  }
+  multiply(v) {
+    if (v.length) multiply$3(this, this, v);
+    else scale$2(this, this, v);
+    return this;
+  }
+  divide(v) {
+    if (v.length) divide(this, this, v);
+    else scale$2(this, this, 1 / v);
+    return this;
+  }
+  inverse(v = this) {
+    inverse(this, v);
+    return this;
+  }
+  // Can't use 'length' as Array.prototype uses it
+  len() {
+    return length(this);
+  }
+  distance(v) {
+    if (v) return distance(this, v);
+    else return length(this);
+  }
+  squaredLen() {
+    return squaredLength(this);
+  }
+  squaredDistance(v) {
+    if (v) return squaredDistance(this, v);
+    else return squaredLength(this);
+  }
+  negate(v = this) {
+    negate(this, v);
+    return this;
+  }
+  cross(va, vb) {
+    if (vb) cross(this, va, vb);
+    else cross(this, this, va);
+    return this;
+  }
+  scale(v) {
+    scale$2(this, this, v);
+    return this;
+  }
+  normalize() {
+    normalize$2(this, this);
+    return this;
+  }
+  dot(v) {
+    return dot$2(this, v);
+  }
+  equals(v) {
+    return exactEquals(this, v);
+  }
+  applyMatrix3(mat3) {
+    transformMat3(this, this, mat3);
+    return this;
+  }
+  applyMatrix4(mat4) {
+    transformMat4(this, this, mat4);
+    return this;
+  }
+  scaleRotateMatrix4(mat4) {
+    scaleRotateMat4(this, this, mat4);
+    return this;
+  }
+  applyQuaternion(q) {
+    transformQuat(this, this, q);
+    return this;
+  }
+  angle(v) {
+    return angle(this, v);
+  }
+  lerp(v, t) {
+    lerp(this, this, v, t);
+    return this;
+  }
+  smoothLerp(v, decay, dt) {
+    smoothLerp(this, this, v, decay, dt);
+    return this;
+  }
+  clone() {
+    return new Vec3(this[0], this[1], this[2]);
+  }
+  fromArray(a, o = 0) {
+    this[0] = a[o];
+    this[1] = a[o + 1];
+    this[2] = a[o + 2];
+    return this;
+  }
+  toArray(a = [], o = 0) {
+    a[o] = this[0];
+    a[o + 1] = this[1];
+    a[o + 2] = this[2];
+    return a;
+  }
+  transformDirection(mat4) {
+    const x2 = this[0];
+    const y = this[1];
+    const z2 = this[2];
+    this[0] = mat4[0] * x2 + mat4[4] * y + mat4[8] * z2;
+    this[1] = mat4[1] * x2 + mat4[5] * y + mat4[9] * z2;
+    this[2] = mat4[2] * x2 + mat4[6] * y + mat4[10] * z2;
+    return this.normalize();
+  }
+}
+const tempVec3$1 = /* @__PURE__ */ new Vec3();
+let ID$3 = 1;
+let ATTR_ID = 1;
+let isBoundsWarned = false;
+class Geometry {
+  constructor(gl, attributes = {}) {
+    if (!gl.canvas) console.error("gl not passed as first argument to Geometry");
+    this.gl = gl;
+    this.attributes = attributes;
+    this.id = ID$3++;
+    this.VAOs = {};
+    this.drawRange = { start: 0, count: 0 };
+    this.instancedCount = 0;
+    this.gl.renderer.bindVertexArray(null);
+    this.gl.renderer.currentGeometry = null;
+    this.glState = this.gl.renderer.state;
+    for (let key in attributes) {
+      this.addAttribute(key, attributes[key]);
+    }
+  }
+  addAttribute(key, attr) {
+    this.attributes[key] = attr;
+    attr.id = ATTR_ID++;
+    attr.size = attr.size || 1;
+    attr.type = attr.type || (attr.data.constructor === Float32Array ? this.gl.FLOAT : attr.data.constructor === Uint16Array ? this.gl.UNSIGNED_SHORT : this.gl.UNSIGNED_INT);
+    attr.target = key === "index" ? this.gl.ELEMENT_ARRAY_BUFFER : this.gl.ARRAY_BUFFER;
+    attr.normalized = attr.normalized || false;
+    attr.stride = attr.stride || 0;
+    attr.offset = attr.offset || 0;
+    attr.count = attr.count || (attr.stride ? attr.data.byteLength / attr.stride : attr.data.length / attr.size);
+    attr.divisor = attr.instanced || 0;
+    attr.needsUpdate = false;
+    attr.usage = attr.usage || this.gl.STATIC_DRAW;
+    if (!attr.buffer) {
+      this.updateAttribute(attr);
+    }
+    if (attr.divisor) {
+      this.isInstanced = true;
+      if (this.instancedCount && this.instancedCount !== attr.count * attr.divisor) {
+        console.warn("geometry has multiple instanced buffers of different length");
+        return this.instancedCount = Math.min(this.instancedCount, attr.count * attr.divisor);
+      }
+      this.instancedCount = attr.count * attr.divisor;
+    } else if (key === "index") {
+      this.drawRange.count = attr.count;
+    } else if (!this.attributes.index) {
+      this.drawRange.count = Math.max(this.drawRange.count, attr.count);
+    }
+  }
+  updateAttribute(attr) {
+    const isNewBuffer = !attr.buffer;
+    if (isNewBuffer) attr.buffer = this.gl.createBuffer();
+    if (this.glState.boundBuffer !== attr.buffer) {
+      this.gl.bindBuffer(attr.target, attr.buffer);
+      this.glState.boundBuffer = attr.buffer;
+    }
+    if (isNewBuffer) {
+      this.gl.bufferData(attr.target, attr.data, attr.usage);
+    } else {
+      this.gl.bufferSubData(attr.target, 0, attr.data);
+    }
+    attr.needsUpdate = false;
+  }
+  setIndex(value) {
+    this.addAttribute("index", value);
+  }
+  setDrawRange(start, count2) {
+    this.drawRange.start = start;
+    this.drawRange.count = count2;
+  }
+  setInstancedCount(value) {
+    this.instancedCount = value;
+  }
+  createVAO(program) {
+    this.VAOs[program.attributeOrder] = this.gl.renderer.createVertexArray();
+    this.gl.renderer.bindVertexArray(this.VAOs[program.attributeOrder]);
+    this.bindAttributes(program);
+  }
+  bindAttributes(program) {
+    program.attributeLocations.forEach((location, { name, type }) => {
+      if (!this.attributes[name]) {
+        console.warn(`active attribute ${name} not being supplied`);
+        return;
+      }
+      const attr = this.attributes[name];
+      this.gl.bindBuffer(attr.target, attr.buffer);
+      this.glState.boundBuffer = attr.buffer;
+      let numLoc = 1;
+      if (type === 35674) numLoc = 2;
+      if (type === 35675) numLoc = 3;
+      if (type === 35676) numLoc = 4;
+      const size2 = attr.size / numLoc;
+      const stride = numLoc === 1 ? 0 : numLoc * numLoc * 4;
+      const offset2 = numLoc === 1 ? 0 : numLoc * 4;
+      for (let i = 0; i < numLoc; i++) {
+        this.gl.vertexAttribPointer(location + i, size2, attr.type, attr.normalized, attr.stride + stride, attr.offset + i * offset2);
+        this.gl.enableVertexAttribArray(location + i);
+        this.gl.renderer.vertexAttribDivisor(location + i, attr.divisor);
+      }
+    });
+    if (this.attributes.index) this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.attributes.index.buffer);
+  }
+  draw({ program, mode = this.gl.TRIANGLES }) {
+    if (this.gl.renderer.currentGeometry !== `${this.id}_${program.attributeOrder}`) {
+      if (!this.VAOs[program.attributeOrder]) this.createVAO(program);
+      this.gl.renderer.bindVertexArray(this.VAOs[program.attributeOrder]);
+      this.gl.renderer.currentGeometry = `${this.id}_${program.attributeOrder}`;
+    }
+    program.attributeLocations.forEach((location, { name }) => {
+      const attr = this.attributes[name];
+      if (attr.needsUpdate) this.updateAttribute(attr);
+    });
+    let indexBytesPerElement = 2;
+    if (this.attributes.index?.type === this.gl.UNSIGNED_INT) indexBytesPerElement = 4;
+    if (this.isInstanced) {
+      if (this.attributes.index) {
+        this.gl.renderer.drawElementsInstanced(
+          mode,
+          this.drawRange.count,
+          this.attributes.index.type,
+          this.attributes.index.offset + this.drawRange.start * indexBytesPerElement,
+          this.instancedCount
+        );
+      } else {
+        this.gl.renderer.drawArraysInstanced(mode, this.drawRange.start, this.drawRange.count, this.instancedCount);
+      }
+    } else {
+      if (this.attributes.index) {
+        this.gl.drawElements(
+          mode,
+          this.drawRange.count,
+          this.attributes.index.type,
+          this.attributes.index.offset + this.drawRange.start * indexBytesPerElement
+        );
+      } else {
+        this.gl.drawArrays(mode, this.drawRange.start, this.drawRange.count);
+      }
+    }
+  }
+  getPosition() {
+    const attr = this.attributes.position;
+    if (attr.data) return attr;
+    if (isBoundsWarned) return;
+    console.warn("No position buffer data found to compute bounds");
+    return isBoundsWarned = true;
+  }
+  computeBoundingBox(attr) {
+    if (!attr) attr = this.getPosition();
+    const array = attr.data;
+    const stride = attr.size;
+    if (!this.bounds) {
+      this.bounds = {
+        min: new Vec3(),
+        max: new Vec3(),
+        center: new Vec3(),
+        scale: new Vec3(),
+        radius: Infinity
+      };
+    }
+    const min2 = this.bounds.min;
+    const max2 = this.bounds.max;
+    const center = this.bounds.center;
+    const scale2 = this.bounds.scale;
+    min2.set(Infinity);
+    max2.set(-Infinity);
+    for (let i = 0, l = array.length; i < l; i += stride) {
+      const x2 = array[i];
+      const y = array[i + 1];
+      const z2 = array[i + 2];
+      min2.x = Math.min(x2, min2.x);
+      min2.y = Math.min(y, min2.y);
+      min2.z = Math.min(z2, min2.z);
+      max2.x = Math.max(x2, max2.x);
+      max2.y = Math.max(y, max2.y);
+      max2.z = Math.max(z2, max2.z);
+    }
+    scale2.sub(max2, min2);
+    center.add(min2, max2).divide(2);
+  }
+  computeBoundingSphere(attr) {
+    if (!attr) attr = this.getPosition();
+    const array = attr.data;
+    const stride = attr.size;
+    if (!this.bounds) this.computeBoundingBox(attr);
+    let maxRadiusSq = 0;
+    for (let i = 0, l = array.length; i < l; i += stride) {
+      tempVec3$1.fromArray(array, i);
+      maxRadiusSq = Math.max(maxRadiusSq, this.bounds.center.squaredDistance(tempVec3$1));
+    }
+    this.bounds.radius = Math.sqrt(maxRadiusSq);
+  }
+  remove() {
+    for (let key in this.VAOs) {
+      this.gl.renderer.deleteVertexArray(this.VAOs[key]);
+      delete this.VAOs[key];
+    }
+    for (let key in this.attributes) {
+      this.gl.deleteBuffer(this.attributes[key].buffer);
+      delete this.attributes[key];
+    }
+  }
+}
+let ID$2 = 1;
+const arrayCacheF32 = {};
+class Program {
+  constructor(gl, {
+    vertex: vertex2,
+    fragment: fragment2,
+    uniforms = {},
+    transparent = false,
+    cullFace = gl.BACK,
+    frontFace = gl.CCW,
+    depthTest = true,
+    depthWrite = true,
+    depthFunc = gl.LEQUAL
+  } = {}) {
+    if (!gl.canvas) console.error("gl not passed as first argument to Program");
+    this.gl = gl;
+    this.uniforms = uniforms;
+    this.id = ID$2++;
+    if (!vertex2) console.warn("vertex shader not supplied");
+    if (!fragment2) console.warn("fragment shader not supplied");
+    this.transparent = transparent;
+    this.cullFace = cullFace;
+    this.frontFace = frontFace;
+    this.depthTest = depthTest;
+    this.depthWrite = depthWrite;
+    this.depthFunc = depthFunc;
+    this.blendFunc = {};
+    this.blendEquation = {};
+    this.stencilFunc = {};
+    this.stencilOp = {};
+    if (this.transparent && !this.blendFunc.src) {
+      if (this.gl.renderer.premultipliedAlpha) this.setBlendFunc(this.gl.ONE, this.gl.ONE_MINUS_SRC_ALPHA);
+      else this.setBlendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+    }
+    this.vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    this.fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    this.program = gl.createProgram();
+    gl.attachShader(this.program, this.vertexShader);
+    gl.attachShader(this.program, this.fragmentShader);
+    this.setShaders({ vertex: vertex2, fragment: fragment2 });
+  }
+  setShaders({ vertex: vertex2, fragment: fragment2 }) {
+    if (vertex2) {
+      this.gl.shaderSource(this.vertexShader, vertex2);
+      this.gl.compileShader(this.vertexShader);
+      if (this.gl.getShaderInfoLog(this.vertexShader) !== "") {
+        console.warn(`${this.gl.getShaderInfoLog(this.vertexShader)}
+Vertex Shader
+${addLineNumbers(vertex2)}`);
+      }
+    }
+    if (fragment2) {
+      this.gl.shaderSource(this.fragmentShader, fragment2);
+      this.gl.compileShader(this.fragmentShader);
+      if (this.gl.getShaderInfoLog(this.fragmentShader) !== "") {
+        console.warn(`${this.gl.getShaderInfoLog(this.fragmentShader)}
+Fragment Shader
+${addLineNumbers(fragment2)}`);
+      }
+    }
+    this.gl.linkProgram(this.program);
+    if (!this.gl.getProgramParameter(this.program, this.gl.LINK_STATUS)) {
+      return console.warn(this.gl.getProgramInfoLog(this.program));
+    }
+    this.uniformLocations = /* @__PURE__ */ new Map();
+    let numUniforms = this.gl.getProgramParameter(this.program, this.gl.ACTIVE_UNIFORMS);
+    for (let uIndex = 0; uIndex < numUniforms; uIndex++) {
+      let uniform = this.gl.getActiveUniform(this.program, uIndex);
+      this.uniformLocations.set(uniform, this.gl.getUniformLocation(this.program, uniform.name));
+      const split = uniform.name.match(/(\w+)/g);
+      uniform.uniformName = split[0];
+      uniform.nameComponents = split.slice(1);
+    }
+    this.attributeLocations = /* @__PURE__ */ new Map();
+    const locations = [];
+    const numAttribs = this.gl.getProgramParameter(this.program, this.gl.ACTIVE_ATTRIBUTES);
+    for (let aIndex = 0; aIndex < numAttribs; aIndex++) {
+      const attribute = this.gl.getActiveAttrib(this.program, aIndex);
+      const location = this.gl.getAttribLocation(this.program, attribute.name);
+      if (location === -1) continue;
+      locations[location] = attribute.name;
+      this.attributeLocations.set(attribute, location);
+    }
+    this.attributeOrder = locations.join("");
+  }
+  setBlendFunc(src, dst, srcAlpha, dstAlpha) {
+    this.blendFunc.src = src;
+    this.blendFunc.dst = dst;
+    this.blendFunc.srcAlpha = srcAlpha;
+    this.blendFunc.dstAlpha = dstAlpha;
+    if (src) this.transparent = true;
+  }
+  setBlendEquation(modeRGB, modeAlpha) {
+    this.blendEquation.modeRGB = modeRGB;
+    this.blendEquation.modeAlpha = modeAlpha;
+  }
+  setStencilFunc(func, ref, mask) {
+    this.stencilRef = ref;
+    this.stencilFunc.func = func;
+    this.stencilFunc.ref = ref;
+    this.stencilFunc.mask = mask;
+  }
+  setStencilOp(stencilFail, depthFail, depthPass) {
+    this.stencilOp.stencilFail = stencilFail;
+    this.stencilOp.depthFail = depthFail;
+    this.stencilOp.depthPass = depthPass;
+  }
+  applyState() {
+    if (this.depthTest) this.gl.renderer.enable(this.gl.DEPTH_TEST);
+    else this.gl.renderer.disable(this.gl.DEPTH_TEST);
+    if (this.cullFace) this.gl.renderer.enable(this.gl.CULL_FACE);
+    else this.gl.renderer.disable(this.gl.CULL_FACE);
+    if (this.blendFunc.src) this.gl.renderer.enable(this.gl.BLEND);
+    else this.gl.renderer.disable(this.gl.BLEND);
+    if (this.cullFace) this.gl.renderer.setCullFace(this.cullFace);
+    this.gl.renderer.setFrontFace(this.frontFace);
+    this.gl.renderer.setDepthMask(this.depthWrite);
+    this.gl.renderer.setDepthFunc(this.depthFunc);
+    if (this.blendFunc.src) this.gl.renderer.setBlendFunc(this.blendFunc.src, this.blendFunc.dst, this.blendFunc.srcAlpha, this.blendFunc.dstAlpha);
+    this.gl.renderer.setBlendEquation(this.blendEquation.modeRGB, this.blendEquation.modeAlpha);
+    if (this.stencilFunc.func || this.stencilOp.stencilFail) this.gl.renderer.enable(this.gl.STENCIL_TEST);
+    else this.gl.renderer.disable(this.gl.STENCIL_TEST);
+    this.gl.renderer.setStencilFunc(this.stencilFunc.func, this.stencilFunc.ref, this.stencilFunc.mask);
+    this.gl.renderer.setStencilOp(this.stencilOp.stencilFail, this.stencilOp.depthFail, this.stencilOp.depthPass);
+  }
+  use({ flipFaces = false } = {}) {
+    let textureUnit = -1;
+    const programActive = this.gl.renderer.state.currentProgram === this.id;
+    if (!programActive) {
+      this.gl.useProgram(this.program);
+      this.gl.renderer.state.currentProgram = this.id;
+    }
+    this.uniformLocations.forEach((location, activeUniform) => {
+      let uniform = this.uniforms[activeUniform.uniformName];
+      for (const component of activeUniform.nameComponents) {
+        if (!uniform) break;
+        if (component in uniform) {
+          uniform = uniform[component];
+        } else if (Array.isArray(uniform.value)) {
+          break;
+        } else {
+          uniform = void 0;
+          break;
+        }
+      }
+      if (!uniform) {
+        return warn(`Active uniform ${activeUniform.name} has not been supplied`);
+      }
+      if (uniform && uniform.value === void 0) {
+        return warn(`${activeUniform.name} uniform is missing a value parameter`);
+      }
+      if (uniform.value.texture) {
+        textureUnit = textureUnit + 1;
+        uniform.value.update(textureUnit);
+        return setUniform(this.gl, activeUniform.type, location, textureUnit);
+      }
+      if (uniform.value.length && uniform.value[0].texture) {
+        const textureUnits = [];
+        uniform.value.forEach((value) => {
+          textureUnit = textureUnit + 1;
+          value.update(textureUnit);
+          textureUnits.push(textureUnit);
+        });
+        return setUniform(this.gl, activeUniform.type, location, textureUnits);
+      }
+      setUniform(this.gl, activeUniform.type, location, uniform.value);
+    });
+    this.applyState();
+    if (flipFaces) this.gl.renderer.setFrontFace(this.frontFace === this.gl.CCW ? this.gl.CW : this.gl.CCW);
+  }
+  remove() {
+    this.gl.deleteProgram(this.program);
+  }
+}
+function setUniform(gl, type, location, value) {
+  value = value.length ? flatten(value) : value;
+  const setValue = gl.renderer.state.uniformLocations.get(location);
+  if (value.length) {
+    if (setValue === void 0 || setValue.length !== value.length) {
+      gl.renderer.state.uniformLocations.set(location, value.slice(0));
+    } else {
+      if (arraysEqual(setValue, value)) return;
+      setValue.set ? setValue.set(value) : setArray(setValue, value);
+      gl.renderer.state.uniformLocations.set(location, setValue);
+    }
+  } else {
+    if (setValue === value) return;
+    gl.renderer.state.uniformLocations.set(location, value);
+  }
+  switch (type) {
+    case 5126:
+      return value.length ? gl.uniform1fv(location, value) : gl.uniform1f(location, value);
+    // FLOAT
+    case 35664:
+      return gl.uniform2fv(location, value);
+    // FLOAT_VEC2
+    case 35665:
+      return gl.uniform3fv(location, value);
+    // FLOAT_VEC3
+    case 35666:
+      return gl.uniform4fv(location, value);
+    // FLOAT_VEC4
+    case 35670:
+    // BOOL
+    case 5124:
+    // INT
+    case 35678:
+    // SAMPLER_2D
+    case 36306:
+    // U_SAMPLER_2D
+    case 35680:
+    // SAMPLER_CUBE
+    case 36289:
+      return value.length ? gl.uniform1iv(location, value) : gl.uniform1i(location, value);
+    // SAMPLER_CUBE
+    case 35671:
+    // BOOL_VEC2
+    case 35667:
+      return gl.uniform2iv(location, value);
+    // INT_VEC2
+    case 35672:
+    // BOOL_VEC3
+    case 35668:
+      return gl.uniform3iv(location, value);
+    // INT_VEC3
+    case 35673:
+    // BOOL_VEC4
+    case 35669:
+      return gl.uniform4iv(location, value);
+    // INT_VEC4
+    case 35674:
+      return gl.uniformMatrix2fv(location, false, value);
+    // FLOAT_MAT2
+    case 35675:
+      return gl.uniformMatrix3fv(location, false, value);
+    // FLOAT_MAT3
+    case 35676:
+      return gl.uniformMatrix4fv(location, false, value);
+  }
+}
+function addLineNumbers(string) {
+  let lines = string.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    lines[i] = i + 1 + ": " + lines[i];
+  }
+  return lines.join("\n");
+}
+function flatten(a) {
+  const arrayLen = a.length;
+  const valueLen = a[0].length;
+  if (valueLen === void 0) return a;
+  const length2 = arrayLen * valueLen;
+  let value = arrayCacheF32[length2];
+  if (!value) arrayCacheF32[length2] = value = new Float32Array(length2);
+  for (let i = 0; i < arrayLen; i++) value.set(a[i], i * valueLen);
+  return value;
+}
+function arraysEqual(a, b) {
+  if (a.length !== b.length) return false;
+  for (let i = 0, l = a.length; i < l; i++) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+function setArray(a, b) {
+  for (let i = 0, l = a.length; i < l; i++) {
+    a[i] = b[i];
+  }
+}
+let warnCount = 0;
+function warn(message) {
+  if (warnCount > 100) return;
+  console.warn(message);
+  warnCount++;
+  if (warnCount > 100) console.warn("More than 100 program warnings - stopping logs.");
+}
+const tempVec3 = /* @__PURE__ */ new Vec3();
+let ID$1 = 1;
+class Renderer {
+  constructor({
+    canvas = document.createElement("canvas"),
+    width = 300,
+    height = 150,
+    dpr = 1,
+    alpha: alpha2 = false,
+    depth = true,
+    stencil = false,
+    antialias = false,
+    premultipliedAlpha = false,
+    preserveDrawingBuffer = false,
+    powerPreference = "default",
+    autoClear = true,
+    webgl = 2
+  } = {}) {
+    const attributes = { alpha: alpha2, depth, stencil, antialias, premultipliedAlpha, preserveDrawingBuffer, powerPreference };
+    this.dpr = dpr;
+    this.alpha = alpha2;
+    this.color = true;
+    this.depth = depth;
+    this.stencil = stencil;
+    this.premultipliedAlpha = premultipliedAlpha;
+    this.autoClear = autoClear;
+    this.id = ID$1++;
+    if (webgl === 2) this.gl = canvas.getContext("webgl2", attributes);
+    this.isWebgl2 = !!this.gl;
+    if (!this.gl) this.gl = canvas.getContext("webgl", attributes);
+    if (!this.gl) console.error("unable to create webgl context");
+    this.gl.renderer = this;
+    this.setSize(width, height);
+    this.state = {};
+    this.state.blendFunc = { src: this.gl.ONE, dst: this.gl.ZERO };
+    this.state.blendEquation = { modeRGB: this.gl.FUNC_ADD };
+    this.state.cullFace = false;
+    this.state.frontFace = this.gl.CCW;
+    this.state.depthMask = true;
+    this.state.depthFunc = this.gl.LEQUAL;
+    this.state.premultiplyAlpha = false;
+    this.state.flipY = false;
+    this.state.unpackAlignment = 4;
+    this.state.framebuffer = null;
+    this.state.viewport = { x: 0, y: 0, width: null, height: null };
+    this.state.textureUnits = [];
+    this.state.activeTextureUnit = 0;
+    this.state.boundBuffer = null;
+    this.state.uniformLocations = /* @__PURE__ */ new Map();
+    this.state.currentProgram = null;
+    this.extensions = {};
+    if (this.isWebgl2) {
+      this.getExtension("EXT_color_buffer_float");
+      this.getExtension("OES_texture_float_linear");
+    } else {
+      this.getExtension("OES_texture_float");
+      this.getExtension("OES_texture_float_linear");
+      this.getExtension("OES_texture_half_float");
+      this.getExtension("OES_texture_half_float_linear");
+      this.getExtension("OES_element_index_uint");
+      this.getExtension("OES_standard_derivatives");
+      this.getExtension("EXT_sRGB");
+      this.getExtension("WEBGL_depth_texture");
+      this.getExtension("WEBGL_draw_buffers");
+    }
+    this.getExtension("WEBGL_compressed_texture_astc");
+    this.getExtension("EXT_texture_compression_bptc");
+    this.getExtension("WEBGL_compressed_texture_s3tc");
+    this.getExtension("WEBGL_compressed_texture_etc1");
+    this.getExtension("WEBGL_compressed_texture_pvrtc");
+    this.getExtension("WEBKIT_WEBGL_compressed_texture_pvrtc");
+    this.vertexAttribDivisor = this.getExtension("ANGLE_instanced_arrays", "vertexAttribDivisor", "vertexAttribDivisorANGLE");
+    this.drawArraysInstanced = this.getExtension("ANGLE_instanced_arrays", "drawArraysInstanced", "drawArraysInstancedANGLE");
+    this.drawElementsInstanced = this.getExtension("ANGLE_instanced_arrays", "drawElementsInstanced", "drawElementsInstancedANGLE");
+    this.createVertexArray = this.getExtension("OES_vertex_array_object", "createVertexArray", "createVertexArrayOES");
+    this.bindVertexArray = this.getExtension("OES_vertex_array_object", "bindVertexArray", "bindVertexArrayOES");
+    this.deleteVertexArray = this.getExtension("OES_vertex_array_object", "deleteVertexArray", "deleteVertexArrayOES");
+    this.drawBuffers = this.getExtension("WEBGL_draw_buffers", "drawBuffers", "drawBuffersWEBGL");
+    this.parameters = {};
+    this.parameters.maxTextureUnits = this.gl.getParameter(this.gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
+    this.parameters.maxAnisotropy = this.getExtension("EXT_texture_filter_anisotropic") ? this.gl.getParameter(this.getExtension("EXT_texture_filter_anisotropic").MAX_TEXTURE_MAX_ANISOTROPY_EXT) : 0;
+  }
+  setSize(width, height) {
+    this.width = width;
+    this.height = height;
+    this.gl.canvas.width = width * this.dpr;
+    this.gl.canvas.height = height * this.dpr;
+    if (!this.gl.canvas.style) return;
+    Object.assign(this.gl.canvas.style, {
+      width: width + "px",
+      height: height + "px"
+    });
+  }
+  setViewport(width, height, x2 = 0, y = 0) {
+    if (this.state.viewport.width === width && this.state.viewport.height === height) return;
+    this.state.viewport.width = width;
+    this.state.viewport.height = height;
+    this.state.viewport.x = x2;
+    this.state.viewport.y = y;
+    this.gl.viewport(x2, y, width, height);
+  }
+  setScissor(width, height, x2 = 0, y = 0) {
+    this.gl.scissor(x2, y, width, height);
+  }
+  enable(id2) {
+    if (this.state[id2] === true) return;
+    this.gl.enable(id2);
+    this.state[id2] = true;
+  }
+  disable(id2) {
+    if (this.state[id2] === false) return;
+    this.gl.disable(id2);
+    this.state[id2] = false;
+  }
+  setBlendFunc(src, dst, srcAlpha, dstAlpha) {
+    if (this.state.blendFunc.src === src && this.state.blendFunc.dst === dst && this.state.blendFunc.srcAlpha === srcAlpha && this.state.blendFunc.dstAlpha === dstAlpha)
+      return;
+    this.state.blendFunc.src = src;
+    this.state.blendFunc.dst = dst;
+    this.state.blendFunc.srcAlpha = srcAlpha;
+    this.state.blendFunc.dstAlpha = dstAlpha;
+    if (srcAlpha !== void 0) this.gl.blendFuncSeparate(src, dst, srcAlpha, dstAlpha);
+    else this.gl.blendFunc(src, dst);
+  }
+  setBlendEquation(modeRGB, modeAlpha) {
+    modeRGB = modeRGB || this.gl.FUNC_ADD;
+    if (this.state.blendEquation.modeRGB === modeRGB && this.state.blendEquation.modeAlpha === modeAlpha) return;
+    this.state.blendEquation.modeRGB = modeRGB;
+    this.state.blendEquation.modeAlpha = modeAlpha;
+    if (modeAlpha !== void 0) this.gl.blendEquationSeparate(modeRGB, modeAlpha);
+    else this.gl.blendEquation(modeRGB);
+  }
+  setCullFace(value) {
+    if (this.state.cullFace === value) return;
+    this.state.cullFace = value;
+    this.gl.cullFace(value);
+  }
+  setFrontFace(value) {
+    if (this.state.frontFace === value) return;
+    this.state.frontFace = value;
+    this.gl.frontFace(value);
+  }
+  setDepthMask(value) {
+    if (this.state.depthMask === value) return;
+    this.state.depthMask = value;
+    this.gl.depthMask(value);
+  }
+  setDepthFunc(value) {
+    if (this.state.depthFunc === value) return;
+    this.state.depthFunc = value;
+    this.gl.depthFunc(value);
+  }
+  setStencilMask(value) {
+    if (this.state.stencilMask === value) return;
+    this.state.stencilMask = value;
+    this.gl.stencilMask(value);
+  }
+  setStencilFunc(func, ref, mask) {
+    if (this.state.stencilFunc === func && this.state.stencilRef === ref && this.state.stencilFuncMask === mask) return;
+    this.state.stencilFunc = func || this.gl.ALWAYS;
+    this.state.stencilRef = ref || 0;
+    this.state.stencilFuncMask = mask || 0;
+    this.gl.stencilFunc(func || this.gl.ALWAYS, ref || 0, mask || 0);
+  }
+  setStencilOp(stencilFail, depthFail, depthPass) {
+    if (this.state.stencilFail === stencilFail && this.state.stencilDepthFail === depthFail && this.state.stencilDepthPass === depthPass) return;
+    this.state.stencilFail = stencilFail;
+    this.state.stencilDepthFail = depthFail;
+    this.state.stencilDepthPass = depthPass;
+    this.gl.stencilOp(stencilFail, depthFail, depthPass);
+  }
+  activeTexture(value) {
+    if (this.state.activeTextureUnit === value) return;
+    this.state.activeTextureUnit = value;
+    this.gl.activeTexture(this.gl.TEXTURE0 + value);
+  }
+  bindFramebuffer({ target = this.gl.FRAMEBUFFER, buffer = null } = {}) {
+    if (this.state.framebuffer === buffer) return;
+    this.state.framebuffer = buffer;
+    this.gl.bindFramebuffer(target, buffer);
+  }
+  getExtension(extension, webgl2Func, extFunc) {
+    if (webgl2Func && this.gl[webgl2Func]) return this.gl[webgl2Func].bind(this.gl);
+    if (!this.extensions[extension]) {
+      this.extensions[extension] = this.gl.getExtension(extension);
+    }
+    if (!webgl2Func) return this.extensions[extension];
+    if (!this.extensions[extension]) return null;
+    return this.extensions[extension][extFunc].bind(this.extensions[extension]);
+  }
+  sortOpaque(a, b) {
+    if (a.renderOrder !== b.renderOrder) {
+      return a.renderOrder - b.renderOrder;
+    } else if (a.program.id !== b.program.id) {
+      return a.program.id - b.program.id;
+    } else if (a.zDepth !== b.zDepth) {
+      return a.zDepth - b.zDepth;
+    } else {
+      return b.id - a.id;
+    }
+  }
+  sortTransparent(a, b) {
+    if (a.renderOrder !== b.renderOrder) {
+      return a.renderOrder - b.renderOrder;
+    }
+    if (a.zDepth !== b.zDepth) {
+      return b.zDepth - a.zDepth;
+    } else {
+      return b.id - a.id;
+    }
+  }
+  sortUI(a, b) {
+    if (a.renderOrder !== b.renderOrder) {
+      return a.renderOrder - b.renderOrder;
+    } else if (a.program.id !== b.program.id) {
+      return a.program.id - b.program.id;
+    } else {
+      return b.id - a.id;
+    }
+  }
+  getRenderList({ scene, camera, frustumCull, sort }) {
+    let renderList = [];
+    if (camera && frustumCull) camera.updateFrustum();
+    scene.traverse((node) => {
+      if (!node.visible) return true;
+      if (!node.draw) return;
+      if (frustumCull && node.frustumCulled && camera) {
+        if (!camera.frustumIntersectsMesh(node)) return;
+      }
+      renderList.push(node);
+    });
+    if (sort) {
+      const opaque = [];
+      const transparent = [];
+      const ui = [];
+      renderList.forEach((node) => {
+        if (!node.program.transparent) {
+          opaque.push(node);
+        } else if (node.program.depthTest) {
+          transparent.push(node);
+        } else {
+          ui.push(node);
+        }
+        node.zDepth = 0;
+        if (node.renderOrder !== 0 || !node.program.depthTest || !camera) return;
+        node.worldMatrix.getTranslation(tempVec3);
+        tempVec3.applyMatrix4(camera.projectionViewMatrix);
+        node.zDepth = tempVec3.z;
+      });
+      opaque.sort(this.sortOpaque);
+      transparent.sort(this.sortTransparent);
+      ui.sort(this.sortUI);
+      renderList = opaque.concat(transparent, ui);
+    }
+    return renderList;
+  }
+  render({ scene, camera, target = null, update = true, sort = true, frustumCull = true, clear }) {
+    if (target === null) {
+      this.bindFramebuffer();
+      this.setViewport(this.width * this.dpr, this.height * this.dpr);
+    } else {
+      this.bindFramebuffer(target);
+      this.setViewport(target.width, target.height);
+    }
+    if (clear || this.autoClear && clear !== false) {
+      if (this.depth && (!target || target.depth)) {
+        this.enable(this.gl.DEPTH_TEST);
+        this.setDepthMask(true);
+      }
+      if (this.stencil || (!target || target.stencil)) {
+        this.enable(this.gl.STENCIL_TEST);
+        this.setStencilMask(255);
+      }
+      this.gl.clear(
+        (this.color ? this.gl.COLOR_BUFFER_BIT : 0) | (this.depth ? this.gl.DEPTH_BUFFER_BIT : 0) | (this.stencil ? this.gl.STENCIL_BUFFER_BIT : 0)
+      );
+    }
+    if (update) scene.updateMatrixWorld();
+    if (camera) camera.updateMatrixWorld();
+    const renderList = this.getRenderList({ scene, camera, frustumCull, sort });
+    renderList.forEach((node) => {
+      node.draw({ camera });
+    });
+  }
+}
+function copy$3(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  return out;
+}
+function set$3(out, x2, y, z2, w) {
+  out[0] = x2;
+  out[1] = y;
+  out[2] = z2;
+  out[3] = w;
+  return out;
+}
+function normalize$1(out, a) {
+  let x2 = a[0];
+  let y = a[1];
+  let z2 = a[2];
+  let w = a[3];
+  let len = x2 * x2 + y * y + z2 * z2 + w * w;
+  if (len > 0) {
+    len = 1 / Math.sqrt(len);
+  }
+  out[0] = x2 * len;
+  out[1] = y * len;
+  out[2] = z2 * len;
+  out[3] = w * len;
+  return out;
+}
+function dot$1(a, b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+}
+function identity$2(out) {
+  out[0] = 0;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 1;
+  return out;
+}
+function setAxisAngle(out, axis, rad) {
+  rad = rad * 0.5;
+  let s = Math.sin(rad);
+  out[0] = s * axis[0];
+  out[1] = s * axis[1];
+  out[2] = s * axis[2];
+  out[3] = Math.cos(rad);
+  return out;
+}
+function multiply$2(out, a, b) {
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  out[0] = ax * bw + aw * bx + ay * bz - az * by;
+  out[1] = ay * bw + aw * by + az * bx - ax * bz;
+  out[2] = az * bw + aw * bz + ax * by - ay * bx;
+  out[3] = aw * bw - ax * bx - ay * by - az * bz;
+  return out;
+}
+function rotateX(out, a, rad) {
+  rad *= 0.5;
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let bx = Math.sin(rad), bw = Math.cos(rad);
+  out[0] = ax * bw + aw * bx;
+  out[1] = ay * bw + az * bx;
+  out[2] = az * bw - ay * bx;
+  out[3] = aw * bw - ax * bx;
+  return out;
+}
+function rotateY(out, a, rad) {
+  rad *= 0.5;
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let by = Math.sin(rad), bw = Math.cos(rad);
+  out[0] = ax * bw - az * by;
+  out[1] = ay * bw + aw * by;
+  out[2] = az * bw + ax * by;
+  out[3] = aw * bw - ay * by;
+  return out;
+}
+function rotateZ(out, a, rad) {
+  rad *= 0.5;
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let bz = Math.sin(rad), bw = Math.cos(rad);
+  out[0] = ax * bw + ay * bz;
+  out[1] = ay * bw - ax * bz;
+  out[2] = az * bw + aw * bz;
+  out[3] = aw * bw - az * bz;
+  return out;
+}
+function slerp(out, a, b, t) {
+  let ax = a[0], ay = a[1], az = a[2], aw = a[3];
+  let bx = b[0], by = b[1], bz = b[2], bw = b[3];
+  let omega, cosom, sinom, scale0, scale1;
+  cosom = ax * bx + ay * by + az * bz + aw * bw;
+  if (cosom < 0) {
+    cosom = -cosom;
+    bx = -bx;
+    by = -by;
+    bz = -bz;
+    bw = -bw;
+  }
+  if (1 - cosom > 1e-6) {
+    omega = Math.acos(cosom);
+    sinom = Math.sin(omega);
+    scale0 = Math.sin((1 - t) * omega) / sinom;
+    scale1 = Math.sin(t * omega) / sinom;
+  } else {
+    scale0 = 1 - t;
+    scale1 = t;
+  }
+  out[0] = scale0 * ax + scale1 * bx;
+  out[1] = scale0 * ay + scale1 * by;
+  out[2] = scale0 * az + scale1 * bz;
+  out[3] = scale0 * aw + scale1 * bw;
+  return out;
+}
+function invert$2(out, a) {
+  let a0 = a[0], a1 = a[1], a2 = a[2], a3 = a[3];
+  let dot2 = a0 * a0 + a1 * a1 + a2 * a2 + a3 * a3;
+  let invDot = dot2 ? 1 / dot2 : 0;
+  out[0] = -a0 * invDot;
+  out[1] = -a1 * invDot;
+  out[2] = -a2 * invDot;
+  out[3] = a3 * invDot;
+  return out;
+}
+function conjugate(out, a) {
+  out[0] = -a[0];
+  out[1] = -a[1];
+  out[2] = -a[2];
+  out[3] = a[3];
+  return out;
+}
+function fromMat3(out, m) {
+  let fTrace = m[0] + m[4] + m[8];
+  let fRoot;
+  if (fTrace > 0) {
+    fRoot = Math.sqrt(fTrace + 1);
+    out[3] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot;
+    out[0] = (m[5] - m[7]) * fRoot;
+    out[1] = (m[6] - m[2]) * fRoot;
+    out[2] = (m[1] - m[3]) * fRoot;
+  } else {
+    let i = 0;
+    if (m[4] > m[0]) i = 1;
+    if (m[8] > m[i * 3 + i]) i = 2;
+    let j = (i + 1) % 3;
+    let k = (i + 2) % 3;
+    fRoot = Math.sqrt(m[i * 3 + i] - m[j * 3 + j] - m[k * 3 + k] + 1);
+    out[i] = 0.5 * fRoot;
+    fRoot = 0.5 / fRoot;
+    out[3] = (m[j * 3 + k] - m[k * 3 + j]) * fRoot;
+    out[j] = (m[j * 3 + i] + m[i * 3 + j]) * fRoot;
+    out[k] = (m[k * 3 + i] + m[i * 3 + k]) * fRoot;
+  }
+  return out;
+}
+function fromEuler(out, euler, order = "YXZ") {
+  let sx = Math.sin(euler[0] * 0.5);
+  let cx2 = Math.cos(euler[0] * 0.5);
+  let sy = Math.sin(euler[1] * 0.5);
+  let cy = Math.cos(euler[1] * 0.5);
+  let sz = Math.sin(euler[2] * 0.5);
+  let cz = Math.cos(euler[2] * 0.5);
+  if (order === "XYZ") {
+    out[0] = sx * cy * cz + cx2 * sy * sz;
+    out[1] = cx2 * sy * cz - sx * cy * sz;
+    out[2] = cx2 * cy * sz + sx * sy * cz;
+    out[3] = cx2 * cy * cz - sx * sy * sz;
+  } else if (order === "YXZ") {
+    out[0] = sx * cy * cz + cx2 * sy * sz;
+    out[1] = cx2 * sy * cz - sx * cy * sz;
+    out[2] = cx2 * cy * sz - sx * sy * cz;
+    out[3] = cx2 * cy * cz + sx * sy * sz;
+  } else if (order === "ZXY") {
+    out[0] = sx * cy * cz - cx2 * sy * sz;
+    out[1] = cx2 * sy * cz + sx * cy * sz;
+    out[2] = cx2 * cy * sz + sx * sy * cz;
+    out[3] = cx2 * cy * cz - sx * sy * sz;
+  } else if (order === "ZYX") {
+    out[0] = sx * cy * cz - cx2 * sy * sz;
+    out[1] = cx2 * sy * cz + sx * cy * sz;
+    out[2] = cx2 * cy * sz - sx * sy * cz;
+    out[3] = cx2 * cy * cz + sx * sy * sz;
+  } else if (order === "YZX") {
+    out[0] = sx * cy * cz + cx2 * sy * sz;
+    out[1] = cx2 * sy * cz + sx * cy * sz;
+    out[2] = cx2 * cy * sz - sx * sy * cz;
+    out[3] = cx2 * cy * cz - sx * sy * sz;
+  } else if (order === "XZY") {
+    out[0] = sx * cy * cz - cx2 * sy * sz;
+    out[1] = cx2 * sy * cz - sx * cy * sz;
+    out[2] = cx2 * cy * sz + sx * sy * cz;
+    out[3] = cx2 * cy * cz + sx * sy * sz;
+  }
+  return out;
+}
+const copy$2 = copy$3;
+const set$2 = set$3;
+const dot = dot$1;
+const normalize = normalize$1;
+class Quat extends Array {
+  constructor(x2 = 0, y = 0, z2 = 0, w = 1) {
+    super(x2, y, z2, w);
+    this.onChange = () => {
+    };
+    this._target = this;
+    const triggerProps = ["0", "1", "2", "3"];
+    return new Proxy(this, {
+      set(target, property) {
+        const success = Reflect.set(...arguments);
+        if (success && triggerProps.includes(property)) target.onChange();
+        return success;
+      }
+    });
+  }
+  get x() {
+    return this[0];
+  }
+  get y() {
+    return this[1];
+  }
+  get z() {
+    return this[2];
+  }
+  get w() {
+    return this[3];
+  }
+  set x(v) {
+    this._target[0] = v;
+    this.onChange();
+  }
+  set y(v) {
+    this._target[1] = v;
+    this.onChange();
+  }
+  set z(v) {
+    this._target[2] = v;
+    this.onChange();
+  }
+  set w(v) {
+    this._target[3] = v;
+    this.onChange();
+  }
+  identity() {
+    identity$2(this._target);
+    this.onChange();
+    return this;
+  }
+  set(x2, y, z2, w) {
+    if (x2.length) return this.copy(x2);
+    set$2(this._target, x2, y, z2, w);
+    this.onChange();
+    return this;
+  }
+  rotateX(a) {
+    rotateX(this._target, this._target, a);
+    this.onChange();
+    return this;
+  }
+  rotateY(a) {
+    rotateY(this._target, this._target, a);
+    this.onChange();
+    return this;
+  }
+  rotateZ(a) {
+    rotateZ(this._target, this._target, a);
+    this.onChange();
+    return this;
+  }
+  inverse(q = this._target) {
+    invert$2(this._target, q);
+    this.onChange();
+    return this;
+  }
+  conjugate(q = this._target) {
+    conjugate(this._target, q);
+    this.onChange();
+    return this;
+  }
+  copy(q) {
+    copy$2(this._target, q);
+    this.onChange();
+    return this;
+  }
+  normalize(q = this._target) {
+    normalize(this._target, q);
+    this.onChange();
+    return this;
+  }
+  multiply(qA, qB) {
+    if (qB) {
+      multiply$2(this._target, qA, qB);
+    } else {
+      multiply$2(this._target, this._target, qA);
+    }
+    this.onChange();
+    return this;
+  }
+  dot(v) {
+    return dot(this._target, v);
+  }
+  fromMatrix3(matrix3) {
+    fromMat3(this._target, matrix3);
+    this.onChange();
+    return this;
+  }
+  fromEuler(euler, isInternal) {
+    fromEuler(this._target, euler, euler.order);
+    if (!isInternal) this.onChange();
+    return this;
+  }
+  fromAxisAngle(axis, a) {
+    setAxisAngle(this._target, axis, a);
+    this.onChange();
+    return this;
+  }
+  slerp(q, t) {
+    slerp(this._target, this._target, q, t);
+    this.onChange();
+    return this;
+  }
+  fromArray(a, o = 0) {
+    this._target[0] = a[o];
+    this._target[1] = a[o + 1];
+    this._target[2] = a[o + 2];
+    this._target[3] = a[o + 3];
+    this.onChange();
+    return this;
+  }
+  toArray(a = [], o = 0) {
+    a[o] = this[0];
+    a[o + 1] = this[1];
+    a[o + 2] = this[2];
+    a[o + 3] = this[3];
+    return a;
+  }
+}
+const EPSILON = 1e-6;
+function copy$1(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  out[9] = a[9];
+  out[10] = a[10];
+  out[11] = a[11];
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+function set$1(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m03;
+  out[4] = m10;
+  out[5] = m11;
+  out[6] = m12;
+  out[7] = m13;
+  out[8] = m20;
+  out[9] = m21;
+  out[10] = m22;
+  out[11] = m23;
+  out[12] = m30;
+  out[13] = m31;
+  out[14] = m32;
+  out[15] = m33;
+  return out;
+}
+function identity$1(out) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = 1;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 1;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function invert$1(out, a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  let b00 = a00 * a11 - a01 * a10;
+  let b01 = a00 * a12 - a02 * a10;
+  let b02 = a00 * a13 - a03 * a10;
+  let b03 = a01 * a12 - a02 * a11;
+  let b04 = a01 * a13 - a03 * a11;
+  let b05 = a02 * a13 - a03 * a12;
+  let b06 = a20 * a31 - a21 * a30;
+  let b07 = a20 * a32 - a22 * a30;
+  let b08 = a20 * a33 - a23 * a30;
+  let b09 = a21 * a32 - a22 * a31;
+  let b10 = a21 * a33 - a23 * a31;
+  let b11 = a22 * a33 - a23 * a32;
+  let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+  if (!det) {
+    return null;
+  }
+  det = 1 / det;
+  out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+  out[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+  out[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+  out[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
+  out[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+  out[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+  out[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+  out[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
+  out[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+  out[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+  out[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+  out[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
+  out[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det;
+  out[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
+  out[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det;
+  out[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
+  return out;
+}
+function determinant(a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  let b00 = a00 * a11 - a01 * a10;
+  let b01 = a00 * a12 - a02 * a10;
+  let b02 = a00 * a13 - a03 * a10;
+  let b03 = a01 * a12 - a02 * a11;
+  let b04 = a01 * a13 - a03 * a11;
+  let b05 = a02 * a13 - a03 * a12;
+  let b06 = a20 * a31 - a21 * a30;
+  let b07 = a20 * a32 - a22 * a30;
+  let b08 = a20 * a33 - a23 * a30;
+  let b09 = a21 * a32 - a22 * a31;
+  let b10 = a21 * a33 - a23 * a31;
+  let b11 = a22 * a33 - a23 * a32;
+  return b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+}
+function multiply$1(out, a, b) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  let b0 = b[0], b1 = b[1], b2 = b[2], b3 = b[3];
+  out[0] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[1] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[2] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[3] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[4];
+  b1 = b[5];
+  b2 = b[6];
+  b3 = b[7];
+  out[4] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[5] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[6] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[7] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[8];
+  b1 = b[9];
+  b2 = b[10];
+  b3 = b[11];
+  out[8] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[9] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[10] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[11] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  b0 = b[12];
+  b1 = b[13];
+  b2 = b[14];
+  b3 = b[15];
+  out[12] = b0 * a00 + b1 * a10 + b2 * a20 + b3 * a30;
+  out[13] = b0 * a01 + b1 * a11 + b2 * a21 + b3 * a31;
+  out[14] = b0 * a02 + b1 * a12 + b2 * a22 + b3 * a32;
+  out[15] = b0 * a03 + b1 * a13 + b2 * a23 + b3 * a33;
+  return out;
+}
+function translate$1(out, a, v) {
+  let x2 = v[0], y = v[1], z2 = v[2];
+  let a00, a01, a02, a03;
+  let a10, a11, a12, a13;
+  let a20, a21, a22, a23;
+  if (a === out) {
+    out[12] = a[0] * x2 + a[4] * y + a[8] * z2 + a[12];
+    out[13] = a[1] * x2 + a[5] * y + a[9] * z2 + a[13];
+    out[14] = a[2] * x2 + a[6] * y + a[10] * z2 + a[14];
+    out[15] = a[3] * x2 + a[7] * y + a[11] * z2 + a[15];
+  } else {
+    a00 = a[0];
+    a01 = a[1];
+    a02 = a[2];
+    a03 = a[3];
+    a10 = a[4];
+    a11 = a[5];
+    a12 = a[6];
+    a13 = a[7];
+    a20 = a[8];
+    a21 = a[9];
+    a22 = a[10];
+    a23 = a[11];
+    out[0] = a00;
+    out[1] = a01;
+    out[2] = a02;
+    out[3] = a03;
+    out[4] = a10;
+    out[5] = a11;
+    out[6] = a12;
+    out[7] = a13;
+    out[8] = a20;
+    out[9] = a21;
+    out[10] = a22;
+    out[11] = a23;
+    out[12] = a00 * x2 + a10 * y + a20 * z2 + a[12];
+    out[13] = a01 * x2 + a11 * y + a21 * z2 + a[13];
+    out[14] = a02 * x2 + a12 * y + a22 * z2 + a[14];
+    out[15] = a03 * x2 + a13 * y + a23 * z2 + a[15];
+  }
+  return out;
+}
+function scale$1(out, a, v) {
+  let x2 = v[0], y = v[1], z2 = v[2];
+  out[0] = a[0] * x2;
+  out[1] = a[1] * x2;
+  out[2] = a[2] * x2;
+  out[3] = a[3] * x2;
+  out[4] = a[4] * y;
+  out[5] = a[5] * y;
+  out[6] = a[6] * y;
+  out[7] = a[7] * y;
+  out[8] = a[8] * z2;
+  out[9] = a[9] * z2;
+  out[10] = a[10] * z2;
+  out[11] = a[11] * z2;
+  out[12] = a[12];
+  out[13] = a[13];
+  out[14] = a[14];
+  out[15] = a[15];
+  return out;
+}
+function rotate$1(out, a, rad, axis) {
+  let x2 = axis[0], y = axis[1], z2 = axis[2];
+  let len = Math.hypot(x2, y, z2);
+  let s, c, t;
+  let a00, a01, a02, a03;
+  let a10, a11, a12, a13;
+  let a20, a21, a22, a23;
+  let b00, b01, b02;
+  let b10, b11, b12;
+  let b20, b21, b22;
+  if (Math.abs(len) < EPSILON) {
+    return null;
+  }
+  len = 1 / len;
+  x2 *= len;
+  y *= len;
+  z2 *= len;
+  s = Math.sin(rad);
+  c = Math.cos(rad);
+  t = 1 - c;
+  a00 = a[0];
+  a01 = a[1];
+  a02 = a[2];
+  a03 = a[3];
+  a10 = a[4];
+  a11 = a[5];
+  a12 = a[6];
+  a13 = a[7];
+  a20 = a[8];
+  a21 = a[9];
+  a22 = a[10];
+  a23 = a[11];
+  b00 = x2 * x2 * t + c;
+  b01 = y * x2 * t + z2 * s;
+  b02 = z2 * x2 * t - y * s;
+  b10 = x2 * y * t - z2 * s;
+  b11 = y * y * t + c;
+  b12 = z2 * y * t + x2 * s;
+  b20 = x2 * z2 * t + y * s;
+  b21 = y * z2 * t - x2 * s;
+  b22 = z2 * z2 * t + c;
+  out[0] = a00 * b00 + a10 * b01 + a20 * b02;
+  out[1] = a01 * b00 + a11 * b01 + a21 * b02;
+  out[2] = a02 * b00 + a12 * b01 + a22 * b02;
+  out[3] = a03 * b00 + a13 * b01 + a23 * b02;
+  out[4] = a00 * b10 + a10 * b11 + a20 * b12;
+  out[5] = a01 * b10 + a11 * b11 + a21 * b12;
+  out[6] = a02 * b10 + a12 * b11 + a22 * b12;
+  out[7] = a03 * b10 + a13 * b11 + a23 * b12;
+  out[8] = a00 * b20 + a10 * b21 + a20 * b22;
+  out[9] = a01 * b20 + a11 * b21 + a21 * b22;
+  out[10] = a02 * b20 + a12 * b21 + a22 * b22;
+  out[11] = a03 * b20 + a13 * b21 + a23 * b22;
+  if (a !== out) {
+    out[12] = a[12];
+    out[13] = a[13];
+    out[14] = a[14];
+    out[15] = a[15];
+  }
+  return out;
+}
+function getTranslation(out, mat) {
+  out[0] = mat[12];
+  out[1] = mat[13];
+  out[2] = mat[14];
+  return out;
+}
+function getScaling(out, mat) {
+  let m11 = mat[0];
+  let m12 = mat[1];
+  let m13 = mat[2];
+  let m21 = mat[4];
+  let m22 = mat[5];
+  let m23 = mat[6];
+  let m31 = mat[8];
+  let m32 = mat[9];
+  let m33 = mat[10];
+  out[0] = Math.hypot(m11, m12, m13);
+  out[1] = Math.hypot(m21, m22, m23);
+  out[2] = Math.hypot(m31, m32, m33);
+  return out;
+}
+function getMaxScaleOnAxis(mat) {
+  let m11 = mat[0];
+  let m12 = mat[1];
+  let m13 = mat[2];
+  let m21 = mat[4];
+  let m22 = mat[5];
+  let m23 = mat[6];
+  let m31 = mat[8];
+  let m32 = mat[9];
+  let m33 = mat[10];
+  const x2 = m11 * m11 + m12 * m12 + m13 * m13;
+  const y = m21 * m21 + m22 * m22 + m23 * m23;
+  const z2 = m31 * m31 + m32 * m32 + m33 * m33;
+  return Math.sqrt(Math.max(x2, y, z2));
+}
+const getRotation = /* @__PURE__ */ (function() {
+  const temp = [1, 1, 1];
+  return function(out, mat) {
+    let scaling = temp;
+    getScaling(scaling, mat);
+    let is1 = 1 / scaling[0];
+    let is2 = 1 / scaling[1];
+    let is3 = 1 / scaling[2];
+    let sm11 = mat[0] * is1;
+    let sm12 = mat[1] * is2;
+    let sm13 = mat[2] * is3;
+    let sm21 = mat[4] * is1;
+    let sm22 = mat[5] * is2;
+    let sm23 = mat[6] * is3;
+    let sm31 = mat[8] * is1;
+    let sm32 = mat[9] * is2;
+    let sm33 = mat[10] * is3;
+    let trace = sm11 + sm22 + sm33;
+    let S = 0;
+    if (trace > 0) {
+      S = Math.sqrt(trace + 1) * 2;
+      out[3] = 0.25 * S;
+      out[0] = (sm23 - sm32) / S;
+      out[1] = (sm31 - sm13) / S;
+      out[2] = (sm12 - sm21) / S;
+    } else if (sm11 > sm22 && sm11 > sm33) {
+      S = Math.sqrt(1 + sm11 - sm22 - sm33) * 2;
+      out[3] = (sm23 - sm32) / S;
+      out[0] = 0.25 * S;
+      out[1] = (sm12 + sm21) / S;
+      out[2] = (sm31 + sm13) / S;
+    } else if (sm22 > sm33) {
+      S = Math.sqrt(1 + sm22 - sm11 - sm33) * 2;
+      out[3] = (sm31 - sm13) / S;
+      out[0] = (sm12 + sm21) / S;
+      out[1] = 0.25 * S;
+      out[2] = (sm23 + sm32) / S;
+    } else {
+      S = Math.sqrt(1 + sm33 - sm11 - sm22) * 2;
+      out[3] = (sm12 - sm21) / S;
+      out[0] = (sm31 + sm13) / S;
+      out[1] = (sm23 + sm32) / S;
+      out[2] = 0.25 * S;
+    }
+    return out;
+  };
+})();
+function decompose(srcMat, dstRotation, dstTranslation, dstScale) {
+  let sx = length([srcMat[0], srcMat[1], srcMat[2]]);
+  const sy = length([srcMat[4], srcMat[5], srcMat[6]]);
+  const sz = length([srcMat[8], srcMat[9], srcMat[10]]);
+  const det = determinant(srcMat);
+  if (det < 0) sx = -sx;
+  dstTranslation[0] = srcMat[12];
+  dstTranslation[1] = srcMat[13];
+  dstTranslation[2] = srcMat[14];
+  const _m1 = srcMat.slice();
+  const invSX = 1 / sx;
+  const invSY = 1 / sy;
+  const invSZ = 1 / sz;
+  _m1[0] *= invSX;
+  _m1[1] *= invSX;
+  _m1[2] *= invSX;
+  _m1[4] *= invSY;
+  _m1[5] *= invSY;
+  _m1[6] *= invSY;
+  _m1[8] *= invSZ;
+  _m1[9] *= invSZ;
+  _m1[10] *= invSZ;
+  getRotation(dstRotation, _m1);
+  dstScale[0] = sx;
+  dstScale[1] = sy;
+  dstScale[2] = sz;
+}
+function compose(dstMat, srcRotation, srcTranslation, srcScale) {
+  const te = dstMat;
+  const x2 = srcRotation[0], y = srcRotation[1], z2 = srcRotation[2], w = srcRotation[3];
+  const x22 = x2 + x2, y2 = y + y, z22 = z2 + z2;
+  const xx = x2 * x22, xy = x2 * y2, xz = x2 * z22;
+  const yy = y * y2, yz = y * z22, zz = z2 * z22;
+  const wx = w * x22, wy = w * y2, wz = w * z22;
+  const sx = srcScale[0], sy = srcScale[1], sz = srcScale[2];
+  te[0] = (1 - (yy + zz)) * sx;
+  te[1] = (xy + wz) * sx;
+  te[2] = (xz - wy) * sx;
+  te[3] = 0;
+  te[4] = (xy - wz) * sy;
+  te[5] = (1 - (xx + zz)) * sy;
+  te[6] = (yz + wx) * sy;
+  te[7] = 0;
+  te[8] = (xz + wy) * sz;
+  te[9] = (yz - wx) * sz;
+  te[10] = (1 - (xx + yy)) * sz;
+  te[11] = 0;
+  te[12] = srcTranslation[0];
+  te[13] = srcTranslation[1];
+  te[14] = srcTranslation[2];
+  te[15] = 1;
+  return te;
+}
+function fromQuat$1(out, q) {
+  let x2 = q[0], y = q[1], z2 = q[2], w = q[3];
+  let x22 = x2 + x2;
+  let y2 = y + y;
+  let z22 = z2 + z2;
+  let xx = x2 * x22;
+  let yx = y * x22;
+  let yy = y * y2;
+  let zx = z2 * x22;
+  let zy = z2 * y2;
+  let zz = z2 * z22;
+  let wx = w * x22;
+  let wy = w * y2;
+  let wz = w * z22;
+  out[0] = 1 - yy - zz;
+  out[1] = yx + wz;
+  out[2] = zx - wy;
+  out[3] = 0;
+  out[4] = yx - wz;
+  out[5] = 1 - xx - zz;
+  out[6] = zy + wx;
+  out[7] = 0;
+  out[8] = zx + wy;
+  out[9] = zy - wx;
+  out[10] = 1 - xx - yy;
+  out[11] = 0;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
+  return out;
+}
+function perspective(out, fovy, aspect, near, far) {
+  let f = 1 / Math.tan(fovy / 2);
+  let nf = 1 / (near - far);
+  out[0] = f / aspect;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = f;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = (far + near) * nf;
+  out[11] = -1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 2 * far * near * nf;
+  out[15] = 0;
+  return out;
+}
+function ortho(out, left, right, bottom, top, near, far) {
+  let lr = 1 / (left - right);
+  let bt = 1 / (bottom - top);
+  let nf = 1 / (near - far);
+  out[0] = -2 * lr;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 0;
+  out[5] = -2 * bt;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 0;
+  out[9] = 0;
+  out[10] = 2 * nf;
+  out[11] = 0;
+  out[12] = (left + right) * lr;
+  out[13] = (top + bottom) * bt;
+  out[14] = (far + near) * nf;
+  out[15] = 1;
+  return out;
+}
+function targetTo(out, eye, target, up) {
+  let eyex = eye[0], eyey = eye[1], eyez = eye[2], upx = up[0], upy = up[1], upz = up[2];
+  let z0 = eyex - target[0], z1 = eyey - target[1], z2 = eyez - target[2];
+  let len = z0 * z0 + z1 * z1 + z2 * z2;
+  if (len === 0) {
+    z2 = 1;
+  } else {
+    len = 1 / Math.sqrt(len);
+    z0 *= len;
+    z1 *= len;
+    z2 *= len;
+  }
+  let x0 = upy * z2 - upz * z1, x1 = upz * z0 - upx * z2, x2 = upx * z1 - upy * z0;
+  len = x0 * x0 + x1 * x1 + x2 * x2;
+  if (len === 0) {
+    if (upz) {
+      upx += 1e-6;
+    } else if (upy) {
+      upz += 1e-6;
+    } else {
+      upy += 1e-6;
+    }
+    x0 = upy * z2 - upz * z1, x1 = upz * z0 - upx * z2, x2 = upx * z1 - upy * z0;
+    len = x0 * x0 + x1 * x1 + x2 * x2;
+  }
+  len = 1 / Math.sqrt(len);
+  x0 *= len;
+  x1 *= len;
+  x2 *= len;
+  out[0] = x0;
+  out[1] = x1;
+  out[2] = x2;
+  out[3] = 0;
+  out[4] = z1 * x2 - z2 * x1;
+  out[5] = z2 * x0 - z0 * x2;
+  out[6] = z0 * x1 - z1 * x0;
+  out[7] = 0;
+  out[8] = z0;
+  out[9] = z1;
+  out[10] = z2;
+  out[11] = 0;
+  out[12] = eyex;
+  out[13] = eyey;
+  out[14] = eyez;
+  out[15] = 1;
+  return out;
+}
+function add(out, a, b) {
+  out[0] = a[0] + b[0];
+  out[1] = a[1] + b[1];
+  out[2] = a[2] + b[2];
+  out[3] = a[3] + b[3];
+  out[4] = a[4] + b[4];
+  out[5] = a[5] + b[5];
+  out[6] = a[6] + b[6];
+  out[7] = a[7] + b[7];
+  out[8] = a[8] + b[8];
+  out[9] = a[9] + b[9];
+  out[10] = a[10] + b[10];
+  out[11] = a[11] + b[11];
+  out[12] = a[12] + b[12];
+  out[13] = a[13] + b[13];
+  out[14] = a[14] + b[14];
+  out[15] = a[15] + b[15];
+  return out;
+}
+function subtract(out, a, b) {
+  out[0] = a[0] - b[0];
+  out[1] = a[1] - b[1];
+  out[2] = a[2] - b[2];
+  out[3] = a[3] - b[3];
+  out[4] = a[4] - b[4];
+  out[5] = a[5] - b[5];
+  out[6] = a[6] - b[6];
+  out[7] = a[7] - b[7];
+  out[8] = a[8] - b[8];
+  out[9] = a[9] - b[9];
+  out[10] = a[10] - b[10];
+  out[11] = a[11] - b[11];
+  out[12] = a[12] - b[12];
+  out[13] = a[13] - b[13];
+  out[14] = a[14] - b[14];
+  out[15] = a[15] - b[15];
+  return out;
+}
+function multiplyScalar(out, a, b) {
+  out[0] = a[0] * b;
+  out[1] = a[1] * b;
+  out[2] = a[2] * b;
+  out[3] = a[3] * b;
+  out[4] = a[4] * b;
+  out[5] = a[5] * b;
+  out[6] = a[6] * b;
+  out[7] = a[7] * b;
+  out[8] = a[8] * b;
+  out[9] = a[9] * b;
+  out[10] = a[10] * b;
+  out[11] = a[11] * b;
+  out[12] = a[12] * b;
+  out[13] = a[13] * b;
+  out[14] = a[14] * b;
+  out[15] = a[15] * b;
+  return out;
+}
+class Mat4 extends Array {
+  constructor(m00 = 1, m01 = 0, m02 = 0, m03 = 0, m10 = 0, m11 = 1, m12 = 0, m13 = 0, m20 = 0, m21 = 0, m22 = 1, m23 = 0, m30 = 0, m31 = 0, m32 = 0, m33 = 1) {
+    super(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
+    return this;
+  }
+  get x() {
+    return this[12];
+  }
+  get y() {
+    return this[13];
+  }
+  get z() {
+    return this[14];
+  }
+  get w() {
+    return this[15];
+  }
+  set x(v) {
+    this[12] = v;
+  }
+  set y(v) {
+    this[13] = v;
+  }
+  set z(v) {
+    this[14] = v;
+  }
+  set w(v) {
+    this[15] = v;
+  }
+  set(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33) {
+    if (m00.length) return this.copy(m00);
+    set$1(this, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
+    return this;
+  }
+  translate(v, m = this) {
+    translate$1(this, m, v);
+    return this;
+  }
+  rotate(v, axis, m = this) {
+    rotate$1(this, m, v, axis);
+    return this;
+  }
+  scale(v, m = this) {
+    scale$1(this, m, typeof v === "number" ? [v, v, v] : v);
+    return this;
+  }
+  add(ma, mb) {
+    if (mb) add(this, ma, mb);
+    else add(this, this, ma);
+    return this;
+  }
+  sub(ma, mb) {
+    if (mb) subtract(this, ma, mb);
+    else subtract(this, this, ma);
+    return this;
+  }
+  multiply(ma, mb) {
+    if (!ma.length) {
+      multiplyScalar(this, this, ma);
+    } else if (mb) {
+      multiply$1(this, ma, mb);
+    } else {
+      multiply$1(this, this, ma);
+    }
+    return this;
+  }
+  identity() {
+    identity$1(this);
+    return this;
+  }
+  copy(m) {
+    copy$1(this, m);
+    return this;
+  }
+  fromPerspective({ fov, aspect, near, far } = {}) {
+    perspective(this, fov, aspect, near, far);
+    return this;
+  }
+  fromOrthogonal({ left, right, bottom, top, near, far }) {
+    ortho(this, left, right, bottom, top, near, far);
+    return this;
+  }
+  fromQuaternion(q) {
+    fromQuat$1(this, q);
+    return this;
+  }
+  setPosition(v) {
+    this.x = v[0];
+    this.y = v[1];
+    this.z = v[2];
+    return this;
+  }
+  inverse(m = this) {
+    invert$1(this, m);
+    return this;
+  }
+  compose(q, pos, scale2) {
+    compose(this, q, pos, scale2);
+    return this;
+  }
+  decompose(q, pos, scale2) {
+    decompose(this, q, pos, scale2);
+    return this;
+  }
+  getRotation(q) {
+    getRotation(q, this);
+    return this;
+  }
+  getTranslation(pos) {
+    getTranslation(pos, this);
+    return this;
+  }
+  getScaling(scale2) {
+    getScaling(scale2, this);
+    return this;
+  }
+  getMaxScaleOnAxis() {
+    return getMaxScaleOnAxis(this);
+  }
+  lookAt(eye, target, up) {
+    targetTo(this, eye, target, up);
+    return this;
+  }
+  determinant() {
+    return determinant(this);
+  }
+  fromArray(a, o = 0) {
+    this[0] = a[o];
+    this[1] = a[o + 1];
+    this[2] = a[o + 2];
+    this[3] = a[o + 3];
+    this[4] = a[o + 4];
+    this[5] = a[o + 5];
+    this[6] = a[o + 6];
+    this[7] = a[o + 7];
+    this[8] = a[o + 8];
+    this[9] = a[o + 9];
+    this[10] = a[o + 10];
+    this[11] = a[o + 11];
+    this[12] = a[o + 12];
+    this[13] = a[o + 13];
+    this[14] = a[o + 14];
+    this[15] = a[o + 15];
+    return this;
+  }
+  toArray(a = [], o = 0) {
+    a[o] = this[0];
+    a[o + 1] = this[1];
+    a[o + 2] = this[2];
+    a[o + 3] = this[3];
+    a[o + 4] = this[4];
+    a[o + 5] = this[5];
+    a[o + 6] = this[6];
+    a[o + 7] = this[7];
+    a[o + 8] = this[8];
+    a[o + 9] = this[9];
+    a[o + 10] = this[10];
+    a[o + 11] = this[11];
+    a[o + 12] = this[12];
+    a[o + 13] = this[13];
+    a[o + 14] = this[14];
+    a[o + 15] = this[15];
+    return a;
+  }
+}
+function fromRotationMatrix(out, m, order = "YXZ") {
+  if (order === "XYZ") {
+    out[1] = Math.asin(Math.min(Math.max(m[8], -1), 1));
+    if (Math.abs(m[8]) < 0.99999) {
+      out[0] = Math.atan2(-m[9], m[10]);
+      out[2] = Math.atan2(-m[4], m[0]);
+    } else {
+      out[0] = Math.atan2(m[6], m[5]);
+      out[2] = 0;
+    }
+  } else if (order === "YXZ") {
+    out[0] = Math.asin(-Math.min(Math.max(m[9], -1), 1));
+    if (Math.abs(m[9]) < 0.99999) {
+      out[1] = Math.atan2(m[8], m[10]);
+      out[2] = Math.atan2(m[1], m[5]);
+    } else {
+      out[1] = Math.atan2(-m[2], m[0]);
+      out[2] = 0;
+    }
+  } else if (order === "ZXY") {
+    out[0] = Math.asin(Math.min(Math.max(m[6], -1), 1));
+    if (Math.abs(m[6]) < 0.99999) {
+      out[1] = Math.atan2(-m[2], m[10]);
+      out[2] = Math.atan2(-m[4], m[5]);
+    } else {
+      out[1] = 0;
+      out[2] = Math.atan2(m[1], m[0]);
+    }
+  } else if (order === "ZYX") {
+    out[1] = Math.asin(-Math.min(Math.max(m[2], -1), 1));
+    if (Math.abs(m[2]) < 0.99999) {
+      out[0] = Math.atan2(m[6], m[10]);
+      out[2] = Math.atan2(m[1], m[0]);
+    } else {
+      out[0] = 0;
+      out[2] = Math.atan2(-m[4], m[5]);
+    }
+  } else if (order === "YZX") {
+    out[2] = Math.asin(Math.min(Math.max(m[1], -1), 1));
+    if (Math.abs(m[1]) < 0.99999) {
+      out[0] = Math.atan2(-m[9], m[5]);
+      out[1] = Math.atan2(-m[2], m[0]);
+    } else {
+      out[0] = 0;
+      out[1] = Math.atan2(m[8], m[10]);
+    }
+  } else if (order === "XZY") {
+    out[2] = Math.asin(-Math.min(Math.max(m[4], -1), 1));
+    if (Math.abs(m[4]) < 0.99999) {
+      out[0] = Math.atan2(m[6], m[5]);
+      out[1] = Math.atan2(m[8], m[0]);
+    } else {
+      out[0] = Math.atan2(-m[9], m[10]);
+      out[1] = 0;
+    }
+  }
+  return out;
+}
+const tmpMat4 = /* @__PURE__ */ new Mat4();
+class Euler extends Array {
+  constructor(x2 = 0, y = x2, z2 = x2, order = "YXZ") {
+    super(x2, y, z2);
+    this.order = order;
+    this.onChange = () => {
+    };
+    this._target = this;
+    const triggerProps = ["0", "1", "2"];
+    return new Proxy(this, {
+      set(target, property) {
+        const success = Reflect.set(...arguments);
+        if (success && triggerProps.includes(property)) target.onChange();
+        return success;
+      }
+    });
+  }
+  get x() {
+    return this[0];
+  }
+  get y() {
+    return this[1];
+  }
+  get z() {
+    return this[2];
+  }
+  set x(v) {
+    this._target[0] = v;
+    this.onChange();
+  }
+  set y(v) {
+    this._target[1] = v;
+    this.onChange();
+  }
+  set z(v) {
+    this._target[2] = v;
+    this.onChange();
+  }
+  set(x2, y = x2, z2 = x2) {
+    if (x2.length) return this.copy(x2);
+    this._target[0] = x2;
+    this._target[1] = y;
+    this._target[2] = z2;
+    this.onChange();
+    return this;
+  }
+  copy(v) {
+    this._target[0] = v[0];
+    this._target[1] = v[1];
+    this._target[2] = v[2];
+    this.onChange();
+    return this;
+  }
+  reorder(order) {
+    this._target.order = order;
+    this.onChange();
+    return this;
+  }
+  fromRotationMatrix(m, order = this.order) {
+    fromRotationMatrix(this._target, m, order);
+    this.onChange();
+    return this;
+  }
+  fromQuaternion(q, order = this.order, isInternal) {
+    tmpMat4.fromQuaternion(q);
+    this._target.fromRotationMatrix(tmpMat4, order);
+    if (!isInternal) this.onChange();
+    return this;
+  }
+  fromArray(a, o = 0) {
+    this._target[0] = a[o];
+    this._target[1] = a[o + 1];
+    this._target[2] = a[o + 2];
+    return this;
+  }
+  toArray(a = [], o = 0) {
+    a[o] = this[0];
+    a[o + 1] = this[1];
+    a[o + 2] = this[2];
+    return a;
+  }
+}
+class Transform {
+  constructor() {
+    this.parent = null;
+    this.children = [];
+    this.visible = true;
+    this.matrix = new Mat4();
+    this.worldMatrix = new Mat4();
+    this.matrixAutoUpdate = true;
+    this.worldMatrixNeedsUpdate = false;
+    this.position = new Vec3();
+    this.quaternion = new Quat();
+    this.scale = new Vec3(1);
+    this.rotation = new Euler();
+    this.up = new Vec3(0, 1, 0);
+    this.rotation._target.onChange = () => this.quaternion.fromEuler(this.rotation, true);
+    this.quaternion._target.onChange = () => this.rotation.fromQuaternion(this.quaternion, void 0, true);
+  }
+  setParent(parent, notifyParent = true) {
+    if (this.parent && parent !== this.parent) this.parent.removeChild(this, false);
+    this.parent = parent;
+    if (notifyParent && parent) parent.addChild(this, false);
+  }
+  addChild(child, notifyChild = true) {
+    if (!~this.children.indexOf(child)) this.children.push(child);
+    if (notifyChild) child.setParent(this, false);
+  }
+  removeChild(child, notifyChild = true) {
+    if (!!~this.children.indexOf(child)) this.children.splice(this.children.indexOf(child), 1);
+    if (notifyChild) child.setParent(null, false);
+  }
+  updateMatrixWorld(force) {
+    if (this.matrixAutoUpdate) this.updateMatrix();
+    if (this.worldMatrixNeedsUpdate || force) {
+      if (this.parent === null) this.worldMatrix.copy(this.matrix);
+      else this.worldMatrix.multiply(this.parent.worldMatrix, this.matrix);
+      this.worldMatrixNeedsUpdate = false;
+      force = true;
+    }
+    for (let i = 0, l = this.children.length; i < l; i++) {
+      this.children[i].updateMatrixWorld(force);
+    }
+  }
+  updateMatrix() {
+    this.matrix.compose(this.quaternion, this.position, this.scale);
+    this.worldMatrixNeedsUpdate = true;
+  }
+  traverse(callback) {
+    if (callback(this)) return;
+    for (let i = 0, l = this.children.length; i < l; i++) {
+      this.children[i].traverse(callback);
+    }
+  }
+  decompose() {
+    this.matrix.decompose(this.quaternion._target, this.position, this.scale);
+    this.rotation.fromQuaternion(this.quaternion);
+  }
+  lookAt(target, invert2 = false) {
+    if (invert2) this.matrix.lookAt(this.position, target, this.up);
+    else this.matrix.lookAt(target, this.position, this.up);
+    this.matrix.getRotation(this.quaternion._target);
+    this.rotation.fromQuaternion(this.quaternion);
+  }
+}
+const tempMat4 = /* @__PURE__ */ new Mat4();
+const tempVec3a = /* @__PURE__ */ new Vec3();
+const tempVec3b = /* @__PURE__ */ new Vec3();
+class Camera extends Transform {
+  constructor(gl, { near = 0.1, far = 100, fov = 45, aspect = 1, left, right, bottom, top, zoom = 1 } = {}) {
+    super();
+    Object.assign(this, { near, far, fov, aspect, left, right, bottom, top, zoom });
+    this.projectionMatrix = new Mat4();
+    this.viewMatrix = new Mat4();
+    this.projectionViewMatrix = new Mat4();
+    this.worldPosition = new Vec3();
+    this.type = left || right ? "orthographic" : "perspective";
+    if (this.type === "orthographic") this.orthographic();
+    else this.perspective();
+  }
+  perspective({ near = this.near, far = this.far, fov = this.fov, aspect = this.aspect } = {}) {
+    Object.assign(this, { near, far, fov, aspect });
+    this.projectionMatrix.fromPerspective({ fov: fov * (Math.PI / 180), aspect, near, far });
+    this.type = "perspective";
+    return this;
+  }
+  orthographic({
+    near = this.near,
+    far = this.far,
+    left = this.left || -1,
+    right = this.right || 1,
+    bottom = this.bottom || -1,
+    top = this.top || 1,
+    zoom = this.zoom
+  } = {}) {
+    Object.assign(this, { near, far, left, right, bottom, top, zoom });
+    left /= zoom;
+    right /= zoom;
+    bottom /= zoom;
+    top /= zoom;
+    this.projectionMatrix.fromOrthogonal({ left, right, bottom, top, near, far });
+    this.type = "orthographic";
+    return this;
+  }
+  updateMatrixWorld() {
+    super.updateMatrixWorld();
+    this.viewMatrix.inverse(this.worldMatrix);
+    this.worldMatrix.getTranslation(this.worldPosition);
+    this.projectionViewMatrix.multiply(this.projectionMatrix, this.viewMatrix);
+    return this;
+  }
+  updateProjectionMatrix() {
+    if (this.type === "perspective") {
+      return this.perspective();
+    } else {
+      return this.orthographic();
+    }
+  }
+  lookAt(target) {
+    super.lookAt(target, true);
+    return this;
+  }
+  // Project 3D coordinate to 2D point
+  project(v) {
+    v.applyMatrix4(this.viewMatrix);
+    v.applyMatrix4(this.projectionMatrix);
+    return this;
+  }
+  // Unproject 2D point to 3D coordinate
+  unproject(v) {
+    v.applyMatrix4(tempMat4.inverse(this.projectionMatrix));
+    v.applyMatrix4(this.worldMatrix);
+    return this;
+  }
+  updateFrustum() {
+    if (!this.frustum) {
+      this.frustum = [new Vec3(), new Vec3(), new Vec3(), new Vec3(), new Vec3(), new Vec3()];
+    }
+    const m = this.projectionViewMatrix;
+    this.frustum[0].set(m[3] - m[0], m[7] - m[4], m[11] - m[8]).constant = m[15] - m[12];
+    this.frustum[1].set(m[3] + m[0], m[7] + m[4], m[11] + m[8]).constant = m[15] + m[12];
+    this.frustum[2].set(m[3] + m[1], m[7] + m[5], m[11] + m[9]).constant = m[15] + m[13];
+    this.frustum[3].set(m[3] - m[1], m[7] - m[5], m[11] - m[9]).constant = m[15] - m[13];
+    this.frustum[4].set(m[3] - m[2], m[7] - m[6], m[11] - m[10]).constant = m[15] - m[14];
+    this.frustum[5].set(m[3] + m[2], m[7] + m[6], m[11] + m[10]).constant = m[15] + m[14];
+    for (let i = 0; i < 6; i++) {
+      const invLen = 1 / this.frustum[i].distance();
+      this.frustum[i].multiply(invLen);
+      this.frustum[i].constant *= invLen;
+    }
+  }
+  frustumIntersectsMesh(node, worldMatrix = node.worldMatrix) {
+    if (!node.geometry.attributes.position) return true;
+    if (!node.geometry.bounds || node.geometry.bounds.radius === Infinity) node.geometry.computeBoundingSphere();
+    if (!node.geometry.bounds) return true;
+    const center = tempVec3a;
+    center.copy(node.geometry.bounds.center);
+    center.applyMatrix4(worldMatrix);
+    const radius = node.geometry.bounds.radius * worldMatrix.getMaxScaleOnAxis();
+    return this.frustumIntersectsSphere(center, radius);
+  }
+  frustumIntersectsSphere(center, radius) {
+    const normal = tempVec3b;
+    for (let i = 0; i < 6; i++) {
+      const plane = this.frustum[i];
+      const distance2 = normal.copy(plane).dot(center) + plane.constant;
+      if (distance2 < -radius) return false;
+    }
+    return true;
+  }
+}
+function fromMat4(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[4];
+  out[4] = a[5];
+  out[5] = a[6];
+  out[6] = a[8];
+  out[7] = a[9];
+  out[8] = a[10];
+  return out;
+}
+function fromQuat(out, q) {
+  let x2 = q[0], y = q[1], z2 = q[2], w = q[3];
+  let x22 = x2 + x2;
+  let y2 = y + y;
+  let z22 = z2 + z2;
+  let xx = x2 * x22;
+  let yx = y * x22;
+  let yy = y * y2;
+  let zx = z2 * x22;
+  let zy = z2 * y2;
+  let zz = z2 * z22;
+  let wx = w * x22;
+  let wy = w * y2;
+  let wz = w * z22;
+  out[0] = 1 - yy - zz;
+  out[3] = yx - wz;
+  out[6] = zx + wy;
+  out[1] = yx + wz;
+  out[4] = 1 - xx - zz;
+  out[7] = zy - wx;
+  out[2] = zx - wy;
+  out[5] = zy + wx;
+  out[8] = 1 - xx - yy;
+  return out;
+}
+function copy(out, a) {
+  out[0] = a[0];
+  out[1] = a[1];
+  out[2] = a[2];
+  out[3] = a[3];
+  out[4] = a[4];
+  out[5] = a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  return out;
+}
+function set(out, m00, m01, m02, m10, m11, m12, m20, m21, m22) {
+  out[0] = m00;
+  out[1] = m01;
+  out[2] = m02;
+  out[3] = m10;
+  out[4] = m11;
+  out[5] = m12;
+  out[6] = m20;
+  out[7] = m21;
+  out[8] = m22;
+  return out;
+}
+function identity(out) {
+  out[0] = 1;
+  out[1] = 0;
+  out[2] = 0;
+  out[3] = 0;
+  out[4] = 1;
+  out[5] = 0;
+  out[6] = 0;
+  out[7] = 0;
+  out[8] = 1;
+  return out;
+}
+function invert(out, a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2];
+  let a10 = a[3], a11 = a[4], a12 = a[5];
+  let a20 = a[6], a21 = a[7], a22 = a[8];
+  let b01 = a22 * a11 - a12 * a21;
+  let b11 = -a22 * a10 + a12 * a20;
+  let b21 = a21 * a10 - a11 * a20;
+  let det = a00 * b01 + a01 * b11 + a02 * b21;
+  if (!det) {
+    return null;
+  }
+  det = 1 / det;
+  out[0] = b01 * det;
+  out[1] = (-a22 * a01 + a02 * a21) * det;
+  out[2] = (a12 * a01 - a02 * a11) * det;
+  out[3] = b11 * det;
+  out[4] = (a22 * a00 - a02 * a20) * det;
+  out[5] = (-a12 * a00 + a02 * a10) * det;
+  out[6] = b21 * det;
+  out[7] = (-a21 * a00 + a01 * a20) * det;
+  out[8] = (a11 * a00 - a01 * a10) * det;
+  return out;
+}
+function multiply(out, a, b) {
+  let a00 = a[0], a01 = a[1], a02 = a[2];
+  let a10 = a[3], a11 = a[4], a12 = a[5];
+  let a20 = a[6], a21 = a[7], a22 = a[8];
+  let b00 = b[0], b01 = b[1], b02 = b[2];
+  let b10 = b[3], b11 = b[4], b12 = b[5];
+  let b20 = b[6], b21 = b[7], b22 = b[8];
+  out[0] = b00 * a00 + b01 * a10 + b02 * a20;
+  out[1] = b00 * a01 + b01 * a11 + b02 * a21;
+  out[2] = b00 * a02 + b01 * a12 + b02 * a22;
+  out[3] = b10 * a00 + b11 * a10 + b12 * a20;
+  out[4] = b10 * a01 + b11 * a11 + b12 * a21;
+  out[5] = b10 * a02 + b11 * a12 + b12 * a22;
+  out[6] = b20 * a00 + b21 * a10 + b22 * a20;
+  out[7] = b20 * a01 + b21 * a11 + b22 * a21;
+  out[8] = b20 * a02 + b21 * a12 + b22 * a22;
+  return out;
+}
+function translate(out, a, v) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a10 = a[3], a11 = a[4], a12 = a[5], a20 = a[6], a21 = a[7], a22 = a[8], x2 = v[0], y = v[1];
+  out[0] = a00;
+  out[1] = a01;
+  out[2] = a02;
+  out[3] = a10;
+  out[4] = a11;
+  out[5] = a12;
+  out[6] = x2 * a00 + y * a10 + a20;
+  out[7] = x2 * a01 + y * a11 + a21;
+  out[8] = x2 * a02 + y * a12 + a22;
+  return out;
+}
+function rotate(out, a, rad) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a10 = a[3], a11 = a[4], a12 = a[5], a20 = a[6], a21 = a[7], a22 = a[8], s = Math.sin(rad), c = Math.cos(rad);
+  out[0] = c * a00 + s * a10;
+  out[1] = c * a01 + s * a11;
+  out[2] = c * a02 + s * a12;
+  out[3] = c * a10 - s * a00;
+  out[4] = c * a11 - s * a01;
+  out[5] = c * a12 - s * a02;
+  out[6] = a20;
+  out[7] = a21;
+  out[8] = a22;
+  return out;
+}
+function scale(out, a, v) {
+  let x2 = v[0], y = v[1];
+  out[0] = x2 * a[0];
+  out[1] = x2 * a[1];
+  out[2] = x2 * a[2];
+  out[3] = y * a[3];
+  out[4] = y * a[4];
+  out[5] = y * a[5];
+  out[6] = a[6];
+  out[7] = a[7];
+  out[8] = a[8];
+  return out;
+}
+function normalFromMat4(out, a) {
+  let a00 = a[0], a01 = a[1], a02 = a[2], a03 = a[3];
+  let a10 = a[4], a11 = a[5], a12 = a[6], a13 = a[7];
+  let a20 = a[8], a21 = a[9], a22 = a[10], a23 = a[11];
+  let a30 = a[12], a31 = a[13], a32 = a[14], a33 = a[15];
+  let b00 = a00 * a11 - a01 * a10;
+  let b01 = a00 * a12 - a02 * a10;
+  let b02 = a00 * a13 - a03 * a10;
+  let b03 = a01 * a12 - a02 * a11;
+  let b04 = a01 * a13 - a03 * a11;
+  let b05 = a02 * a13 - a03 * a12;
+  let b06 = a20 * a31 - a21 * a30;
+  let b07 = a20 * a32 - a22 * a30;
+  let b08 = a20 * a33 - a23 * a30;
+  let b09 = a21 * a32 - a22 * a31;
+  let b10 = a21 * a33 - a23 * a31;
+  let b11 = a22 * a33 - a23 * a32;
+  let det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+  if (!det) {
+    return null;
+  }
+  det = 1 / det;
+  out[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det;
+  out[1] = (a12 * b08 - a10 * b11 - a13 * b07) * det;
+  out[2] = (a10 * b10 - a11 * b08 + a13 * b06) * det;
+  out[3] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+  out[4] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+  out[5] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+  out[6] = (a31 * b05 - a32 * b04 + a33 * b03) * det;
+  out[7] = (a32 * b02 - a30 * b05 - a33 * b01) * det;
+  out[8] = (a30 * b04 - a31 * b02 + a33 * b00) * det;
+  return out;
+}
+class Mat3 extends Array {
+  constructor(m00 = 1, m01 = 0, m02 = 0, m10 = 0, m11 = 1, m12 = 0, m20 = 0, m21 = 0, m22 = 1) {
+    super(m00, m01, m02, m10, m11, m12, m20, m21, m22);
+    return this;
+  }
+  set(m00, m01, m02, m10, m11, m12, m20, m21, m22) {
+    if (m00.length) return this.copy(m00);
+    set(this, m00, m01, m02, m10, m11, m12, m20, m21, m22);
+    return this;
+  }
+  translate(v, m = this) {
+    translate(this, m, v);
+    return this;
+  }
+  rotate(v, m = this) {
+    rotate(this, m, v);
+    return this;
+  }
+  scale(v, m = this) {
+    scale(this, m, v);
+    return this;
+  }
+  multiply(ma, mb) {
+    if (mb) {
+      multiply(this, ma, mb);
+    } else {
+      multiply(this, this, ma);
+    }
+    return this;
+  }
+  identity() {
+    identity(this);
+    return this;
+  }
+  copy(m) {
+    copy(this, m);
+    return this;
+  }
+  fromMatrix4(m) {
+    fromMat4(this, m);
+    return this;
+  }
+  fromQuaternion(q) {
+    fromQuat(this, q);
+    return this;
+  }
+  fromBasis(vec3a, vec3b, vec3c) {
+    this.set(vec3a[0], vec3a[1], vec3a[2], vec3b[0], vec3b[1], vec3b[2], vec3c[0], vec3c[1], vec3c[2]);
+    return this;
+  }
+  inverse(m = this) {
+    invert(this, m);
+    return this;
+  }
+  getNormalMatrix(m) {
+    normalFromMat4(this, m);
+    return this;
+  }
+}
+let ID = 0;
+class Mesh extends Transform {
+  constructor(gl, { geometry, program, mode = gl.TRIANGLES, frustumCulled = true, renderOrder = 0 } = {}) {
+    super();
+    if (!gl.canvas) console.error("gl not passed as first argument to Mesh");
+    this.gl = gl;
+    this.id = ID++;
+    this.geometry = geometry;
+    this.program = program;
+    this.mode = mode;
+    this.frustumCulled = frustumCulled;
+    this.renderOrder = renderOrder;
+    this.modelViewMatrix = new Mat4();
+    this.normalMatrix = new Mat3();
+    this.beforeRenderCallbacks = [];
+    this.afterRenderCallbacks = [];
+  }
+  onBeforeRender(f) {
+    this.beforeRenderCallbacks.push(f);
+    return this;
+  }
+  onAfterRender(f) {
+    this.afterRenderCallbacks.push(f);
+    return this;
+  }
+  draw({ camera } = {}) {
+    if (camera) {
+      if (!this.program.uniforms.modelMatrix) {
+        Object.assign(this.program.uniforms, {
+          modelMatrix: { value: null },
+          viewMatrix: { value: null },
+          modelViewMatrix: { value: null },
+          normalMatrix: { value: null },
+          projectionMatrix: { value: null },
+          cameraPosition: { value: null }
+        });
+      }
+      this.program.uniforms.projectionMatrix.value = camera.projectionMatrix;
+      this.program.uniforms.cameraPosition.value = camera.worldPosition;
+      this.program.uniforms.viewMatrix.value = camera.viewMatrix;
+      this.modelViewMatrix.multiply(camera.viewMatrix, this.worldMatrix);
+      this.normalMatrix.getNormalMatrix(this.modelViewMatrix);
+      this.program.uniforms.modelMatrix.value = this.worldMatrix;
+      this.program.uniforms.modelViewMatrix.value = this.modelViewMatrix;
+      this.program.uniforms.normalMatrix.value = this.normalMatrix;
+    }
+    this.beforeRenderCallbacks.forEach((f) => f && f({ mesh: this, camera }));
+    let flipFaces = this.program.cullFace && this.worldMatrix.determinant() < 0;
+    this.program.use({ flipFaces });
+    this.geometry.draw({ mode: this.mode, program: this.program });
+    this.afterRenderCallbacks.forEach((f) => f && f({ mesh: this, camera }));
+  }
+}
+const defaultColors = ["#ffffff", "#ffffff", "#ffffff"];
+const hexToRgb = (hex2) => {
+  hex2 = hex2.replace(/^#/, "");
+  if (hex2.length === 3) {
+    hex2 = hex2.split("").map((c) => c + c).join("");
+  }
+  const int2 = parseInt(hex2, 16);
+  const r2 = (int2 >> 16 & 255) / 255;
+  const g = (int2 >> 8 & 255) / 255;
+  const b = (int2 & 255) / 255;
+  return [r2, g, b];
+};
+const vertex = (
+  /* glsl */
+  `
+  attribute vec3 position;
+  attribute vec4 random;
+  attribute vec3 color;
+  
+  uniform mat4 modelMatrix;
+  uniform mat4 viewMatrix;
+  uniform mat4 projectionMatrix;
+  uniform float uTime;
+  uniform float uSpread;
+  uniform float uBaseSize;
+  uniform float uSizeRandomness;
+  
+  varying vec4 vRandom;
+  varying vec3 vColor;
+  
+  void main() {
+    vRandom = random;
+    vColor = color;
+    
+    vec3 pos = position * uSpread;
+    pos.z *= 10.0;
+    
+    vec4 mPos = modelMatrix * vec4(pos, 1.0);
+    float t = uTime;
+    mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.5, random.x);
+    mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.5, random.w);
+    mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.5, random.z);
+    
+    vec4 mvPos = viewMatrix * mPos;
+    if (uSizeRandomness == 0.0) {
+      gl_PointSize = uBaseSize;
+    } else {
+      gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
+    }
+    
+    gl_Position = projectionMatrix * mvPos;
+  }
+`
+);
+const fragment = (
+  /* glsl */
+  `
+  precision highp float;
+  
+  uniform float uTime;
+  uniform float uAlphaParticles;
+  varying vec4 vRandom;
+  varying vec3 vColor;
+  
+  void main() {
+    vec2 uv = gl_PointCoord.xy;
+    float d = length(uv - vec2(0.5));
+    
+    if(uAlphaParticles < 0.5) {
+      if(d > 0.5) {
+        discard;
+      }
+      gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), 1.0);
+    } else {
+      float circle = smoothstep(0.5, 0.4, d) * 0.8;
+      gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), circle);
+    }
+  }
+`
+);
+const Particles = ({
+  particleCount = 200,
+  particleSpread = 10,
+  speed = 0.1,
+  particleColors,
+  moveParticlesOnHover = false,
+  particleHoverFactor = 1,
+  alphaParticles = false,
+  particleBaseSize = 100,
+  sizeRandomness = 1,
+  cameraDistance = 20,
+  disableRotation = false,
+  className
+}) => {
+  const containerRef = reactExports.useRef(null);
+  const mouseRef = reactExports.useRef({ x: 0, y: 0 });
+  reactExports.useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const renderer = new Renderer({ depth: false, alpha: true });
+    const gl = renderer.gl;
+    container.appendChild(gl.canvas);
+    gl.clearColor(0, 0, 0, 0);
+    const camera = new Camera(gl, { fov: 15 });
+    camera.position.set(0, 0, cameraDistance);
+    const resize2 = () => {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      renderer.setSize(width, height);
+      camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
+    };
+    window.addEventListener("resize", resize2, false);
+    resize2();
+    const handleMouseMove = (e) => {
+      const rect = container.getBoundingClientRect();
+      const x2 = (e.clientX - rect.left) / rect.width * 2 - 1;
+      const y = -((e.clientY - rect.top) / rect.height * 2 - 1);
+      mouseRef.current = { x: x2, y };
+    };
+    if (moveParticlesOnHover) {
+      container.addEventListener("mousemove", handleMouseMove);
+    }
+    const count2 = particleCount;
+    const positions = new Float32Array(count2 * 3);
+    const randoms = new Float32Array(count2 * 4);
+    const colors = new Float32Array(count2 * 3);
+    const palette = particleColors && particleColors.length > 0 ? particleColors : defaultColors;
+    for (let i = 0; i < count2; i++) {
+      let x2, y, z2, len;
+      do {
+        x2 = Math.random() * 2 - 1;
+        y = Math.random() * 2 - 1;
+        z2 = Math.random() * 2 - 1;
+        len = x2 * x2 + y * y + z2 * z2;
+      } while (len > 1 || len === 0);
+      const r2 = Math.cbrt(Math.random());
+      positions.set([x2 * r2, y * r2, z2 * r2], i * 3);
+      randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
+      const col = hexToRgb(palette[Math.floor(Math.random() * palette.length)]);
+      colors.set(col, i * 3);
+    }
+    const geometry = new Geometry(gl, {
+      position: { size: 3, data: positions },
+      random: { size: 4, data: randoms },
+      color: { size: 3, data: colors }
+    });
+    const program = new Program(gl, {
+      vertex,
+      fragment,
+      uniforms: {
+        uTime: { value: 0 },
+        uSpread: { value: particleSpread },
+        uBaseSize: { value: particleBaseSize },
+        uSizeRandomness: { value: sizeRandomness },
+        uAlphaParticles: { value: alphaParticles ? 1 : 0 }
+      },
+      transparent: true,
+      depthTest: false
+    });
+    const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
+    let animationFrameId;
+    let lastTime = performance.now();
+    let elapsed = 0;
+    const update = (t) => {
+      animationFrameId = requestAnimationFrame(update);
+      const delta = t - lastTime;
+      lastTime = t;
+      elapsed += delta * speed;
+      program.uniforms.uTime.value = elapsed * 1e-3;
+      if (moveParticlesOnHover) {
+        particles.position.x = -mouseRef.current.x * particleHoverFactor;
+        particles.position.y = -mouseRef.current.y * particleHoverFactor;
+      } else {
+        particles.position.x = 0;
+        particles.position.y = 0;
+      }
+      if (!disableRotation) {
+        particles.rotation.x = Math.sin(elapsed * 2e-4) * 0.1;
+        particles.rotation.y = Math.cos(elapsed * 5e-4) * 0.15;
+        particles.rotation.z += 0.01 * speed;
+      }
+      renderer.render({ scene: particles, camera });
+    };
+    animationFrameId = requestAnimationFrame(update);
+    return () => {
+      window.removeEventListener("resize", resize2);
+      if (moveParticlesOnHover) {
+        container.removeEventListener("mousemove", handleMouseMove);
+      }
+      cancelAnimationFrame(animationFrameId);
+      if (container.contains(gl.canvas)) {
+        container.removeChild(gl.canvas);
+      }
+    };
+  }, [
+    particleCount,
+    particleSpread,
+    speed,
+    moveParticlesOnHover,
+    particleHoverFactor,
+    alphaParticles,
+    particleBaseSize,
+    sizeRandomness,
+    cameraDistance,
+    disableRotation
+  ]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: containerRef, className: `particles-container ${className || ""}` });
+};
 const Index = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Navigation, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Hero, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ClientLogos, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Services, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Industries, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Process, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(WhyChooseUs, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(About, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Team, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Contact, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background relative", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fixed inset-0 z-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Particles,
+      {
+        particleColors: ["#06B6D4", "#3B82F6", "#ffffff"],
+        particleCount: 300,
+        particleSpread: 12,
+        speed: 0.05,
+        particleBaseSize: 100,
+        moveParticlesOnHover: true,
+        particleHoverFactor: 1.5,
+        alphaParticles: true,
+        sizeRandomness: 1.2,
+        cameraDistance: 20,
+        disableRotation: false
+      }
+    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative z-10", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Navigation, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Hero, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ClientLogos, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Services, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Industries, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Process, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(WhyChooseUs, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(About, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Team, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Contact, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
+    ] })
   ] });
 };
 const NotFound = () => {
@@ -27586,156 +30596,6 @@ const SocialMedia = () => {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
   ] });
 };
-const AboutUsDetailed = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background flex flex-col", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Navigation, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "pt-32 pb-16 md:pt-48 md:pb-32 relative overflow-hidden", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-gradient-primary opacity-10" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4 relative z-10", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        motion.div,
-        {
-          initial: { opacity: 0, y: 20 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.6 },
-          className: "max-w-4xl mx-auto text-center",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-4xl md:text-6xl font-bold mb-6", children: [
-              "Corporate ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Profile" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl text-muted-foreground leading-relaxed", children: "Fusion Innovation IT delivers integrated technological solutions for diverse industries, including Healthcare, Finance, and Logistics. By fusing Artificial Intelligence with custom software and hardware systems, we turn complex business challenges into smart, manageable growth." })
-          ]
-        }
-      ) })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-16 md:py-24 bg-card/50", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-2 gap-12 items-center", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        motion.div,
-        {
-          initial: { opacity: 0, x: -20 },
-          whileInView: { opacity: 1, x: 0 },
-          viewport: { once: true },
-          className: "space-y-6",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold", children: "Who We Are" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-4 text-muted-foreground leading-relaxed", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg", children: "Fusion Innovation IT is a leader in integrated technology, empowering sectors from Healthcare and Finance to Manufacturing and Logistics. We combine deep industry expertise with cutting-edge AI to deliver end-to-end solutions—from custom software and mobile apps to essential business hardware." }) })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative h-[400px] rounded-2xl overflow-hidden glass glow flex items-center justify-center", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-8 relative z-10", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-6xl font-bold text-primary mb-2", children: "LLC" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xl text-foreground", children: "Registered Entity" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-8 grid grid-cols-2 gap-4 text-left", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheckBig, { className: "w-5 h-5 text-primary" }),
-              " ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Financial Experts" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheckBig, { className: "w-5 h-5 text-primary" }),
-              " ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "AI Engineers" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheckBig, { className: "w-5 h-5 text-primary" }),
-              " ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Hardware Suppliers" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheckBig, { className: "w-5 h-5 text-primary" }),
-              " ",
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Digital Strategists" })
-            ] })
-          ] })
-        ] })
-      ] })
-    ] }) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-16 md:py-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-2 gap-8", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        motion.div,
-        {
-          whileHover: { y: -5 },
-          className: "p-8 rounded-2xl glass border border-primary/20",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Target, { className: "w-12 h-12 text-primary mb-6" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-2xl font-bold mb-4", children: "Our Mission" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground leading-relaxed", children: "To democratize access to enterprise-grade technology. We aim to provide businesses of all sizes with the same level of automation, intelligence, and security that was previously accessible only to Fortune 500 companies. We strive to eliminate operational inefficiencies through smart software, allowing our clients to focus on growth rather than administration." })
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        motion.div,
-        {
-          whileHover: { y: -5 },
-          className: "p-8 rounded-2xl glass border border-primary/20",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { className: "w-12 h-12 text-primary mb-6" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-2xl font-bold mb-4", children: "Our Vision" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground leading-relaxed", children: "To be the leading catalyst for the region's digital economy. We envision a future where every business decision is data-driven, every repetitive task is automated, and every digital interaction is secure. We are building the infrastructure for the next generation of smart enterprises in the Middle East and beyond." })
-          ]
-        }
-      )
-    ] }) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-16 md:py-24 bg-muted/20", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-3xl mx-auto text-center mb-16", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-6", children: "The Fusion Ecosystem" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-lg leading-relaxed", children: "We don't just deliver code; we provide smart solutions that manage your business. Whether you are in Retail, Energy, or Education, Fusion Innovation IT combines AI-driven software with practical hardware tools to streamline operations and drive efficiency across your organization." })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid md:grid-cols-2 lg:grid-cols-4 gap-6", children: [
-        {
-          title: "Accounting Systems",
-          desc: "The backbone of your business. Whether you need our ready-made, compliant ERP solutions or a custom-built financial engine, we ensure your numbers are accurate, secure, and accessible in real-time."
-        },
-        {
-          title: "Digital Development",
-          desc: "Your digital face. We build high-performance websites and mobile applications that serve as powerful tools for customer engagement, not just static brochures."
-        },
-        {
-          title: "AI Solutions",
-          desc: "The brain of the operation. We integrate predictive analytics, chatbots, and automation algorithms directly into your workflow to reduce costs and increase speed."
-        },
-        {
-          title: "Technical Hardware",
-          desc: "The physical enablers. We supply and configure the necessary hardware—servers, POS terminals, barcode scanners—ensuring 100% compatibility with our software."
-        }
-      ].map((item, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-background p-6 rounded-xl border hover:border-primary/50 transition-colors", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-lg mb-3 text-primary", children: item.title }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground leading-relaxed", children: item.desc })
-      ] }, i)) })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-16 md:py-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-4xl mx-auto text-center", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-12", children: "Our Philosophy" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-3 gap-8", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Shield, { className: "w-8 h-8 text-primary" }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-xl", children: "Quality First" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "We never compromise on code quality or security. If it's not robust, it doesn't leave our lab." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Users, { className: "w-8 h-8 text-primary" }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-xl", children: "Partnership" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "We don't just have clients; we have partners. Your growth is the only metric of our success." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { className: "w-8 h-8 text-primary" }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-xl", children: "Innovation" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "We stay ahead of the curve so you don't have to. We bring the latest tech to your doorstep." })
-        ] })
-      ] })
-    ] }) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-20 bg-primary/5", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 text-center", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-6", children: "Ready to Transform Your Business?" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl text-muted-foreground mb-8 max-w-2xl mx-auto", children: "Join the hundreds of businesses that have trusted Fusion Innovation IT with their digital future." }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { asChild: true, size: "lg", className: "glow text-lg px-8", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/contact", children: [
-        "Start Your Journey ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { className: "ml-2 w-5 h-5" })
-      ] }) })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
-  ] });
-};
 const Careers = () => {
   const positions = [
     "Backend Developers: Experience in financial systems is a plus.",
@@ -27792,9 +30652,10 @@ const ServiceDetail = ({
           {
             initial: { opacity: 0, scale: 0.5 },
             animate: { opacity: 1, scale: 1 },
+            whileHover: { scale: 1.1 },
             transition: { duration: 0.5 },
-            className: "w-20 h-20 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center mb-8",
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "w-10 h-10 text-primary" })
+            className: "w-20 h-20 mx-auto glass backdrop-blur-xl bg-gradient-glow rounded-2xl flex items-center justify-center mb-8 glow shadow-lg shadow-primary/20 group",
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "w-10 h-10 text-primary group-hover:scale-110 transition-transform" })
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27804,7 +30665,7 @@ const ServiceDetail = ({
             animate: { opacity: 1, y: 0 },
             transition: { delay: 0.2 },
             className: "text-4xl md:text-6xl font-bold mb-6",
-            children: title
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "glow rounded-xl px-4 py-2 inline-block", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: title }) })
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -27834,7 +30695,7 @@ const ServiceDetail = ({
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-20 bg-muted/30", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-6", children: "Key Benefits" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "glow rounded-xl px-4 py-2 inline-block", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Key Benefits" }) }) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-4", children: benefits2.map((benefit, index2) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
           motion.div,
           {
@@ -27856,26 +30717,35 @@ const ServiceDetail = ({
         {
           initial: { opacity: 0, y: 20 },
           whileInView: { opacity: 1, y: 0 },
+          whileHover: { scale: 1.03, y: -5 },
           viewport: { once: true },
           transition: { delay: index2 * 0.1 },
-          className: "bg-card p-6 rounded-xl border hover:border-primary/50 transition-colors",
+          className: "glass backdrop-blur-xl bg-card/50 p-6 rounded-xl border border-border/50 hover:border-primary/50 hover:glow-strong transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/10 group",
           children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xl font-semibold mb-2", children: feature.title }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xl font-semibold mb-2 group-hover:text-primary transition-colors", children: feature.title }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground", children: feature.description })
           ]
         },
         index2
       )) })
     ] }) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-20", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-3xl mx-auto bg-primary/5 rounded-3xl p-12 border border-primary/10", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-6", children: "Ready to Transform Your Business?" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-lg text-muted-foreground mb-8", children: [
-        "Contact us today to discuss how our ",
-        title,
-        " solutions can help you achieve your goals."
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { size: "lg", className: "glow", asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/contact", children: "Schedule a Consultation" }) })
-    ] }) }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-20", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      motion.div,
+      {
+        whileHover: { scale: 1.02 },
+        transition: { duration: 0.3 },
+        className: "max-w-3xl mx-auto glass backdrop-blur-xl bg-primary/5 rounded-3xl p-12 border border-primary/20 glow shadow-xl",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-6", children: "Ready to Transform Your Business?" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-lg text-muted-foreground mb-8", children: [
+            "Contact us today to discuss how our ",
+            title,
+            " solutions can help you achieve your goals."
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { size: "lg", className: "glow", asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/contact", children: "Schedule a Consultation" }) })
+        ]
+      }
+    ) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
   ] });
 };
@@ -28106,22 +30976,23 @@ const IndustryDetail = ({
           {
             initial: { opacity: 0, scale: 0.5 },
             animate: { opacity: 1, scale: 1 },
+            whileHover: { scale: 1.1 },
             transition: { duration: 0.5 },
-            className: "w-20 h-20 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center mb-8",
-            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "w-10 h-10 text-primary" })
+            className: "w-20 h-20 mx-auto glass backdrop-blur-xl bg-gradient-glow rounded-2xl flex items-center justify-center mb-8 glow shadow-lg shadow-primary/20 group",
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "w-10 h-10 text-primary group-hover:scale-110 transition-transform" })
           }
         ),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
           motion.h1,
           {
             initial: { opacity: 0, y: 20 },
             animate: { opacity: 1, y: 0 },
             transition: { delay: 0.2 },
             className: "text-4xl md:text-6xl font-bold mb-6",
-            children: [
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "glow rounded-xl px-4 py-2 inline-block", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-primary", children: [
               title,
               " Solutions"
-            ]
+            ] }) })
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -28140,18 +31011,19 @@ const IndustryDetail = ({
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-8", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Target, { className: "w-8 h-8 text-primary" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold", children: "Industry Challenges" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "glow rounded-xl px-4 py-2 inline-block", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Industry Challenges" }) }) })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-6", children: challenges.map((challenge, index2) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
           motion.div,
           {
             initial: { opacity: 0, x: -20 },
             whileInView: { opacity: 1, x: 0 },
+            whileHover: { scale: 1.02, x: 5 },
             viewport: { once: true },
             transition: { delay: index2 * 0.1 },
-            className: "flex items-start gap-4 p-4 rounded-lg bg-muted/50",
+            className: "flex items-start gap-4 p-4 rounded-lg glass backdrop-blur-xl bg-muted/50 border border-border/50 hover:border-destructive/30 transition-all duration-300 group",
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full bg-destructive mt-2.5 flex-shrink-0" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-2 h-2 rounded-full bg-destructive mt-2.5 flex-shrink-0 group-hover:scale-150 transition-transform" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg", children: challenge })
             ]
           },
@@ -28161,18 +31033,19 @@ const IndustryDetail = ({
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-8", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { className: "w-8 h-8 text-primary" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold", children: "Our Solutions" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "glow rounded-xl px-4 py-2 inline-block", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Our Solutions" }) }) })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-6", children: solutions.map((solution, index2) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
           motion.div,
           {
             initial: { opacity: 0, x: 20 },
             whileInView: { opacity: 1, x: 0 },
+            whileHover: { scale: 1.03, y: -5 },
             viewport: { once: true },
             transition: { delay: index2 * 0.1 },
-            className: "p-6 rounded-xl border bg-card hover:shadow-lg transition-shadow",
+            className: "p-6 rounded-xl border glass backdrop-blur-xl bg-card/50 border-border/50 hover:border-primary/50 hover:glow-strong transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/10 group",
             children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xl font-semibold mb-2 text-primary", children: solution.title }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xl font-semibold mb-2 text-primary group-hover:scale-105 inline-block transition-transform", children: solution.title }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground", children: solution.description })
             ]
           },
@@ -28180,19 +31053,27 @@ const IndustryDetail = ({
         )) })
       ] })
     ] }) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-20 bg-primary/5", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 text-center", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-bold mb-6", children: [
-        "Innovate Your ",
-        title,
-        " Business"
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-lg text-muted-foreground mb-8 max-w-2xl mx-auto", children: [
-        "Partner with Fusion Innovation IT to leverage cutting-edge technology tailored for the ",
-        title,
-        " sector."
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { size: "lg", className: "glow", asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/contact", children: "Get a Custom Proposal" }) })
-    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-20 bg-primary/5", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4 text-center", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      motion.div,
+      {
+        whileHover: { scale: 1.02 },
+        transition: { duration: 0.3 },
+        className: "max-w-3xl mx-auto glass backdrop-blur-xl bg-primary/10 rounded-3xl p-12 border border-primary/20 glow shadow-xl",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "text-3xl font-bold mb-6", children: [
+            "Innovate Your ",
+            title,
+            " Business"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-lg text-muted-foreground mb-8", children: [
+            "Partner with Fusion Innovation IT to leverage cutting-edge technology tailored for the ",
+            title,
+            " sector."
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { size: "lg", className: "glow", asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/contact", children: "Get a Custom Proposal" }) })
+        ]
+      }
+    ) }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
   ] });
 };
@@ -28434,106 +31315,400 @@ const Energy = () => {
     }
   );
 };
-const team = [
+const AboutUsDetailed = () => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background flex flex-col", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Navigation, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "pt-32 pb-16 md:pt-48 md:pb-32 relative overflow-hidden", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-gradient-primary opacity-10" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4 relative z-10", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.6 },
+          className: "max-w-4xl mx-auto text-center",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-4xl md:text-6xl font-bold mb-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "glow rounded-xl px-4 py-2 inline-block", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Corporate Profile" }) }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl text-muted-foreground leading-relaxed", children: "Fusion Innovation IT delivers integrated technological solutions for diverse industries, including Healthcare, Finance, and Logistics. By fusing Artificial Intelligence with custom software and hardware systems, we turn complex business challenges into smart, manageable growth." })
+          ]
+        }
+      ) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-16 md:py-24 bg-card/50", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-2 gap-12 items-center", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          initial: { opacity: 0, x: -20 },
+          whileInView: { opacity: 1, x: 0 },
+          viewport: { once: true },
+          className: "space-y-6",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold", children: "Who We Are" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-4 text-muted-foreground leading-relaxed", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg", children: "Fusion Innovation IT is a leader in integrated technology, empowering sectors from Healthcare and Finance to Manufacturing and Logistics. We combine deep industry expertise with cutting-edge AI to deliver end-to-end solutions—from custom software and mobile apps to essential business hardware." }) })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative h-[400px] rounded-2xl overflow-hidden glass glow flex items-center justify-center", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center p-8 relative z-10", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-6xl font-bold text-primary mb-2", children: "LLC" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xl text-foreground", children: "Registered Entity" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-8 grid grid-cols-2 gap-4 text-left", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheckBig, { className: "w-5 h-5 text-primary" }),
+              " ",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Financial Experts" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheckBig, { className: "w-5 h-5 text-primary" }),
+              " ",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "AI Engineers" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheckBig, { className: "w-5 h-5 text-primary" }),
+              " ",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Hardware Suppliers" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheckBig, { className: "w-5 h-5 text-primary" }),
+              " ",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Digital Strategists" })
+            ] })
+          ] })
+        ] })
+      ] })
+    ] }) }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-16 md:py-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-2 gap-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          whileHover: { scale: 1.03, y: -5 },
+          className: "p-8 rounded-2xl glass border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Target, { className: "w-12 h-12 text-primary mb-6" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-2xl font-bold mb-4", children: "Our Mission" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground leading-relaxed", children: "To democratize access to enterprise-grade technology. We aim to provide businesses of all sizes with the same level of automation, intelligence, and security that was previously accessible only to Fortune 500 companies. We strive to eliminate operational inefficiencies through smart software, allowing our clients to focus on growth rather than administration." })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          whileHover: { scale: 1.03, y: -5 },
+          className: "p-8 rounded-2xl glass border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { className: "w-12 h-12 text-primary mb-6" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-2xl font-bold mb-4", children: "Our Vision" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground leading-relaxed", children: "To be the leading catalyst for the region's digital economy. We envision a future where every business decision is data-driven, every repetitive task is automated, and every digital interaction is secure. We are building the infrastructure for the next generation of smart enterprises in the Middle East and beyond." })
+          ]
+        }
+      )
+    ] }) }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-16 md:py-24 bg-muted/20", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-3xl mx-auto text-center mb-16", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-6", children: "The Fusion Ecosystem" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-lg leading-relaxed", children: "We don't just deliver code; we provide smart solutions that manage your business. Whether you are in Retail, Energy, or Education, Fusion Innovation IT combines AI-driven software with practical hardware tools to streamline operations and drive efficiency across your organization." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid md:grid-cols-2 lg:grid-cols-4 gap-6", children: [
+        {
+          title: "Accounting Systems",
+          desc: "The backbone of your business. Whether you need our ready-made, compliant ERP solutions or a custom-built financial engine, we ensure your numbers are accurate, secure, and accessible in real-time."
+        },
+        {
+          title: "Digital Development",
+          desc: "Your digital face. We build high-performance websites and mobile applications that serve as powerful tools for customer engagement, not just static brochures."
+        },
+        {
+          title: "AI Solutions",
+          desc: "The brain of the operation. We integrate predictive analytics, chatbots, and automation algorithms directly into your workflow to reduce costs and increase speed."
+        },
+        {
+          title: "Technical Hardware",
+          desc: "The physical enablers. We supply and configure the necessary hardware—servers, POS terminals, barcode scanners—ensuring 100% compatibility with our software."
+        }
+      ].map((item, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          whileHover: { scale: 1.03, y: -5 },
+          className: "bg-background p-6 rounded-xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-lg mb-3 text-primary", children: item.title }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground leading-relaxed", children: item.desc })
+          ]
+        },
+        i
+      )) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center mt-12", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { asChild: true, size: "lg", className: "glow text-lg px-8", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/services", children: [
+        "Visit Services ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { className: "ml-2 w-5 h-5" })
+      ] }) }) })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-16 md:py-24", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-4xl mx-auto text-center", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-12", children: "Our Philosophy" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid md:grid-cols-3 gap-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Shield, { className: "w-8 h-8 text-primary" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-xl", children: "Quality First" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "We never compromise on code quality or security. If it's not robust, it doesn't leave our lab." })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Users, { className: "w-8 h-8 text-primary" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-xl", children: "Partnership" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "We don't just have clients; we have partners. Your growth is the only metric of our success." })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { className: "w-8 h-8 text-primary" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-xl", children: "Innovation" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "We stay ahead of the curve so you don't have to. We bring the latest tech to your doorstep." })
+        ] })
+      ] })
+    ] }) }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "py-20 bg-primary/5", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 text-center", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl font-bold mb-6", children: "Ready to Transform Your Business?" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xl text-muted-foreground mb-8 max-w-2xl mx-auto", children: "Join the hundreds of businesses that have trusted Fusion Innovation IT with their digital future." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { asChild: true, size: "lg", className: "glow text-lg px-8", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/contact", children: [
+        "Start Your Journey ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { className: "ml-2 w-5 h-5" })
+      ] }) })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
+  ] });
+};
+const leaders = [
   {
+    id: 1,
     name: "Hamzah Abu Jawhar",
     role: "Chief Technology Officer",
-    expertise: ["ERP Solutions", "IT Security", "IT Support Specialist"],
-    initials: "HAJ",
+    imageGray: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hamzah&backgroundColor=b6b6b6",
+    imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hamzah",
+    bio: "Hamzah leads our technical strategy with deep expertise in enterprise resource planning and security infrastructure. His vision drives our technical excellence and innovation across all our technology platforms.",
     linkedin: "https://www.linkedin.com/in/hamza-a-jowher-5723b3124/",
-    bio: "Hamzah leads our technical strategy with deep expertise in enterprise resource planning and security infrastructure. His vision drives our technical excellence."
+    email: "hamzah@fusioninnovation.it"
   },
   {
+    id: 2,
     name: "Abdelrahman Kanakri",
     role: "Lead AI Engineer",
-    expertise: ["AI Model Development", "Data Science", "AI Automations"],
-    initials: "AK",
+    imageGray: "https://api.dicebear.com/7.x/avataaars/svg?seed=Abdelrahman&backgroundColor=b6b6b6",
+    imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Abdelrahman",
+    bio: "Abdelrahman spearheads our AI initiatives, developing cutting-edge models and automation solutions that transform business operations. His expertise in machine learning and data science drives innovation.",
     linkedin: "https://www.linkedin.com/in/abdelrahman-kanakri-909654247/",
-    bio: "Abdelrahman spearheads our AI initiatives, developing cutting-edge models and automation solutions that transform business operations."
+    email: "abdelrahman@fusioninnovation.it"
   },
   {
+    id: 3,
     name: "Rakan Masadeh",
     role: "Social Media & AI Engineer",
-    expertise: ["Social Media", "Data Science", "ERP Solutions"],
-    initials: "RM",
+    imageGray: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rakan&backgroundColor=b6b6b6",
+    imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rakan",
+    bio: "Rakan bridges the gap between technical AI implementation and digital presence, ensuring our solutions are both powerful and accessible. His unique blend of skills creates seamless user experiences.",
     linkedin: "https://www.linkedin.com/in/rakannmmasdeh-rakan-783859383/",
-    bio: "Rakan bridges the gap between technical AI implementation and digital presence, ensuring our solutions are both powerful and accessible."
+    email: "rakan@fusioninnovation.it"
   },
   {
+    id: 4,
     name: "Mahmoud Al-Kdhoor",
     role: "Social Media Manager",
-    expertise: ["Strategic Planning", "Sales", "Marketing"],
-    initials: "MAK",
+    imageGray: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mahmoud&backgroundColor=b6b6b6",
+    imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mahmoud",
+    bio: "Mahmoud crafts our digital narratives and manages strategic marketing initiatives to maximize brand impact and reach. His creative vision shapes how the world sees Fusion Innovation IT.",
     linkedin: "#",
-    bio: "Mahmoud crafts our digital narratives and manages strategic marketing initiatives to maximize brand impact and reach."
+    email: "mahmoud@fusioninnovation.it"
   },
   {
+    id: 5,
     name: "Lana Alzoubi",
     role: "Social Media Specialist",
-    expertise: ["Marketing", "Content Creation", "Community Management"],
-    initials: "LA",
+    imageGray: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lana&backgroundColor=b6b6b6",
+    imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lana",
+    bio: "Lana creates engaging content and manages community interactions, building strong relationships between our brand and our audience. Her expertise in content strategy drives engagement.",
     linkedin: "https://www.linkedin.com/in/lana-alzoubi-029438369/",
-    bio: "Lana creates engaging content and manages community interactions, building strong relationships between our brand and our audience."
+    email: "lana@fusioninnovation.it"
   }
 ];
-const Leadership = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-screen pt-24 pb-16", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 sm:px-6 lg:px-8", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+const FusionLeadership = () => {
+  const [activeId, setActiveId] = reactExports.useState(leaders[0].id);
+  const containerRef = reactExports.useRef(null);
+  reactExports.useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const handlePointerMove = (e) => {
+      const rect = container.getBoundingClientRect();
+      const x2 = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      container.style.setProperty("--x", `${x2}px`);
+      container.style.setProperty("--y", `${y}px`);
+    };
+    container.addEventListener("pointermove", handlePointerMove);
+    return () => {
+      container.removeEventListener("pointermove", handlePointerMove);
+    };
+  }, []);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background flex flex-col", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Navigation, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container mx-auto px-4 pt-32 pb-12", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
       motion.div,
       {
         initial: { opacity: 0, y: 20 },
         animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.6 },
-        className: "text-center mb-16",
+        className: "text-center",
         children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-4xl sm:text-5xl md:text-6xl font-bold mb-6", children: [
-            "Our ",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary glow", children: "Leadership" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed", children: "Meet the visionaries and experts driving Fusion Innovation IT forward. Our diverse team combines decades of experience in technology, strategy, and innovation." })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-4xl sm:text-5xl md:text-6xl font-bold mb-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "glow rounded-xl px-4 py-2 inline-block", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Our Leadership" }) }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed", children: "Meet the visionaries driving innovation at Fusion Innovation IT" })
         ]
       }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto", children: team.map((member, index2) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      motion.div,
+    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1 flex items-center justify-center px-4 pb-20", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
       {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true },
-        transition: { delay: index2 * 0.1, duration: 0.5 },
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { className: "glass glow h-full hover:glow-strong transition-all duration-300 group flex flex-col", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "p-8 flex-1 flex flex-col", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col items-center mb-6", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-glow flex items-center justify-center text-primary font-bold text-3xl sm:text-4xl mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-primary/20", children: member.initials }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-2xl font-bold text-foreground text-center mb-1", children: member.name }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-primary font-medium text-center text-lg", children: member.role })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-center mb-6 leading-relaxed flex-1", children: member.bio }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3 mb-8", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs font-bold text-muted-foreground uppercase tracking-wider text-center", children: "Core Expertise" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap justify-center gap-2", children: member.expertise.map((skill, skillIndex) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "span",
+        ref: containerRef,
+        className: "chroma-container w-full max-w-7xl h-[600px] relative",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "chroma-grid", children: leaders.map((leader) => {
+            const isActive = activeId === leader.id;
+            return /* @__PURE__ */ jsxRuntimeExports.jsx(
+              motion.div,
               {
-                className: "text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20",
-                children: skill
+                layout: true,
+                className: `chroma-card ${isActive ? "active" : "inactive"}`,
+                style: {
+                  flexGrow: isActive ? 3 : 0.5
+                },
+                transition: { type: "spring", stiffness: 300, damping: 30 },
+                children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-content", children: [
+                  !isActive && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vertical-mode", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      motion.div,
+                      {
+                        onClick: (e) => {
+                          e.stopPropagation();
+                          setActiveId(leader.id);
+                        },
+                        whileHover: { scale: 1.05 },
+                        whileTap: { scale: 0.95 },
+                        className: "avatar-wrapper",
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: leader.imageGray, alt: leader.name, className: "avatar-small" })
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "name-vertical", children: leader.name }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "role-vertical", children: leader.role })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isActive && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    motion.div,
+                    {
+                      initial: { opacity: 0 },
+                      animate: { opacity: 1 },
+                      exit: { opacity: 0 },
+                      transition: { duration: 0.3, delay: 0.2 },
+                      className: "horizontal-mode",
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "avatar-section", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          motion.div,
+                          {
+                            onClick: (e) => e.stopPropagation(),
+                            className: "avatar-wrapper-large",
+                            children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: leader.imageGray, alt: leader.name, className: "avatar-large" })
+                          }
+                        ) }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "info-section", children: [
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "name-large", children: leader.name }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "role-large", children: leader.role }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "bio", children: leader.bio }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "social-links", children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsxs("a", { href: leader.linkedin, target: "_blank", rel: "noopener noreferrer", className: "social-link", children: [
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(Linkedin, { className: "w-4 h-4" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "LinkedIn" })
+                            ] }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsxs("a", { href: `mailto:${leader.email}`, className: "social-link", children: [
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(Mail, { className: "w-4 h-4" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Email" })
+                            ] })
+                          ] })
+                        ] })
+                      ]
+                    }
+                  ) })
+                ] })
               },
-              skillIndex
-            )) })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-auto pt-6 border-t border-border/50 flex gap-3 justify-center", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { variant: "outline", size: "sm", className: "gap-2", asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("a", { href: member.linkedin, target: "_blank", rel: "noopener noreferrer", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Linkedin, { className: "h-4 w-4" }),
-              "LinkedIn"
-            ] }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { variant: "ghost", size: "sm", className: "gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Mail, { className: "h-4 w-4" }),
-              "Contact"
-            ] })
-          ] })
-        ] }) })
-      },
-      index2
-    )) })
-  ] }) });
+              `gray-${leader.id}`
+            );
+          }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "chroma-overlay", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "chroma-grid", children: leaders.map((leader) => {
+            const isActive = activeId === leader.id;
+            return /* @__PURE__ */ jsxRuntimeExports.jsx(
+              motion.div,
+              {
+                layout: true,
+                className: `chroma-card ${isActive ? "active" : "inactive"}`,
+                style: {
+                  flexGrow: isActive ? 3 : 0.5
+                },
+                transition: { type: "spring", stiffness: 300, damping: 30 },
+                children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-content", children: [
+                  !isActive && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "vertical-mode", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(
+                      motion.div,
+                      {
+                        onClick: (e) => {
+                          e.stopPropagation();
+                          setActiveId(leader.id);
+                        },
+                        whileHover: { scale: 1.05 },
+                        whileTap: { scale: 0.95 },
+                        className: "avatar-wrapper",
+                        children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: leader.imageColor, alt: leader.name, className: "avatar-small" })
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "name-vertical", children: leader.name }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "role-vertical", children: leader.role })
+                  ] }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(AnimatePresence, { children: isActive && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    motion.div,
+                    {
+                      initial: { opacity: 0 },
+                      animate: { opacity: 1 },
+                      exit: { opacity: 0 },
+                      transition: { duration: 0.3, delay: 0.2 },
+                      className: "horizontal-mode",
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "avatar-section", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                          motion.div,
+                          {
+                            onClick: (e) => e.stopPropagation(),
+                            className: "avatar-wrapper-large",
+                            children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: leader.imageColor, alt: leader.name, className: "avatar-large" })
+                          }
+                        ) }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "info-section", children: [
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "name-large", children: leader.name }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "role-large", children: leader.role }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "bio", children: leader.bio }),
+                          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "social-links", children: [
+                            /* @__PURE__ */ jsxRuntimeExports.jsxs("a", { href: leader.linkedin, target: "_blank", rel: "noopener noreferrer", className: "social-link", children: [
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(Linkedin, { className: "w-4 h-4" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "LinkedIn" })
+                            ] }),
+                            /* @__PURE__ */ jsxRuntimeExports.jsxs("a", { href: `mailto:${leader.email}`, className: "social-link", children: [
+                              /* @__PURE__ */ jsxRuntimeExports.jsx(Mail, { className: "w-4 h-4" }),
+                              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Email" })
+                            ] })
+                          ] })
+                        ] })
+                      ]
+                    }
+                  ) })
+                ] })
+              },
+              `color-${leader.id}`
+            );
+          }) }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "chroma-fade" })
+        ]
+      }
+    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
+  ] });
 };
 const steps = [
   {
@@ -28580,70 +31755,72 @@ const steps = [
   }
 ];
 const Methodology = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-screen pt-24 pb-16", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 sm:px-6 lg:px-8", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      motion.div,
-      {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.6 },
-        className: "text-center mb-20",
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-4xl sm:text-5xl md:text-6xl font-bold mb-6", children: [
-            "Our ",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary glow", children: "Methodology" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed", children: "A proven, structured approach to digital transformation. We combine agile flexibility with enterprise-grade rigor to deliver exceptional results." })
-        ]
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-5xl mx-auto relative", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute left-[27px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/50 via-primary/20 to-transparent hidden md:block" }),
-      steps.map((step, index2) => {
-        const Icon2 = step.icon;
-        return /* @__PURE__ */ jsxRuntimeExports.jsx(
-          motion.div,
-          {
-            initial: { opacity: 0, x: -20 },
-            whileInView: { opacity: 1, x: 0 },
-            viewport: { once: true },
-            transition: { delay: index2 * 0.1, duration: 0.5 },
-            className: "relative mb-12 md:mb-16 last:mb-0",
-            children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col md:flex-row gap-6 md:gap-10", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex md:flex-col items-center md:items-start shrink-0", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-14 h-14 rounded-full bg-gradient-glow flex items-center justify-center glow z-10 shadow-lg shadow-primary/20 relative", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "h-7 w-7 text-primary" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute -right-2 -top-2 w-6 h-6 rounded-full bg-background border border-primary flex items-center justify-center text-xs font-bold text-primary", children: index2 + 1 })
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full w-0.5 bg-border md:hidden mx-auto mt-4" })
-              ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { className: "flex-1 glass glow hover:glow-strong transition-all duration-300", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "p-6 sm:p-8", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-2xl font-bold text-foreground mb-2", children: step.title }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-sm text-primary font-medium bg-primary/10 px-3 py-1 rounded-full w-fit", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "relative flex h-2 w-2", children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "relative inline-flex rounded-full h-2 w-2 bg-primary" })
-                    ] }),
-                    step.duration
-                  ] })
-                ] }) }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground leading-relaxed mb-6 text-lg", children: step.description }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-muted/30 rounded-lg p-4 border border-border/50", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm font-semibold text-foreground mb-3 flex items-center gap-2", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { className: "h-4 w-4 text-primary" }),
-                    "Key Deliverables"
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen pt-24 pb-16", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 sm:px-6 lg:px-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        motion.div,
+        {
+          initial: { opacity: 0, y: 20 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.6 },
+          className: "text-center mb-20",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-4xl sm:text-5xl md:text-6xl font-bold mb-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "glow rounded-xl px-4 py-2 inline-block", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "Our Methodolgy" }) }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed", children: "A proven, structured approach to digital transformation. We combine agile flexibility with enterprise-grade rigor to deliver exceptional results." })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-5xl mx-auto relative", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute left-[27px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/50 via-primary/20 to-transparent hidden md:block" }),
+        steps.map((step, index2) => {
+          const Icon2 = step.icon;
+          return /* @__PURE__ */ jsxRuntimeExports.jsx(
+            motion.div,
+            {
+              initial: { opacity: 0, x: -20 },
+              whileInView: { opacity: 1, x: 0 },
+              whileHover: { scale: 1.02, y: -5 },
+              viewport: { once: true },
+              transition: { delay: index2 * 0.1, duration: 0.5 },
+              className: "relative mb-12 md:mb-16 last:mb-0",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col md:flex-row gap-6 md:gap-10", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex md:flex-col items-center md:items-start shrink-0", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-14 h-14 rounded-full bg-gradient-glow flex items-center justify-center glow z-10 shadow-lg shadow-primary/20 relative", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "h-7 w-7 text-primary" }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute -right-2 -top-2 w-6 h-6 rounded-full bg-background border border-primary flex items-center justify-center text-xs font-bold text-primary", children: index2 + 1 })
                   ] }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap gap-2", children: step.deliverables.map((item, i) => /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs sm:text-sm px-3 py-1 rounded bg-background border border-border text-muted-foreground", children: item }, i)) })
-                ] })
-              ] }) })
-            ] })
-          },
-          index2
-        );
-      })
-    ] })
-  ] }) });
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-full w-0.5 bg-border md:hidden mx-auto mt-4" })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { className: "flex-1 glass glow hover:glow-strong transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 border border-border/50 hover:border-primary/50", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "p-6 sm:p-8", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-2xl font-bold text-foreground mb-2", children: step.title }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-sm text-primary font-medium bg-primary/10 px-3 py-1 rounded-full w-fit", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "relative flex h-2 w-2", children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" }),
+                        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "relative inline-flex rounded-full h-2 w-2 bg-primary" })
+                      ] }),
+                      step.duration
+                    ] })
+                  ] }) }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground leading-relaxed mb-6 text-lg", children: step.description }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-muted/30 rounded-lg p-4 border border-border/50", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm font-semibold text-foreground mb-3 flex items-center gap-2", children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { className: "h-4 w-4 text-primary" }),
+                      "Key Deliverables"
+                    ] }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap gap-2", children: step.deliverables.map((item, i) => /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs sm:text-sm px-3 py-1 rounded bg-background border border-border text-muted-foreground", children: item }, i)) })
+                  ] })
+                ] }) })
+              ] })
+            },
+            index2
+          );
+        })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
+  ] });
 };
 const benefits = [
   {
@@ -28684,69 +31861,52 @@ const benefits = [
   }
 ];
 const WhyUs = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-screen pt-24 pb-16", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 sm:px-6 lg:px-8", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      motion.div,
-      {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.6 },
-        className: "text-center mb-16",
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("h1", { className: "text-4xl sm:text-5xl md:text-6xl font-bold mb-6", children: [
-            "The ",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary glow", children: "Fusion Advantage" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed", children: "Why leading enterprises choose Fusion Innovation IT as their digital transformation partner. We bring a unique blend of technical excellence and business acumen." })
-        ]
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-2 md:grid-cols-4 gap-4 mb-20", children: [
-      { label: "Client Satisfaction", value: "100%" },
-      { label: "Projects Delivered", value: "50+" },
-      { label: "Expert Developers", value: "15+" },
-      { label: "Years Experience", value: "10+" }
-    ].map((stat, i) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      motion.div,
-      {
-        initial: { opacity: 0, scale: 0.9 },
-        whileInView: { opacity: 1, scale: 1 },
-        transition: { delay: i * 0.1 },
-        className: "glass p-6 rounded-xl text-center border border-primary/20",
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-3xl sm:text-4xl font-bold text-primary mb-2", children: stat.value }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sm text-muted-foreground", children: stat.label })
-        ]
-      },
-      i
-    )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8", children: benefits.map((benefit, index2) => {
-      const Icon2 = benefit.icon;
-      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen pt-24 pb-16", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container mx-auto px-4 sm:px-6 lg:px-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
         motion.div,
         {
           initial: { opacity: 0, y: 20 },
-          whileInView: { opacity: 1, y: 0 },
-          viewport: { once: true },
-          transition: { delay: index2 * 0.1, duration: 0.5 },
-          children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { className: "glass glow h-full hover:glow-strong transition-all duration-300 group flex flex-col", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(CardHeader, { className: "pb-4", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-14 h-14 rounded-xl bg-gradient-glow flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-primary/10", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "h-7 w-7 text-primary" }) }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(CardTitle, { className: "text-xl sm:text-2xl", children: benefit.title })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "flex-1 flex flex-col", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground leading-relaxed mb-6 flex-1", children: benefit.description }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2 mt-auto", children: benefit.points.map((point2, pIndex) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-sm text-foreground/80", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { className: "h-3 w-3 text-primary" }) }),
-                point2
-              ] }, pIndex)) })
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.6 },
+          className: "text-center mb-16",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-4xl sm:text-5xl md:text-6xl font-bold mb-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "glow rounded-xl px-4 py-2 inline-block", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-primary", children: "The Fusion Advantages" }) }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed", children: "Why leading enterprises choose Fusion Innovation IT as their digital transformation partner. We bring a unique blend of technical excellence and business acumen." })
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8", children: benefits.map((benefit, index2) => {
+        const Icon2 = benefit.icon;
+        return /* @__PURE__ */ jsxRuntimeExports.jsx(
+          motion.div,
+          {
+            initial: { opacity: 0, y: 20 },
+            whileInView: { opacity: 1, y: 0 },
+            whileHover: { scale: 1.03, y: -5 },
+            viewport: { once: true },
+            transition: { delay: index2 * 0.1, duration: 0.5 },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { className: "glass glow h-full hover:glow-strong transition-all duration-300 group flex flex-col hover:shadow-xl hover:shadow-primary/10 border border-border/50 hover:border-primary/50", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(CardHeader, { className: "pb-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-14 h-14 rounded-xl bg-gradient-glow flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-primary/10", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, { className: "h-7 w-7 text-primary" }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(CardTitle, { className: "text-xl sm:text-2xl", children: benefit.title })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "flex-1 flex flex-col", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground leading-relaxed mb-6 flex-1", children: benefit.description }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2 mt-auto", children: benefit.points.map((point2, pIndex) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-sm text-foreground/80", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { className: "h-3 w-3 text-primary" }) }),
+                  point2
+                ] }, pIndex)) })
+              ] })
             ] })
-          ] })
-        },
-        index2
-      );
-    }) })
-  ] }) });
+          },
+          index2
+        );
+      }) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
+  ] });
 };
 const App = () => {
   const [isLoading, setIsLoading] = reactExports.useState(true);
@@ -28768,8 +31928,8 @@ const App = () => {
       /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "faq", element: /* @__PURE__ */ jsxRuntimeExports.jsx(FAQ, {}) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "social-media", element: /* @__PURE__ */ jsxRuntimeExports.jsx(SocialMedia, {}) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "careers", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Careers, {}) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "about-us", element: /* @__PURE__ */ jsxRuntimeExports.jsx(AboutUsDetailed, {}) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "company/leadership", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Leadership, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "company/profile", element: /* @__PURE__ */ jsxRuntimeExports.jsx(AboutUsDetailed, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "company/leadership", element: /* @__PURE__ */ jsxRuntimeExports.jsx(FusionLeadership, {}) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "company/methodology", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Methodology, {}) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "company/why-us", element: /* @__PURE__ */ jsxRuntimeExports.jsx(WhyUs, {}) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "services/accounting-systems", element: /* @__PURE__ */ jsxRuntimeExports.jsx(AccountingSystems, {}) }),
