@@ -36,10 +36,11 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.5 }}
-              className="w-20 h-20 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center mb-8"
+              className="w-20 h-20 mx-auto glass backdrop-blur-xl bg-gradient-glow rounded-2xl flex items-center justify-center mb-8 glow shadow-lg shadow-primary/20 group"
             >
-              <Icon className="w-10 h-10 text-primary" />
+              <Icon className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
             </motion.div>
             
             <motion.h1
@@ -48,7 +49,9 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
               transition={{ delay: 0.2 }}
               className="text-4xl md:text-6xl font-bold mb-6"
             >
-              {title}
+              <span className="glow rounded-xl px-4 py-2 inline-block">
+                <span className="text-primary">{title}</span>
+              </span>
             </motion.h1>
             
             <motion.p
@@ -81,7 +84,11 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Key Benefits</h2>
+              <h2 className="text-3xl font-bold mb-6">
+                <span className="glow rounded-xl px-4 py-2 inline-block">
+                  <span className="text-primary">Key Benefits</span>
+                </span>
+              </h2>
               <div className="space-y-4">
                 {benefits.map((benefit, index) => (
                   <motion.div
@@ -104,11 +111,12 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  whileHover={{ scale: 1.03, y: -5 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-card p-6 rounded-xl border hover:border-primary/50 transition-colors"
+                  className="glass backdrop-blur-xl bg-card/50 p-6 rounded-xl border border-border/50 hover:border-primary/50 hover:glow-strong transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/10 group"
                 >
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
                   <p className="text-muted-foreground">{feature.description}</p>
                 </motion.div>
               ))}
@@ -120,7 +128,11 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
       {/* CTA Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto bg-primary/5 rounded-3xl p-12 border border-primary/10">
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+            className="max-w-3xl mx-auto glass backdrop-blur-xl bg-primary/5 rounded-3xl p-12 border border-primary/20 glow shadow-xl"
+          >
             <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Business?</h2>
             <p className="text-lg text-muted-foreground mb-8">
               Contact us today to discuss how our {title} solutions can help you achieve your goals.
@@ -128,7 +140,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
             <Button size="lg" className="glow" asChild>
               <Link to="/contact">Schedule a Consultation</Link>
             </Button>
-          </div>
+          </motion.div>
         </div>
       </section>
 

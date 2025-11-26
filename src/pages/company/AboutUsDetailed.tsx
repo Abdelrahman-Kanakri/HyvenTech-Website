@@ -71,8 +71,8 @@ const AboutUsDetailed = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
             <motion.div 
-              whileHover={{ y: -5 }}
-              className="p-8 rounded-2xl glass border border-primary/20"
+              whileHover={{ scale: 1.03, y: -5 }}
+              className="p-8 rounded-2xl glass border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
             >
               <Target className="w-12 h-12 text-primary mb-6" />
               <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
@@ -81,8 +81,8 @@ const AboutUsDetailed = () => {
               </p>
             </motion.div>
             <motion.div 
-              whileHover={{ y: -5 }}
-              className="p-8 rounded-2xl glass border border-primary/20"
+              whileHover={{ scale: 1.03, y: -5 }}
+              className="p-8 rounded-2xl glass border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
             >
               <Zap className="w-12 h-12 text-primary mb-6" />
               <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
@@ -123,10 +123,14 @@ const AboutUsDetailed = () => {
                 desc: "The physical enablers. We supply and configure the necessary hardware—servers, POS terminals, barcode scanners—ensuring 100% compatibility with our software."
               }
             ].map((item, i) => (
-              <div key={i} className="bg-background p-6 rounded-xl border hover:border-primary/50 transition-colors">
+              <motion.div 
+                key={i} 
+                whileHover={{ scale: 1.03, y: -5 }}
+                className="bg-background p-6 rounded-xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+              >
                 <h3 className="font-bold text-lg mb-3 text-primary">{item.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
           

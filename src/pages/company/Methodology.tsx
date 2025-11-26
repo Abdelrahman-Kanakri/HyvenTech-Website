@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Search, FileText, Code, TestTube, Rocket, CheckCircle, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import Footer from "@/components/Footer";
 
 const steps = [
   {
@@ -79,6 +80,7 @@ const Methodology = () => {
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.02, y: -5 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 className="relative mb-12 md:mb-16 last:mb-0"
@@ -97,7 +99,7 @@ const Methodology = () => {
                   </div>
 
                   {/* Content Card */}
-                  <Card className="flex-1 glass glow hover:glow-strong transition-all duration-300">
+                  <Card className="flex-1 glass glow hover:glow-strong transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 border border-border/50 hover:border-primary/50">
                     <CardContent className="p-6 sm:p-8">
                       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
                         <div>
@@ -139,6 +141,7 @@ const Methodology = () => {
           })}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

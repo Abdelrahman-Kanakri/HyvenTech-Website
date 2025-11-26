@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Linkedin, Mail } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import Footer from "@/components/Footer";
 
 const team = [
   {
@@ -73,10 +74,11 @@ const Leadership = () => {
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.03, y: -5 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              <Card className="glass glow h-full hover:glow-strong transition-all duration-300 group flex flex-col">
+              <Card className="glass glow h-full hover:glow-strong transition-all duration-300 group flex flex-col hover:shadow-xl hover:shadow-primary/10 border border-border/50 hover:border-primary/50">
                 <CardContent className="p-8 flex-1 flex flex-col">
                   {/* Avatar & Header */}
                   <div className="flex flex-col items-center mb-6">
@@ -132,6 +134,7 @@ const Leadership = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

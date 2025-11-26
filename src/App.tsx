@@ -36,6 +36,8 @@ import Logistics from "./pages/industries/Logistics";
 import Energy from "./pages/industries/Energy";
 import AboutUsDetailed from "./pages/company/AboutUsDetailed";
 import Leadership from "./pages/company/Leadership";
+import LeadershipSection from "./pages/company/LeadershipSection";
+import FusionLeadership from "./pages/company/FusionLeadership";
 import Methodology from "./pages/company/Methodology";
 import WhyUs from "./pages/company/WhyUs";
 
@@ -70,7 +72,7 @@ const App = () => {
             
             {/* Company Pages */}
             <Route path="company/profile" element={<AboutUsDetailed />} />
-            <Route path="company/leadership" element={<Leadership />} />
+            <Route path="company/leadership" element={<FusionLeadership />} />
             <Route path="company/methodology" element={<Methodology />} />
             <Route path="company/why-us" element={<WhyUs />} />
 

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Lightbulb, Users, Rocket, Target, Shield, Zap, Check, Star } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Footer from "@/components/Footer";
 
 const benefits = [
   {
@@ -71,10 +72,11 @@ const WhyUs = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.03, y: -5 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <Card className="glass glow h-full hover:glow-strong transition-all duration-300 group flex flex-col">
+                <Card className="glass glow h-full hover:glow-strong transition-all duration-300 group flex flex-col hover:shadow-xl hover:shadow-primary/10 border border-border/50 hover:border-primary/50">
                   <CardHeader className="pb-4">
                     <div className="w-14 h-14 rounded-xl bg-gradient-glow flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg shadow-primary/10">
                       <Icon className="h-7 w-7 text-primary" />
@@ -102,6 +104,7 @@ const WhyUs = () => {
           })}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
