@@ -35,8 +35,6 @@ import Education from "./pages/industries/Education";
 import Logistics from "./pages/industries/Logistics";
 import Energy from "./pages/industries/Energy";
 import AboutUsDetailed from "./pages/company/AboutUsDetailed";
-import Leadership from "./pages/company/Leadership";
-import LeadershipSection from "./pages/company/LeadershipSection";
 import FusionLeadership from "./pages/company/FusionLeadership";
 import Methodology from "./pages/company/Methodology";
 import WhyUs from "./pages/company/WhyUs";
@@ -47,7 +45,7 @@ const App = () => {
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
   }, []);
-
+  
   return (
     <TooltipProvider>
       {isLoading ? (
