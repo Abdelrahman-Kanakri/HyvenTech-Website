@@ -9,28 +9,28 @@ const industries = [
     name: "Healthcare",
     description: "HIPAA-compliant solutions for hospitals, clinics, and healthcare providers",
     solutions: ["EMR Systems", "Patient Portals", "Telemedicine"],
-    link: "/industries/healthcare"
+    link: "/key-sectors/healthcare"
   },
   {
     icon: DollarSign,
     name: "Finance & Banking",
     description: "Secure, scalable fintech solutions with regulatory compliance",
     solutions: ["Payment Systems", "Trading Platforms", "Risk Management"],
-    link: "/industries/finance"
+    link: "/key-sectors/finance"
   },
   {
     icon: ShoppingCart,
     name: "Retail & E-Commerce",
     description: "Omnichannel retail solutions driving customer engagement",
     solutions: ["E-Commerce Platforms", "POS Systems", "Inventory Management"],
-    link: "/industries/retail"
+    link: "/key-sectors/retail"
   },
   {
     icon: Factory,
     name: "Manufacturing",
     description: "Industry 4.0 solutions for smart manufacturing and supply chain",
     solutions: ["MES Systems", "IoT Monitoring", "Predictive Maintenance"],
-    link: "/industries/manufacturing"
+    link: "/key-sectors/manufacturing"
   },
 
   {
@@ -38,27 +38,27 @@ const industries = [
     name: "Education",
     description: "EdTech platforms enhancing learning experiences",
     solutions: ["LMS Platforms", "Student Portals", "Virtual Classrooms"],
-    link: "/industries/education"
+    link: "/key-sectors/education"
   },
   {
     icon: Truck,
     name: "Logistics",
     description: "Supply chain optimization and fleet management solutions",
     solutions: ["Route Optimization", "Warehouse Management", "Tracking Systems"],
-    link: "/industries/logistics"
+    link: "/key-sectors/logistics"
   },
   {
     icon: Leaf,
     name: "Energy & Utilities",
     description: "Smart grid and renewable energy management systems",
     solutions: ["Smart Metering", "Energy Analytics", "Grid Management"],
-    link: "/industries/energy"
+    link: "/key-sectors/energy"
   },
 ];
 
 const Industries = () => {
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-muted/20">
+    <section id="key-sectors" className="py-12 sm:py-16 md:py-20 bg-muted/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -68,7 +68,7 @@ const Industries = () => {
           className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
-            <span className="glow rounded-xl px-4 py-2 inline-block">Industries We <span className="text-primary">Serve</span></span>
+            <span className="glow rounded-xl px-4 py-2 inline-block">Key <span className="text-primary">Sectors</span></span>
           </h2>
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-0">
             Delivering tailored solutions across diverse sectors

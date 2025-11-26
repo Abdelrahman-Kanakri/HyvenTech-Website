@@ -22,7 +22,7 @@ const ScrollToTop = () => {
     const scrollToElement = (selector: string) => {
       const element = document.querySelector(selector);
       if (element) {
-        element.scrollIntoView({ behavior: "auto", block: "start" });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
         return true;
       }
       return false;
@@ -40,11 +40,11 @@ const ScrollToTop = () => {
     // Handle virtual routes mapping to sections
     const BASE_PATH = '';
     if (pathname === `${BASE_PATH}/home`) {
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (pathname === `${BASE_PATH}/services`) {
       scrollToElement('#services');
-    } else if (pathname === `${BASE_PATH}/industries`) {
-      scrollToElement('#industries');
+    } else if (pathname === `${BASE_PATH}/key-sectors`) {
+      scrollToElement('#key-sectors');
     } else if (pathname === `${BASE_PATH}/contact`) {
       scrollToElement('#contact');
     } else if (pathname === `${BASE_PATH}/about`) {
@@ -53,7 +53,7 @@ const ScrollToTop = () => {
       scrollToElement(hash);
     } else {
       // For new navigations (PUSH), scroll to top instantly
-      window.scrollTo({ top: 0, behavior: 'auto' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [pathname, hash, navType]);
 

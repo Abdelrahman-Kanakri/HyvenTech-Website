@@ -21,7 +21,7 @@ const ClientLogos = () => {
           className="text-center mb-8 sm:mb-10 md:mb-12"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
-            <span className="glow rounded-xl px-4 py-2 inline-block"><span className="text-primary">Partners</span></span>
+            <span className="glow rounded-xl px-4 py-2 inline-block"><span className="text-primary">Trusted By</span></span>
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground">
             Partnering with organizations across multiple sectors

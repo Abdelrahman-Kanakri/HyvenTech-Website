@@ -19,7 +19,8 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import FAQ from "./pages/FAQ";
 import SocialMedia from "./pages/SocialMedia";
-import AboutUsDetailed from "./pages/AboutUsDetailed";
+
+import Careers from "./pages/Careers";
 import AccountingSystems from "./pages/services/AccountingSystems";
 import DigitalDevelopment from "./pages/services/DigitalDevelopment";
 import AIServices from "./pages/services/AIServices";
@@ -33,6 +34,10 @@ import Manufacturing from "./pages/industries/Manufacturing";
 import Education from "./pages/industries/Education";
 import Logistics from "./pages/industries/Logistics";
 import Energy from "./pages/industries/Energy";
+import AboutUsDetailed from "./pages/company/AboutUsDetailed";
+import Leadership from "./pages/company/Leadership";
+import Methodology from "./pages/company/Methodology";
+import WhyUs from "./pages/company/WhyUs";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -56,25 +61,36 @@ const App = () => {
             <Route path="services" element={<Index />} />
             <Route path="about" element={<Index />} />
             <Route path="contact" element={<Index />} />
-            <Route path="industries" element={<Index />} />
+            <Route path="key-sectors" element={<Index />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="terms-of-service" element={<TermsOfService />} />
             <Route path="faq" element={<FAQ />} />
             <Route path="social-media" element={<SocialMedia />} />
-            <Route path="about-us" element={<AboutUsDetailed />} />
+            <Route path="careers" element={<Careers />} />
+            
+            {/* Company Pages */}
+            <Route path="company/profile" element={<AboutUsDetailed />} />
+            <Route path="company/leadership" element={<Leadership />} />
+            <Route path="company/methodology" element={<Methodology />} />
+            <Route path="company/why-us" element={<WhyUs />} />
+
+            {/* Services */}
             <Route path="services/accounting-systems" element={<AccountingSystems />} />
             <Route path="services/digital-development" element={<DigitalDevelopment />} />
             <Route path="services/ai-solutions" element={<AIServices />} />
             <Route path="services/technical-hardware" element={<TechnicalHardware />} />
             <Route path="services/digital-marketing" element={<DigitalMarketing />} />
             <Route path="services/cyber-security" element={<CyberSecurity />} />
-            <Route path="industries/healthcare" element={<Healthcare />} />
-            <Route path="industries/finance" element={<Finance />} />
-            <Route path="industries/retail" element={<Retail />} />
-            <Route path="industries/manufacturing" element={<Manufacturing />} />
-            <Route path="industries/education" element={<Education />} />
-            <Route path="industries/logistics" element={<Logistics />} />
-            <Route path="industries/energy" element={<Energy />} />
+
+            {/* Key Sectors */}
+            <Route path="key-sectors/healthcare" element={<Healthcare />} />
+            <Route path="key-sectors/finance" element={<Finance />} />
+            <Route path="key-sectors/retail" element={<Retail />} />
+            <Route path="key-sectors/manufacturing" element={<Manufacturing />} />
+            <Route path="key-sectors/education" element={<Education />} />
+            <Route path="key-sectors/logistics" element={<Logistics />} />
+            <Route path="key-sectors/energy" element={<Energy />} />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
 

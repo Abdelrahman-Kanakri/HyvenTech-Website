@@ -7,7 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
 const navItems = [
-  { name: "Home", href: "/#home" },
+  { name: "Home", href: "/" },
   { 
     name: "Services", 
     href: "/services",
@@ -21,19 +21,28 @@ const navItems = [
     ]
   },
   { 
-    name: "Industries", 
-    href: "/industries",
+    name: "Key Sectors", 
+    href: "/key-sectors",
     dropdown: [
-      { name: "Healthcare", href: "/industries/healthcare", isHighlight: false },
-      { name: "Finance & Banking", href: "/industries/finance", isHighlight: false },
-      { name: "Retail & E-Commerce", href: "/industries/retail", isHighlight: false },
-      { name: "Manufacturing", href: "/industries/manufacturing", isHighlight: false },
-      { name: "Education", href: "/industries/education", isHighlight: false },
-      { name: "Logistics", href: "/industries/logistics", isHighlight: false },
-      { name: "Energy & Utilities", href: "/industries/energy", isHighlight: false }
+      { name: "Healthcare", href: "/key-sectors/healthcare", isHighlight: false },
+      { name: "Finance & Banking", href: "/key-sectors/finance", isHighlight: false },
+      { name: "Retail & E-Commerce", href: "/key-sectors/retail", isHighlight: false },
+      { name: "Manufacturing", href: "/key-sectors/manufacturing", isHighlight: false },
+      { name: "Education", href: "/key-sectors/education", isHighlight: false },
+      { name: "Logistics", href: "/key-sectors/logistics", isHighlight: false },
+      { name: "Energy & Utilities", href: "/key-sectors/energy", isHighlight: false }
     ]
   },
-  { name: "About", href: "/about" },
+  { 
+    name: "Company", 
+    href: "/about",
+    dropdown: [
+      { name: "Corporate Profile", href: "/company/profile", isHighlight: true },
+      { name: "Leadership", href: "/company/leadership", isHighlight: false },
+      { name: "Our Methodology", href: "/company/methodology", isHighlight: false },
+      { name: "The Fusion Advantage", href: "/company/why-us", isHighlight: false }
+    ]
+  },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -66,37 +75,14 @@ const Navigation = () => {
     setOpenDropdown(openDropdown === itemName ? null : itemName);
   };
 
-  const handleLinkClick = (e: React.MouseEvent, href: string) => {
+  const handleLinkClick = () => {
     setMobileMenuOpen(false);
     setOpenDropdown(null);
-
-    const [targetPath, targetHash] = href.split('#');
-    
-    // Check if we are on the same page AND same path
-    const currentPath = location.pathname;
-    
-    // If we are clicking a hash link on the CURRENT page, scroll smoothly
-    if (currentPath === targetPath && targetHash) {
-        e.preventDefault();
-        const el = document.querySelector('#' + targetHash);
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
-        }
-        return;
-    }
-
-    // For everything else (different page, or same page but different virtual path like /services),
-    // we let the router handle it. This ensures App.tsx triggers the transition.
-    // We do NOT manually scroll here; ScrollToTop.tsx will handle it.
   };
 
-
-
   const getLinkProps = (href: string) => {
-    const [path, hash] = href.split('#');
     return {
-      to: path || "/",
-      state: hash ? { scrollTo: hash } : undefined
+      to: href
     };
   };
 
@@ -118,7 +104,7 @@ const Navigation = () => {
                 {...getLinkProps("/")}
                 className="flex items-center gap-2 group" 
                 aria-label="Fusion Innovation IT Home"
-                onClick={(e) => handleLinkClick(e, "/")}
+                onClick={handleLinkClick}
               >
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform">
                   <span className="text-primary font-bold text-base sm:text-lg">FI</span>
@@ -136,7 +122,7 @@ const Navigation = () => {
                       <div className="flex items-center gap-1">
                         <Link
                           {...getLinkProps(item.href)}
-                          onClick={(e) => handleLinkClick(e, item.href)}
+                          onClick={handleLinkClick}
                           className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
                           aria-label={`Navigate to ${item.name} section`}
                         >
@@ -172,7 +158,7 @@ const Navigation = () => {
                                 <Link
                                   key={index}
                                   {...getLinkProps(dropItem.href)}
-                                  onClick={(e) => handleLinkClick(e, dropItem.href)}
+                                  onClick={handleLinkClick}
                                   className={`block px-4 py-3 text-sm hover:bg-primary/10 transition-colors ${
                                     dropItem.isHighlight ? 'text-primary font-semibold border-t border-border/50' : 'text-foreground/80'
                                   }`}
@@ -188,7 +174,7 @@ const Navigation = () => {
                     ) : (
                       <Link
                         {...getLinkProps(item.href)}
-                        onClick={(e) => handleLinkClick(e, item.href)}
+                        onClick={handleLinkClick}
                         className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
                         aria-label={`Navigate to ${item.name}`}
                       >
@@ -204,7 +190,7 @@ const Navigation = () => {
                   asChild
                   className="glow bg-primary hover:bg-primary/90 text-primary-foreground px-6"
                 >
-                  <Link {...getLinkProps("/contact")} onClick={(e) => handleLinkClick(e, "/contact")}>
+                  <Link {...getLinkProps("/contact")} onClick={handleLinkClick}>
                     Get Started
                   </Link>
                 </Button>
@@ -271,7 +257,7 @@ const Navigation = () => {
                                     key={index}
                                     {...getLinkProps(dropItem.href)}
                                     className="block py-2 text-foreground/70 hover:text-primary transition-colors"
-                                    onClick={(e) => handleLinkClick(e, dropItem.href)}
+                                    onClick={handleLinkClick}
                                   >
                                     {dropItem.name}
                                   </Link>
@@ -283,7 +269,7 @@ const Navigation = () => {
                       ) : (
                         <Link
                           {...getLinkProps(item.href)}
-                          onClick={(e) => handleLinkClick(e, item.href)}
+                          onClick={handleLinkClick}
                           className="block text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
                         >
                           {item.name}
@@ -296,7 +282,7 @@ const Navigation = () => {
                     asChild
                     className="w-full glow bg-primary hover:bg-primary/90 text-primary-foreground mt-6"
                   >
-                    <Link {...getLinkProps("/contact")} onClick={(e) => handleLinkClick(e, "/contact")}>
+                    <Link {...getLinkProps("/contact")} onClick={handleLinkClick}>
                         Get Started
                     </Link>
                   </Button>

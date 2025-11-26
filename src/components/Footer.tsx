@@ -141,20 +141,8 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Fusion Innovation IT. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link to="/privacy-policy" className="hover:text-primary transition-colors">Privacy</Link>
-            <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms</Link>
-            <Link to="/sitemap" className="hover:text-primary transition-colors">Sitemap</Link>
-          </div>
-        </div>
       </div>
       
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
     </footer>
   );

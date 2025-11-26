@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 const values = [
   {
     icon: Target,
-    title: "Our Mission",
-    description: "To empower businesses with innovative technology solutions that drive growth and efficiency.",
+    title: "Our Vision",
+    description: "To empower businesses by automating their operations using the latest AI solutions and advanced software.",
   },
   {
     icon: Users,
@@ -28,7 +28,7 @@ const values = [
 
 const About = () => {
   return (
-    <section className="py-12 sm:py-16 md:py-20 relative">
+    <section id="about" className="py-12 sm:py-16 md:py-20 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -38,14 +38,15 @@ const About = () => {
           className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
-            About <span className="text-primary">Fusion Innovation IT</span>
+            Corporate <span className="text-primary">Profile</span>
           </h2>
-          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-3xl mx-auto px-2 sm:px-0 leading-relaxed mb-8">
-            We are a forward-thinking technology company specializing in comprehensive 
-            IT solutions. From enterprise systems to mobile applications, we transform 
-            your digital vision into reality.
-          </p>
-          <Link to="/about-us">
+          <div className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-4xl mx-auto px-2 sm:px-0 leading-relaxed mb-8 space-y-4">
+            <p>
+            Fusion Innovation IT is a leader in integrated technology, empowering sectors from Healthcare and Finance to Manufacturing and Logistics. We combine deep industry expertise with cutting-edge AI to deliver end-to-end solutions—from custom software and mobile apps to essential business hardware.
+            </p>
+            
+          </div>
+          <Link to="/company/profile">
             <Button className="glow bg-primary hover:bg-primary/90 text-primary-foreground px-8">
               Learn More
               <ArrowRight className="ml-2 h-4 w-4" />

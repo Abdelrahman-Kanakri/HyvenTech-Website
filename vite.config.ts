@@ -1,5 +1,5 @@
 import { defineConfig, loadEnv } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import path from "path";
 
 // https://vitejs.dev/config/
@@ -32,20 +32,8 @@ export default defineConfig(({ mode }) => {
     build: {
       // 3. FIX: "es2020" allows 'import.meta' to work without errors in older environments
       target: "es2020",
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            "react-vendor": ["react", "react-dom", "react-router-dom"],
-            "ui-vendor": [
-              "lucide-react",
-              "@radix-ui/react-slot",
-              "framer-motion",
-            ],
-          },
-        },
-      },
       cssCodeSplit: true,
-      minify: "esbuild",
+      minify: false,
       chunkSizeWarningLimit: 1000,
     },
   };

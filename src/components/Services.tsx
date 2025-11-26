@@ -15,37 +15,37 @@ const services = [
   {
     icon: Calculator,
     title: "Accounting Systems",
-    description: "Ready-to-use and fully customized accounting software tailored to your specific business requirements.",
+    description: "Our own ready-to-use software, as well as fully customized systems tailored to your specific requirements.",
     link: "/services/accounting-systems"
   },
   {
     icon: Code,
     title: "Digital Development",
-    description: "Professional website and mobile application development to bring your digital vision to life.",
+    description: "Professional website and mobile application development.",
     link: "/services/digital-development"
   },
   {
     icon: Bot,
     title: "Artificial Intelligence (AI)",
-    description: "Smart AI solutions and software designed to meet current market demands and automate your business.",
+    description: "Smart solutions and software designed to meet current market demands.",
     link: "/services/ai-solutions"
   },
   {
     icon: HardDrive,
     title: "Technical Hardware",
-    description: "Supply of specialized hardware for accounting systems including barcode scanners and POS terminals.",
+    description: "Supply of hardware specifically for accounting systems (e.g., barcode scanners and POS terminals).",
     link: "/services/technical-hardware"
   },
   {
     icon: Share2,
     title: "Digital Marketing",
-    description: "Integrated solutions for managing and delivering comprehensive social media services.",
+    description: "Integrated solutions for managing and delivering social media services.",
     link: "/services/digital-marketing"
   },
   {
     icon: ShieldCheck,
     title: "Cyber Security",
-    description: "Protect your data and infrastructure with robust security measures and anti-hacking solutions.",
+    description: "Strategic partnership with KnowBe4.",
     link: "/services/cyber-security"
   },
 ];
@@ -91,7 +91,7 @@ const Services = () => {
           className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
-            <span className="glow rounded-xl px-4 py-2 inline-block">Our <span className="text-primary">Services</span></span>
+            <span className="glow rounded-xl px-4 py-2 inline-block">Core <span className="text-primary">Capabilities</span></span>
           </h2>
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-0">
             Comprehensive technology solutions designed to elevate your business
