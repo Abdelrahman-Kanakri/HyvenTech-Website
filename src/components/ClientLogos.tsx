@@ -4,7 +4,7 @@ const clients = [
   { 
     name: "KnowBe4", 
     industry: "Cybersecurity", 
-    logo: "dist/knowbe4-logo.svg", 
+    logo: "knowbe4-logo.svg", 
     link: "https://www.knowbe4.com/" 
   },
 ];
