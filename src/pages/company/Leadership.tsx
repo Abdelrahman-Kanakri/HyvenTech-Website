@@ -57,8 +57,9 @@ const Leadership = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          <br></br>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-            Our <span className="text-primary glow">Leadership</span>
+          <span className="glow rounded-xl px-4 py-2 inline-block"><span className="text-primary">Our Leadership</span></span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Meet the visionaries and experts driving Fusion Innovation IT forward. Our diverse team combines decades of experience in technology, strategy, and innovation.

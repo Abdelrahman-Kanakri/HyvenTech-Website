@@ -52,8 +52,9 @@ const WhyUs = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
+          <br></br>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-            The <span className="text-primary glow">Fusion Advantage</span>
+          <span className="glow rounded-xl px-4 py-2 inline-block"><span className="text-primary">The Fusion Advantages</span></span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Why leading enterprises choose Fusion Innovation IT as their digital transformation partner. We bring a unique blend of technical excellence and business acumen.

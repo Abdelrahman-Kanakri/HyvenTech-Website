@@ -58,8 +58,9 @@ const Methodology = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
+          <br></br>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-            Our <span className="text-primary glow">Methodology</span>
+          <span className="glow rounded-xl px-4 py-2 inline-block"><span className="text-primary">Our Methodolgy</span></span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             A proven, structured approach to digital transformation. We combine agile flexibility with enterprise-grade rigor to deliver exceptional results.
