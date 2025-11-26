@@ -1,0 +1,60 @@
+name: Deploy React App to Pages
+
+on:
+  # Runs on pushes to the 'main' branch (or 'master')
+  push:
+    branches: ["main", "master"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build # This runs "vite build"
+        env:
+          # CRITICAL: We must pass the secret to the build environment
+          # This allows Vite to replace `import.meta.env.VITE_N8N_WEBHOOK_URL` with the actual URL
+          VITE_N8N_WEBHOOK_URL: ${{ secrets.VITE_N8N_WEBHOOK_URL }}
+
+      # --- SPA Routing Fix ---
+      # GitHub Pages doesn't support SPA routing natively (e.g., /services/ai-solutions).
+      # Copying index.html to 404.html makes GitHub Pages serve the index page for unknown routes,
+      # allowing React Router to take over and render the correct page.
+      - name: Prepare 404.html for SPA Fallback
+        run: cp dist/index.html dist/404.html
+      # --------------------------
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
