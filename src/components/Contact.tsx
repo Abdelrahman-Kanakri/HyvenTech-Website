@@ -72,7 +72,7 @@ const Contact = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 glass rounded-lg hover:glow active:scale-[0.98] transition-all group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 touch-manipulation min-h-[64px]"
+                  className="flex items-center gap-3 sm:gap-4 p-3.5 sm:p-4 glass rounded-lg glow hover:glow-strong active:scale-[0.98] transition-all group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 touch-manipulation min-h-[64px]"
                 >
                   <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
                     <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" aria-hidden="true" />

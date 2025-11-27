@@ -77,7 +77,7 @@ const App = () => {
             <Navigation />
             <MobileLogo />
             
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
               <motion.div
                 key={location.pathname}
                 initial={{ opacity: 0 }}

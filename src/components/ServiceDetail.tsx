@@ -25,7 +25,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
   features,
 }) => {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       
       {/* Hero Section */}
