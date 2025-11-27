@@ -1,16 +1,17 @@
 import { useEffect, useRef, useLayoutEffect } from "react";
 import { useLocation, useNavigationType } from "react-router-dom";
 
+const scrollPositions: Record<string, number> = {};
+
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
   const navType = useNavigationType();
-  const scrollPositions = useRef<Record<string, number>>({});
 
   // 1. Save scroll position before leaving the page
   useEffect(() => {
     // Save on scroll
     const handleScroll = () => {
-      scrollPositions.current[pathname] = window.scrollY;
+      scrollPositions[pathname] = window.scrollY;
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -35,7 +36,7 @@ const ScrollToTop = () => {
 
     // 2. Handle Browser Back Button (POP)
     if (navType === "POP") {
-      const savedPosition = scrollPositions.current[pathname];
+      const savedPosition = scrollPositions[pathname];
       if (savedPosition !== undefined) {
         window.scrollTo(0, savedPosition);
         return;
@@ -47,7 +48,7 @@ const ScrollToTop = () => {
     let didScrollToSection = false;
 
     // Check path-specific scroll logic
-    if (pathname === `${BASE_PATH}/home`) {
+    if (pathname === `${BASE_PATH}/` || pathname === `${BASE_PATH}/home`) {
       // Home usually just means top
       window.scrollTo({ top: 0, behavior: 'instant' });
       didScrollToSection = true;

@@ -73,11 +73,10 @@ const App = () => {
           </div>
           
           <div className="relative z-10">
-            <ScrollToTop />
             <Navigation />
             <MobileLogo />
             
-            <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
+            <AnimatePresence mode="wait">
               <motion.div
                 key={location.pathname}
                 initial={{ opacity: 0 }}
@@ -85,6 +84,7 @@ const App = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
               >
+                <ScrollToTop />
                 <Routes location={location}>
                   <Route index element={<Index />} />
                   <Route path="services" element={<Index />} />
