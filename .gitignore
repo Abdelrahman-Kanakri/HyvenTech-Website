@@ -33,7 +33,7 @@ yarn-error.log*
 *.sw?
 
 # Leadership images (kept private, not committed)
-src/assets/leadership/
+#src/assets/leadership/
 
 # Product specification
 PRODUCT_SPECIFICATION.pdf
