@@ -14,7 +14,7 @@ const Footer = () => {
 
   const contactItems = [
     { icon: MapPin, label: "123 Innovation Drive, Tech City, TC 90210", href: "#" },
-    { icon: Mail, label: "contact@fusioninnovation.it", href: "mailto:contact@fusioninnovation.it" },
+    { icon: Mail, label: "contact@hyventech.com", href: "mailto:contact@hyventech.com" },
     { icon: Phone, label: "+1 (555) 123-4567", href: "tel:+15551234567" },
   ];
 
@@ -27,10 +27,10 @@ const Footer = () => {
   ];
 
   const companyLinks = [
-    { label: "About Us", href: "/about-us" },
+    { label: "About Us", href: "/company/profile" },
     { label: "Careers", href: "/careers" },
     { label: "Blog", href: "/blog" },
-    { label: "Case Studies", href: "/case-studies" },
+    { label: "Case Studies", href: "/-studicasees" },
   ];
 
   const legalLinks = [
@@ -46,10 +46,10 @@ const Footer = () => {
           <div className="lg:col-span-2 space-y-6">
             <Link to="/" className="flex items-center gap-2 group">
               <div className="w-10 h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-primary font-bold text-lg">FI</span>
+                <span className="text-primary font-bold text-lg">HT</span>
               </div>
               <span className="font-bold text-xl">
-                Fusion Innovation IT
+                HyvenTech
               </span>
             </Link>
             <p className="text-muted-foreground max-w-sm leading-relaxed">

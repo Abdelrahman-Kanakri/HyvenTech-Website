@@ -8,9 +8,9 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "info@fusionmediait.com",
-    href: "mailto:info@fusionmediait.com",
-    ariaLabel: "Send email to info@fusionmediait.com",
+    value: "info@hyventech.com",
+    href: "mailto:info@hyventech.com",
+    ariaLabel: "Send email to info@hyventech.com",
   },
   {
     icon: Phone,

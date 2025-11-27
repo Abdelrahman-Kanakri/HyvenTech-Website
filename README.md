@@ -1,6 +1,6 @@
-# Fusion Innovation IT
+# HyvenTech
 
-[Fusion Innovation IT official site](https://abdelrahman-kanakri.github.io/Fusion-Innovation-IT/)
+[HyvenTech official site](https://abdelrahman-kanakri.github.io/Fusion-Innovation-IT/)
 
 A modern, responsive corporate website showcasing technology services and solutions.
 
@@ -72,4 +72,4 @@ The project builds to the `dist/` directory with optimized production assets.
 
 ## License
 
-© 2024 Fusion Innovation IT. All rights reserved.
+© 2024 HyvenTech. All rights reserved.

@@ -11,33 +11,33 @@ const SocialMedia = () => {
       icon: Facebook,
       url: "https://facebook.com",
       color: "hover:text-blue-700",
-      description: "Fusion Innovation IT on Facebook"
+      description: "HyvenTech on Facebook"
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
       url: "https://linkedin.com",
       color: "hover:text-blue-600",
-      description: "Fusion Innovation IT on LinkedIn"
+      description: "HyvenTech on LinkedIn"
     },
     {
       name: "Instagram",
       icon: Instagram,
       url: "https://instagram.com",
       color: "hover:text-pink-600",
-      description: "Fusion Innovation IT on Instagram"
+      description: "HyvenTech on Instagram"
     },
     {
       name: "X (Twitter)",
       icon: Twitter,
       url: "https://twitter.com",
       color: "hover:text-sky-500",
-      description: "Fusion Innovation IT on X"
+      description: "HyvenTech on X"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       <div className="container mx-auto px-4 py-32 flex-grow">
         <div className="text-center mb-16">

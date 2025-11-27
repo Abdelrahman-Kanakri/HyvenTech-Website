@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const AboutUsDetailed = () => {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       
       {/* Hero Section */}
@@ -22,10 +22,10 @@ const AboutUsDetailed = () => {
             className="max-w-4xl mx-auto text-center"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="glow rounded-xl px-4 py-2 inline-block"><span className="text-primary">Corporate Profile</span></span>
+              <span className="glow rounded-xl px-4 py-2 inline-block"><span className="text-primary">About HyvenTech</span></span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Fusion Innovation IT delivers integrated technological solutions for diverse industries, including Healthcare, Finance, and Logistics. By fusing Artificial Intelligence with custom software and hardware systems, we turn complex business challenges into smart, manageable growth.
+              HyvenTech delivers integrated technological solutions for diverse industries, including Healthcare, Finance, and Logistics. By fusing Artificial Intelligence with custom software and hardware systems, we turn complex business challenges into smart, manageable growth.
             </p>
           </motion.div>
         </div>
@@ -44,7 +44,7 @@ const AboutUsDetailed = () => {
               <h2 className="text-3xl font-bold">Who We Are</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p className="text-lg">
-                  Fusion Innovation IT is a leader in integrated technology, empowering sectors from Healthcare and Finance to Manufacturing and Logistics. We combine deep industry expertise with cutting-edge AI to deliver end-to-end solutions—from custom software and mobile apps to essential business hardware.
+                  HyvenTech is a leader in integrated technology, empowering sectors from Healthcare and Finance to Manufacturing and Logistics. We combine deep industry expertise with cutting-edge AI to deliver end-to-end solutions—from custom software and mobile apps to essential business hardware.
                 </p>
               </div>
             </motion.div>
@@ -98,9 +98,9 @@ const AboutUsDetailed = () => {
       <section className="py-16 md:py-24 bg-muted/20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl font-bold mb-6">The Fusion Ecosystem</h2>
+            <h2 className="text-3xl font-bold mb-6">The HyvenTech Ecosystem</h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              We don't just deliver code; we provide smart solutions that manage your business. Whether you are in Retail, Energy, or Education, Fusion Innovation IT combines AI-driven software with practical hardware tools to streamline operations and drive efficiency across your organization.
+              We don't just deliver code; we provide smart solutions that manage your business. Whether you are in Retail, Energy, or Education, HyvenTech combines AI-driven software with practical hardware tools to streamline operations and drive efficiency across your organization.
             </p>
           </div>
 
@@ -182,7 +182,7 @@ const AboutUsDetailed = () => {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Business?</h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join the hundreds of businesses that have trusted Fusion Innovation IT with their digital future.
+            Join the hundreds of businesses that have trusted HyvenTech with their digital future.
           </p>
           <Button asChild size="lg" className="glow text-lg px-8">
             <Link to="/contact">

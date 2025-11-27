@@ -11,11 +11,11 @@ interface SEOProps {
 const SEO = ({ 
   title, 
   description, 
-  keywords = "Fusion Innovation IT, AI Solutions, Cyber Security, Medical Software, Social Media Marketing", 
+  keywords = "HyvenTech, AI Solutions, Cyber Security, Medical Software, Social Media Marketing", 
   image = "/og-image.png", 
   url 
 }: SEOProps) => {
-  const siteTitle = "Fusion Innovation IT";
+  const siteTitle = "HyvenTech";
   const fullTitle = `${title} | ${siteTitle}`;
   const currentUrl = url || window.location.href;
 

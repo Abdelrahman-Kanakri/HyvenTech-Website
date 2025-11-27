@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 
 const TermsOfService = () => {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       <div className="container mx-auto px-4 py-32 flex-grow max-w-4xl">
         <h1 className="text-4xl font-bold mb-8">Terms of Service & Copyright</h1>
@@ -12,9 +12,9 @@ const TermsOfService = () => {
           
           <section>
             <h2 className="text-2xl font-semibold text-foreground mb-4">Copyright Notice</h2>
-            <p className="font-semibold text-foreground">All Rights Reserved © 2025 Fusion Innovation IT LLC.</p>
+            <p className="font-semibold text-foreground">All Rights Reserved © 2025 HyvenTech LLC.</p>
             <p>
-              All content included on this site or within our software, such as text, graphics, logos, button icons, images, audio clips, digital downloads, data compilations, and software (including our accounting systems and AI solutions), is the property of Fusion Innovation IT and is protected by local and international copyright laws.
+              All content included on this site or within our software, such as text, graphics, logos, button icons, images, audio clips, digital downloads, data compilations, and software (including our accounting systems and AI solutions), is the property of HyvenTech and is protected by local and international copyright laws.
             </p>
             <p>
               Strictly prohibited is the reproduction, distribution, display, or transmission of the content of this site or our software without the prior written permission of the company management.
@@ -48,7 +48,7 @@ const TermsOfService = () => {
 
               <div>
                 <h3 className="text-lg font-medium text-foreground">Limitation of Liability</h3>
-                <p>While Fusion Innovation IT strives to ensure the accuracy of its software, we are not liable for human errors in data entry by the client or misuse of the system.</p>
+                <p>While HyvenTech strives to ensure the accuracy of its software, we are not liable for human errors in data entry by the client or misuse of the system.</p>
               </div>
             </div>
           </section>

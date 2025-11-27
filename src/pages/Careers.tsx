@@ -13,13 +13,13 @@ const Careers = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       <div className="container mx-auto px-4 py-32 flex-grow max-w-4xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-6">Careers</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Are you passionate about technology and innovation? At Fusion Innovation IT, we are always looking for creative minds to join our family.
+            Are you passionate about technology and innovation? At HyvenTech, we are always looking for creative minds to join our family.
           </p>
         </div>
 
@@ -45,9 +45,9 @@ const Careers = () => {
             <div className="flex flex-col gap-4">
               <p className="font-medium">Send your CV to:</p>
               <Button size="lg" className="glow w-full sm:w-auto" asChild>
-                <a href="mailto:careers@fusioninnovationit.com" className="flex items-center gap-2 justify-center">
+                <a href="mailto:careers@hyventech.com" className="flex items-center gap-2 justify-center">
                   <Mail className="w-5 h-5" />
-                  careers@fusioninnovationit.com
+                  careers@hyventech.com
                 </a>
               </Button>
             </div>

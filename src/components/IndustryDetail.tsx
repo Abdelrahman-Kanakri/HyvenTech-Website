@@ -25,7 +25,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
   solutions,
 }) => {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       
       {/* Hero Section */}
@@ -139,7 +139,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
           >
             <h2 className="text-3xl font-bold mb-6">Innovate Your {title} Business</h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Partner with Fusion Innovation IT to leverage cutting-edge technology tailored for the {title} sector.
+              Partner with HyvenTech to leverage cutting-edge technology tailored for the {title} sector.
             </p>
             <Button size="lg" className="glow" asChild>
               <Link to="/contact">Get a Custom Proposal</Link>

@@ -4,14 +4,14 @@ import Footer from "@/components/Footer";
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       <div className="container mx-auto px-4 py-32 flex-grow max-w-4xl">
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
         <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground">
           <section>
             <p>
-              At Fusion Innovation IT, we are committed to protecting the privacy of our clients and visitors. This policy outlines how we collect, use, and protect your personal information and financial data processed through our systems.
+              At HyvenTech, we are committed to protecting the privacy of our clients and visitors. This policy outlines how we collect, use, and protect your personal information and financial data processed through our systems.
             </p>
           </section>
 

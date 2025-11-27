@@ -37,10 +37,10 @@ const navItems = [
     name: "Company", 
     href: "/about",
     dropdown: [
-      { name: "Corporate Profile", href: "/company/profile", isHighlight: true },
+      { name: "About HyvenTech", href: "/company/profile", isHighlight: true },
       { name: "Leadership", href: "/company/leadership", isHighlight: false },
       { name: "Our Methodology", href: "/company/methodology", isHighlight: false },
-      { name: "The Fusion Advantage", href: "/company/why-us", isHighlight: false }
+      { name: "The HyvenTech Advantage", href: "/company/why-us", isHighlight: false }
     ]
   },
   { name: "Contact", href: "/contact" },
@@ -103,14 +103,14 @@ const Navigation = () => {
               <Link 
                 {...getLinkProps("/")}
                 className="flex items-center gap-2 group" 
-                aria-label="Fusion Innovation IT Home"
+                aria-label="HyvenTech Home"
                 onClick={handleLinkClick}
               >
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-primary font-bold text-base sm:text-lg">FI</span>
+                  <span className="text-primary font-bold text-base sm:text-lg">HT</span>
                 </div>
                 <span className="font-bold text-sm sm:text-base md:text-lg hidden sm:block">
-                  Fusion Innovation IT
+                  HyvenTech
                 </span>
               </Link>
 

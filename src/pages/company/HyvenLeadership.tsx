@@ -4,7 +4,7 @@ import { Linkedin, Mail } from "lucide-react";
 import gsap from "gsap";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import "./FusionLeadership.css";
+import "./HyvenLeadership.css";
 
 // Leader data
 const leaders = [
@@ -16,7 +16,7 @@ const leaders = [
     imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hamzah",
     bio: "Hamzah leads our technical strategy with deep expertise in enterprise resource planning and security infrastructure. His vision drives our technical excellence and innovation across all our technology platforms.",
     linkedin: "https://www.linkedin.com/in/hamza-a-jowher-5723b3124/",
-    email: "hamzah@fusioninnovation.it"
+    email: "hamzah@hyventech.com"
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const leaders = [
     imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Abdelrahman",
     bio: "Abdelrahman spearheads our AI initiatives, developing cutting-edge models and automation solutions that transform business operations. His expertise in machine learning and data science drives innovation.",
     linkedin: "https://www.linkedin.com/in/abdelrahman-kanakri-909654247/",
-    email: "abdelrahman@fusioninnovation.it"
+    email: "abdelrahman@hyventech.com"
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ const leaders = [
     imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rakan",
     bio: "Rakan bridges the gap between technical AI implementation and digital presence, ensuring our solutions are both powerful and accessible. His unique blend of skills creates seamless user experiences.",
     linkedin: "https://www.linkedin.com/in/rakannmmasdeh-rakan-783859383/",
-    email: "rakan@fusioninnovation.it"
+    email: "rakan@hyventech.com"
   },
   {
     id: 4,
@@ -44,9 +44,9 @@ const leaders = [
     role: "Social Media Manager",
     imageGray: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mahmoud&backgroundColor=b6b6b6",
     imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mahmoud",
-    bio: "Mahmoud crafts our digital narratives and manages strategic marketing initiatives to maximize brand impact and reach. His creative vision shapes how the world sees Fusion Innovation IT.",
+    bio: "Mahmoud crafts our digital narratives and manages strategic marketing initiatives to maximize brand impact and reach. His creative vision shapes how the world sees HyvenTech.",
     linkedin: "#",
-    email: "mahmoud@fusioninnovation.it"
+    email: "mahmoud@hyventech.com"
   },
   {
     id: 5,
@@ -56,11 +56,11 @@ const leaders = [
     imageColor: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lana",
     bio: "Lana creates engaging content and manages community interactions, building strong relationships between our brand and our audience. Her expertise in content strategy drives engagement.",
     linkedin: "https://www.linkedin.com/in/lana-alzoubi-029438369/",
-    email: "lana@fusioninnovation.it"
+    email: "lana@hyventech.com"
   }
 ];
 
-const FusionLeadership = () => {
+const HyvenTechLeadership = () => {
   const [activeId, setActiveId] = useState<number | null>(leaders[0].id);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -86,7 +86,7 @@ const FusionLeadership = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       
       {/* Header */}
@@ -103,7 +103,7 @@ const FusionLeadership = () => {
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Meet the visionaries driving innovation at Fusion Innovation IT
+            Meet the visionaries driving innovation at HyvenTech
           </p>
         </motion.div>
       </div>
@@ -284,4 +284,4 @@ const FusionLeadership = () => {
   );
 };
 
-export default FusionLeadership;
+export default HyvenTechLeadership;

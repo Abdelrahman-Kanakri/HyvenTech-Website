@@ -8,7 +8,7 @@ const Chatbot = () => {
   const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL || "OK";
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([
-    { text: "Hello! How can I help you with Fusion Innovation IT services today?", isUser: false },
+    { text: "Hello! How can I help you with HyvenTech services today?", isUser: false },
   ]);
   const [inputValue, setInputValue] = useState("");
   const chatRef = useRef<HTMLDivElement>(null);
@@ -91,7 +91,7 @@ const Chatbot = () => {
                   <Bot className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground">Fusion Assistant</h3>
+                  <h3 className="font-bold text-foreground">HyvenTech Assistant</h3>
                   <p className="text-xs text-muted-foreground flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     Online

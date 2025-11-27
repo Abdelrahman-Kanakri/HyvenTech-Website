@@ -38,11 +38,11 @@ const About = () => {
           className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
-            Corporate <span className="text-primary">Profile</span>
+            About <span className="text-primary">HyvenTech</span>
           </h2>
           <div className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-4xl mx-auto px-2 sm:px-0 leading-relaxed mb-8 space-y-4">
             <p>
-            Fusion Innovation IT is a leader in integrated technology, empowering sectors from Healthcare and Finance to Manufacturing and Logistics. We combine deep industry expertise with cutting-edge AI to deliver end-to-end solutions—from custom software and mobile apps to essential business hardware.
+            HyvenTech is a leader in integrated technology, empowering sectors from Healthcare and Finance to Manufacturing and Logistics. We combine deep industry expertise with cutting-edge AI to deliver end-to-end solutions—from custom software and mobile apps to essential business hardware.
             </p>
             
           </div>
