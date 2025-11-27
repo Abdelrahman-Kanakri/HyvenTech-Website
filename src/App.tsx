@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -43,6 +44,7 @@ import WhyUs from "./pages/company/WhyUs";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
@@ -75,45 +77,55 @@ const App = () => {
             <Navigation />
             <MobileLogo />
             
-            <Routes>
-              <Route index element={<Index />} />
-              <Route path="services" element={<Index />} />
-              <Route path="about" element={<Index />} />
-              <Route path="contact" element={<Index />} />
-              <Route path="key-sectors" element={<Index />} />
-              <Route path="privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="terms-of-service" element={<TermsOfService />} />
-              <Route path="faq" element={<FAQ />} />
-              <Route path="social-media" element={<SocialMedia />} />
-              <Route path="careers" element={<Careers />} />
-              <Route path="blog" element={<ComingSoon />} />
-              <Route path="case-studies" element={<ComingSoon />} />
-              
-              {/* Company Pages */}
-              <Route path="company/profile" element={<AboutUsDetailed />} />
-              <Route path="company/leadership" element={<HyvenLeadership />} />
-              <Route path="company/methodology" element={<Methodology />} />
-              <Route path="company/why-us" element={<WhyUs />} />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Routes location={location}>
+                  <Route index element={<Index />} />
+                  <Route path="services" element={<Index />} />
+                  <Route path="about" element={<Index />} />
+                  <Route path="contact" element={<Index />} />
+                  <Route path="key-sectors" element={<Index />} />
+                  <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="terms-of-service" element={<TermsOfService />} />
+                  <Route path="faq" element={<FAQ />} />
+                  <Route path="social-media" element={<SocialMedia />} />
+                  <Route path="careers" element={<Careers />} />
+                  <Route path="blog" element={<ComingSoon />} />
+                  <Route path="case-studies" element={<ComingSoon />} />
+                  
+                  {/* Company Pages */}
+                  <Route path="company/profile" element={<AboutUsDetailed />} />
+                  <Route path="company/leadership" element={<HyvenLeadership />} />
+                  <Route path="company/methodology" element={<Methodology />} />
+                  <Route path="company/why-us" element={<WhyUs />} />
 
-              {/* Services */}
-              <Route path="services/accounting-systems" element={<AccountingSystems />} />
-              <Route path="services/digital-development" element={<DigitalDevelopment />} />
-              <Route path="services/ai-solutions" element={<AIServices />} />
-              <Route path="services/technical-hardware" element={<TechnicalHardware />} />
-              <Route path="services/digital-marketing" element={<DigitalMarketing />} />
-              <Route path="services/cyber-security" element={<CyberSecurity />} />
+                  {/* Services */}
+                  <Route path="services/accounting-systems" element={<AccountingSystems />} />
+                  <Route path="services/digital-development" element={<DigitalDevelopment />} />
+                  <Route path="services/ai-solutions" element={<AIServices />} />
+                  <Route path="services/technical-hardware" element={<TechnicalHardware />} />
+                  <Route path="services/digital-marketing" element={<DigitalMarketing />} />
+                  <Route path="services/cyber-security" element={<CyberSecurity />} />
 
-              {/* Key Sectors */}
-              <Route path="key-sectors/healthcare" element={<Healthcare />} />
-              <Route path="key-sectors/finance" element={<Finance />} />
-              <Route path="key-sectors/retail" element={<Retail />} />
-              <Route path="key-sectors/manufacturing" element={<Manufacturing />} />
-              <Route path="key-sectors/education" element={<Education />} />
-              <Route path="key-sectors/logistics" element={<Logistics />} />
-              <Route path="key-sectors/energy" element={<Energy />} />
+                  {/* Key Sectors */}
+                  <Route path="key-sectors/healthcare" element={<Healthcare />} />
+                  <Route path="key-sectors/finance" element={<Finance />} />
+                  <Route path="key-sectors/retail" element={<Retail />} />
+                  <Route path="key-sectors/manufacturing" element={<Manufacturing />} />
+                  <Route path="key-sectors/education" element={<Education />} />
+                  <Route path="key-sectors/logistics" element={<Logistics />} />
+                  <Route path="key-sectors/energy" element={<Energy />} />
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </motion.div>
+            </AnimatePresence>
 
             <Chatbot />
             <Toaster />

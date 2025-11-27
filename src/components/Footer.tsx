@@ -30,7 +30,7 @@ const Footer = () => {
     { label: "About Us", href: "/company/profile" },
     { label: "Careers", href: "/careers" },
     { label: "Blog", href: "/blog" },
-    { label: "Case Studies", href: "/-studicasees" },
+    { label: "Case Studies", href: "/case-studies" },
   ];
 
   const legalLinks = [
