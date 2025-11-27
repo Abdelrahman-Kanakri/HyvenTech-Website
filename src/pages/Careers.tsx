@@ -37,14 +37,14 @@ const Careers = () => {
             </ul>
           </div>
 
-          <div className="bg-card border rounded-xl p-8">
+          <div className="glass glow rounded-xl p-8 hover:glow-strong transition-all duration-300 border border-white/10">
             <h2 className="text-2xl font-bold mb-6">Why Work With Us?</h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               A flexible work environment, diverse projects, new technical challenges, and the opportunity to be part of the AI revolution in the region.
             </p>
             <div className="flex flex-col gap-4">
               <p className="font-medium">Send your CV to:</p>
-              <Button size="lg" className="glow w-full sm:w-auto" asChild>
+              <Button size="lg" className="glow w-full sm:w-auto hover:glow-strong transition-all" asChild>
                 <a href="mailto:careers@hyventech.com" className="flex items-center gap-2 justify-center">
                   <Mail className="w-5 h-5" />
                   careers@hyventech.com

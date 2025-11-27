@@ -54,17 +54,19 @@ const SocialMedia = () => {
           {socialLinks.map((social, index) => {
             const Icon = social.icon;
             return (
-              <div key={index} className="bg-card border rounded-xl p-6 flex flex-col items-center text-center hover:shadow-lg transition-all group">
-                <div className={`w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${social.color}`}>
-                  <Icon className="w-8 h-8" />
+              <div key={index} className="h-full">
+                <div className="glass glow h-full rounded-xl p-6 flex flex-col items-center text-center hover:glow-strong active:scale-[0.98] transition-all duration-300 hover:-translate-y-1 group border border-white/10">
+                  <div className={`w-16 h-16 rounded-xl bg-gradient-glow flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-primary/10`}>
+                    <Icon className={`w-8 h-8 ${social.color.replace('hover:', '')}`} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">{social.name}</h3>
+                  <p className="text-muted-foreground mb-6 flex-grow">{social.description}</p>
+                  <Button variant="outline" className="w-full glow hover:glow-strong transition-all" asChild>
+                    <a href={social.url} target="_blank" rel="noopener noreferrer">
+                      Follow on {social.name}
+                    </a>
+                  </Button>
                 </div>
-                <h3 className="text-xl font-bold mb-2">{social.name}</h3>
-                <p className="text-muted-foreground mb-6 flex-grow">{social.description}</p>
-                <Button variant="outline" className="w-full glow" asChild>
-                  <a href={social.url} target="_blank" rel="noopener noreferrer">
-                    Follow on {social.name}
-                  </a>
-                </Button>
               </div>
             );
           })}

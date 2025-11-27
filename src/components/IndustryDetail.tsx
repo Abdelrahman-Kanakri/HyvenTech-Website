@@ -96,7 +96,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
                     whileHover={{ scale: 1.02, x: 5 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg glass backdrop-blur-xl bg-muted/50 border border-border/50 hover:border-destructive/30 transition-all duration-300 group"
+                    className="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl glass glow border border-white/10 hover:glow-strong transition-all duration-300 group"
                   >
                     <div className="w-2 h-2 rounded-full bg-destructive mt-2.5 flex-shrink-0 group-hover:scale-150 transition-transform" />
                     <p className="text-base sm:text-lg">{challenge}</p>
@@ -124,7 +124,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
                     whileHover={{ scale: 1.03, y: -5 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="p-4 sm:p-6 rounded-xl border glass backdrop-blur-xl bg-card/50 border-border/50 hover:border-primary/50 hover:glow-strong transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/10 group"
+                    className="p-4 sm:p-6 rounded-xl glass glow border border-white/10 hover:glow-strong transition-all duration-300 group h-full"
                   >
                     <h3 className="text-lg sm:text-xl font-semibold mb-2 text-primary group-hover:scale-105 inline-block transition-transform">{solution.title}</h3>
                     <p className="text-sm sm:text-base text-muted-foreground">{solution.description}</p>

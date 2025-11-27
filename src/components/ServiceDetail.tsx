@@ -31,9 +31,13 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
 
   return (
     <div className={`min-h-screen flex flex-col ${isMobile ? 'pb-24' : ''}`}>
-      {/* Conditional Navigation */}
-      {!isMobile && <Navigation />}
-      {isMobile && <MobileLogo />}
+      {/* Navigation Logic */}
+      <div className="hidden lg:block">
+        <Navigation />
+      </div>
+      <div className="lg:hidden">
+        <MobileLogo />
+      </div>
       
       {/* Hero Section */}
       <section className="relative pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
@@ -54,7 +58,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6"
+              className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6"
             >
               <span className="glow rounded-xl px-3 sm:px-4 py-2 inline-block">
                 <span className="text-primary">{title}</span>
@@ -65,7 +69,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-10 leading-relaxed"
+              className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto"
             >
               {description}
             </motion.p>
@@ -76,7 +80,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
               transition={{ delay: 0.4 }}
               className="flex flex-wrap justify-center gap-4"
             >
-              <Button size="lg" className="glow w-full sm:w-auto" asChild>
+              <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all" asChild>
                 <Link to="/contact">
                   Get Started <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
@@ -86,17 +90,19 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
         </div>
       </section>
 
-      {/* Benefits Section */}
+      {/* Benefits & Features Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-7xl mx-auto">
+            
+            {/* Benefits Column */}
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8">
                 <span className="glow rounded-xl px-3 sm:px-4 py-2 inline-block">
                   <span className="text-primary">Key Benefits</span>
                 </span>
               </h2>
-              <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-4 sm:space-y-6">
                 {benefits.map((benefit, index) => (
                   <motion.div
                     key={index}
@@ -104,15 +110,17 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3"
+                    className="flex items-start gap-3 sm:gap-4"
                   >
-                    <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-base sm:text-lg">{benefit}</span>
+                    <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 text-primary flex-shrink-0 mt-0.5" />
+                    <span className="text-base sm:text-lg lg:text-xl text-foreground/90 leading-relaxed">{benefit}</span>
                   </motion.div>
                 ))}
               </div>
             </div>
-            <div className="grid gap-4 sm:gap-6">
+
+            {/* Features Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 mt-8 lg:mt-0">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
@@ -121,10 +129,10 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
                   whileHover={{ scale: 1.03, y: -5 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="glass backdrop-blur-xl bg-card/50 p-4 sm:p-6 rounded-xl border border-border/50 hover:border-primary/50 hover:glow-strong transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-primary/10 group"
+                  className="glass glow p-5 sm:p-6 lg:p-8 rounded-xl border border-white/10 hover:glow-strong transition-all duration-300 group h-full flex flex-col"
                 >
-                  <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
-                  <p className="text-sm sm:text-base text-muted-foreground">{feature.description}</p>
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{feature.title}</h3>
+                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed flex-grow">{feature.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -136,22 +144,26 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
       <section className="py-12 sm:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div 
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.3 }}
-            className="max-w-3xl mx-auto glass backdrop-blur-xl bg-primary/5 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-primary/20 glow shadow-xl"
+            className="max-w-4xl mx-auto glass backdrop-blur-xl bg-primary/5 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-primary/20 glow shadow-xl"
           >
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Ready to Transform Your Business?</h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">Ready to Transform Your Business?</h2>
+            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
               Contact us today to discuss how our {title} solutions can help you achieve your goals.
             </p>
-            <Button size="lg" className="glow w-full sm:w-auto" asChild>
+            <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all" asChild>
               <Link to="/contact">Schedule a Consultation</Link>
             </Button>
           </motion.div>
         </div>
       </section>
 
-      {isMobile && <BottomNavigation />}
+      {/* Mobile Bottom Navigation */}
+      <div className="lg:hidden">
+        <BottomNavigation />
+      </div>
+      
       <Footer />
     </div>
   );

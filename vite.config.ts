@@ -29,8 +29,17 @@ export default defineConfig(({ mode }) => {
     build: {
       target: "es2020",
       cssCodeSplit: true,
-      minify: true, // Enable minification
+      minify: "esbuild", // Explicitly use esbuild for speed
       chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+            'ui-vendor': ['lucide-react', '@radix-ui/react-slot', '@radix-ui/react-accordion', 'clsx', 'tailwind-merge'],
+            'animation-vendor': ['framer-motion', 'ogl']
+          }
+        }
+      }
     },
   };
 });

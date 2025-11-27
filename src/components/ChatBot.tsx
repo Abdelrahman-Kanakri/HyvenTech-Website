@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { v4 as uuidv4 } from 'uuid'; // Import UUID
 
 const Chatbot = () => {
   const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL || "OK";
@@ -13,8 +14,12 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState("");
   const chatRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  
-  // 1. Close when clicking outside
+
+  // 1. Generate a Unique Session ID once per page load
+  // This ensures every user gets their own private conversation memory
+  const sessionId = useRef(uuidv4());
+
+  // 2. Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (chatRef.current && !chatRef.current.contains(event.target as Node) && isOpen) {
@@ -26,12 +31,12 @@ const Chatbot = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  // 2. Auto-scroll to bottom
+  // 3. Auto-scroll to bottom
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
 
-  // 3. Handle Send Message (The Logic connecting to n8n)
+  // 4. Handle Send Message
   const handleSendMessage = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!inputValue.trim()) return;
@@ -49,19 +54,22 @@ const Chatbot = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: userText }),
+        // 👇 CRITICAL FIX: Send the sessionId so n8n knows who this is
+        body: JSON.stringify({ 
+            message: userText, 
+            sessionId: sessionId.current 
+        }),
       });
 
       if (!response.ok) {
         throw new Error(`Server error: ${response.status}`);
       }
 
-      // Safe JSON Parsing: Read text first to avoid crashes on empty responses
       const text = await response.text(); 
       const data = text ? JSON.parse(text) : {};
 
-      // Handle the response
-      const botReply = data.output || data.text || "I received your message but got no text back.";
+      // Handle the response (Check for 'output', 'text', or 'reply')
+      const botReply = data.output || data.text || data.reply || "I received your message but got no text back.";
 
       setMessages((prev) => [...prev, { text: botReply, isUser: false }]);
 
@@ -73,8 +81,9 @@ const Chatbot = () => {
       ]);
     }
   };
+
   return (
-    <div className="fixed bottom-6 right-4 lg:bottom-10 lg:right-10 z-50 flex flex-col items-end" ref={chatRef}>
+    <div className="fixed bottom-28 right-4 lg:bottom-10 lg:right-10 z-50 flex flex-col items-end" ref={chatRef}>
       <AnimatePresence>
         {isOpen && (
           <motion.div

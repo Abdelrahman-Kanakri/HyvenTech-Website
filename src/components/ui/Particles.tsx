@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Renderer, Camera, Geometry, Program, Mesh } from 'ogl';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import './Particles.css';
 
@@ -113,8 +114,12 @@ const Particles: React.FC<ParticlesProps> = ({
   disableRotation = false,
   className
 }) => {
+  const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Mobile Optimization: Return null to prevent rendering and heavy JS execution
+  if (isMobile) return null;
 
   useEffect(() => {
     const container = containerRef.current;
