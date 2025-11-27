@@ -1,6 +1,6 @@
 # HyvenTech
 
-[HyvenTech official site](https://abdelrahman-kanakri.github.io/Fusion-Innovation-IT/)
+[HyvenTech official site](https://abdelrahman-kanakri.github.io/HyvenTech/)
 
 A modern, responsive corporate website showcasing technology services and solutions.
 
