@@ -97,10 +97,11 @@ const Navigation = () => {
         <div className="w-[90%] max-w-6xl mx-auto">
           <div className="lg:glass lg:backdrop-blur-xl lg:bg-background/70 lg:border lg:border-border/50 lg:rounded-2xl lg:shadow-2xl lg:shadow-primary/5 lg:px-6 lg:py-4">
             <div className="flex items-center justify-between w-full" ref={dropdownRef}>
-              {/* Logo */}
+              
+              {/* Desktop Logo - Visible only on LG+ */}
               <Link 
                 {...getLinkProps("/")}
-                className="flex items-center gap-2 group p-2 lg:p-0 bg-background/80 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border lg:border-none border-border/50 rounded-xl lg:rounded-none shadow-lg lg:shadow-none transition-all active:scale-95 lg:active:scale-100" 
+                className="hidden lg:flex items-center gap-2 group" 
                 aria-label="HyvenTech Home"
                 onClick={() => {
                   handleLinkClick();
@@ -109,15 +110,35 @@ const Navigation = () => {
                   }
                 }}
               >
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-primary font-bold text-base sm:text-lg">HT</span>
+                <div className="w-10 h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <span className="text-primary font-bold text-lg">HT</span>
                 </div>
-                <span className="font-bold text-sm sm:text-base md:text-lg hidden sm:block">
+                <span className="font-bold text-lg">
                   HyvenTech
                 </span>
               </Link>
 
-              {/* Desktop Navigation */}
+              {/* Mobile/Tablet Logo - Floating Style (Visible < LG) */}
+              <Link 
+                {...getLinkProps("/")}
+                className="lg:hidden flex items-center gap-2 p-2 bg-background/80 backdrop-blur-md border border-border/50 rounded-xl shadow-lg transition-all active:scale-95"
+                aria-label="HyvenTech Home"
+                onClick={() => {
+                  handleLinkClick();
+                  if (location.pathname === "/") {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
+              >
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <span className="text-primary font-bold text-base">HT</span>
+                </div>
+                <span className="font-bold text-sm text-foreground">
+                  HyvenTech
+                </span>
+              </Link>
+
+              {/* Desktop Navigation Links - Visible only on LG+ */}
               <div className="hidden lg:flex items-center gap-6 xl:gap-8">
                 {navItems.map((item) => (
                   <div key={item.name} className="relative">
@@ -199,7 +220,7 @@ const Navigation = () => {
                 </Button>
               </div>
 
-              {/* Mobile Menu Button - Floating Icon */}
+              {/* Mobile/Tablet Menu Button - Floating Icon (Visible < LG) */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden p-3 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg text-foreground hover:text-primary transition-all active:scale-95"

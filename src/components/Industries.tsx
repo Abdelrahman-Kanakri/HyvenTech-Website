@@ -88,10 +88,10 @@ const Industries = () => {
               >
                 <Card className="glass glow h-full hover:glow-strong transition-all duration-300 group relative">
                   <CardHeader className="pb-3">
-                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                      <Icon className="h-5 w-5 sm:h-7 sm:w-7 text-primary" />
+                    <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                      <Icon className="h-5 w-5 lg:h-7 lg:w-7 text-primary" />
                     </div>
-                    <CardTitle className="text-sm sm:text-lg">{industry.name}</CardTitle>
+                    <CardTitle className="text-sm lg:text-lg">{industry.name}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">

@@ -124,11 +124,11 @@ const Services = () => {
                     }}
                     className="absolute inset-0 rounded-xl pointer-events-none md:hidden"
                   />
-                  <CardHeader className="pb-3 sm:pb-4">
-                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
-                      <Icon className="h-5 w-5 sm:h-7 sm:w-7 text-primary" />
+                  <CardHeader className="pb-3 lg:pb-4">
+                    <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 lg:mb-4 group-hover:scale-110 transition-transform">
+                      <Icon className="h-5 w-5 lg:h-7 lg:w-7 text-primary" />
                     </div>
-                    <CardTitle className="text-base sm:text-xl">{service.title}</CardTitle>
+                    <CardTitle className="text-base lg:text-xl">{service.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col">
                     <CardDescription className="text-sm sm:text-base leading-relaxed mb-4 flex-1">
