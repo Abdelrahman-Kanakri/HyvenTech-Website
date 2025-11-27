@@ -5,7 +5,6 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // 1. Load environment variables manually so we can "see" them in the config
-  // This helps ensure VITE_N8N_WEBHOOK_URL is actually picked up
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
@@ -24,16 +23,13 @@ export default defineConfig(({ mode }) => {
         "@pages": path.resolve(__dirname, "./src/pages"),
       },
     },
-    // 2. Explicitly define the variable to ensure it is baked into the code
     define: {
-      // Added || "" to ensure it defaults to an empty string if undefined, preventing build crashes
       "import.meta.env.VITE_N8N_WEBHOOK_URL": JSON.stringify(env.VITE_N8N_WEBHOOK_URL || ""),
     },
     build: {
-      // 3. FIX: "es2020" allows 'import.meta' to work without errors in older environments
       target: "es2020",
       cssCodeSplit: true,
-      minify: false,
+      minify: true, // Enable minification
       chunkSizeWarningLimit: 1000,
     },
   };

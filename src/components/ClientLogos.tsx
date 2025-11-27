@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
+import knowbe4Logo from "@/assets/knowbe4-logo.svg";
 
 const clients = [
   { 
     name: "KnowBe4", 
     industry: "Cybersecurity", 
-    logo: "dist/assets/knowbe4-logo.svg", 
+    logo: knowbe4Logo, 
     link: "https://www.knowbe4.com/" 
   },
 ];
@@ -83,4 +84,3 @@ const ClientLogos = () => {
 };
 
 export default ClientLogos;
-

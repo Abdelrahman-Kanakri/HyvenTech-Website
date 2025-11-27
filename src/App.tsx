@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from "@/components/ui/toaster";
@@ -14,35 +14,37 @@ import ScrollToTop from "./components/ScrollToTop";
 import Navigation from "./components/Navigation";
 import BottomNavigation from "./components/BottomNavigation";
 import MobileLogo from "./components/MobileLogo";
-import Particles from "@/components/ui/Particles";
 
-// Pages
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
-import FAQ from "./pages/FAQ";
-import SocialMedia from "./pages/SocialMedia";
-import ComingSoon from "./pages/ComingSoon";
+// Lazy Loaded Components
+const Particles = lazy(() => import("@/components/ui/Particles"));
 
-import Careers from "./pages/Careers";
-import AccountingSystems from "./pages/services/AccountingSystems";
-import DigitalDevelopment from "./pages/services/DigitalDevelopment";
-import AIServices from "./pages/services/AIServices";
-import TechnicalHardware from "./pages/services/TechnicalHardware";
-import DigitalMarketing from "./pages/services/SocialMedia";
-import CyberSecurity from "./pages/services/CyberSecurity";
-import Healthcare from "./pages/industries/Healthcare";
-import Finance from "./pages/industries/Finance";
-import Retail from "./pages/industries/Retail";
-import Manufacturing from "./pages/industries/Manufacturing";
-import Education from "./pages/industries/Education";
-import Logistics from "./pages/industries/Logistics";
-import Energy from "./pages/industries/Energy";
-import AboutUsDetailed from "./pages/company/AboutUsDetailed";
-import HyvenLeadership from "./pages/company/HyvenLeadership"; 
-import Methodology from "./pages/company/Methodology";
-import WhyUs from "./pages/company/WhyUs";
+// Lazy Loaded Pages
+const Index = lazy(() => import("./pages/Index"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/TermsOfService"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const SocialMedia = lazy(() => import("./pages/SocialMedia"));
+const ComingSoon = lazy(() => import("./pages/ComingSoon"));
+
+const Careers = lazy(() => import("./pages/Careers"));
+const AccountingSystems = lazy(() => import("./pages/services/AccountingSystems"));
+const DigitalDevelopment = lazy(() => import("./pages/services/DigitalDevelopment"));
+const AIServices = lazy(() => import("./pages/services/AIServices"));
+const TechnicalHardware = lazy(() => import("./pages/services/TechnicalHardware"));
+const DigitalMarketing = lazy(() => import("./pages/services/SocialMedia"));
+const CyberSecurity = lazy(() => import("./pages/services/CyberSecurity"));
+const Healthcare = lazy(() => import("./pages/industries/Healthcare"));
+const Finance = lazy(() => import("./pages/industries/Finance"));
+const Retail = lazy(() => import("./pages/industries/Retail"));
+const Manufacturing = lazy(() => import("./pages/industries/Manufacturing"));
+const Education = lazy(() => import("./pages/industries/Education"));
+const Logistics = lazy(() => import("./pages/industries/Logistics"));
+const Energy = lazy(() => import("./pages/industries/Energy"));
+const AboutUsDetailed = lazy(() => import("./pages/company/AboutUsDetailed"));
+const HyvenLeadership = lazy(() => import("./pages/company/HyvenLeadership")); 
+const Methodology = lazy(() => import("./pages/company/Methodology"));
+const WhyUs = lazy(() => import("./pages/company/WhyUs"));
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -60,19 +62,21 @@ const App = () => {
       ) : (
         <ErrorBoundary>
           <div className="fixed inset-0 z-0 pointer-events-none">
-            <Particles
-              particleColors={['#06B6D4', '#3B82F6', '#ffffff']}
-              particleCount={300}
-              particleSpread={12}
-              speed={0.05}
-              particleBaseSize={100}
-              moveParticlesOnHover={true}
-              particleHoverFactor={1.5}
-              alphaParticles={true}
-              sizeRandomness={1.2}
-              cameraDistance={20}
-              disableRotation={false}
-            />
+            <Suspense fallback={null}>
+              <Particles
+                particleColors={['#06B6D4', '#3B82F6', '#ffffff']}
+                particleCount={isMobile ? 50 : 300}
+                particleSpread={12}
+                speed={0.05}
+                particleBaseSize={100}
+                moveParticlesOnHover={true}
+                particleHoverFactor={1.5}
+                alphaParticles={true}
+                sizeRandomness={1.2}
+                cameraDistance={20}
+                disableRotation={false}
+              />
+            </Suspense>
           </div>
           
           <div className={`relative z-10 ${isMobile ? 'pb-24' : ''}`}>
@@ -88,45 +92,47 @@ const App = () => {
                 transition={{ duration: 0.3 }}
               >
                 <ScrollToTop />
-                <Routes location={location}>
-                  <Route index element={<Index />} />
-                  <Route path="services" element={<Index />} />
-                  <Route path="about" element={<Index />} />
-                  <Route path="contact" element={<Index />} />
-                  <Route path="key-sectors" element={<Index />} />
-                  <Route path="privacy-policy" element={<PrivacyPolicy />} />
-                  <Route path="terms-of-service" element={<TermsOfService />} />
-                  <Route path="faq" element={<FAQ />} />
-                  <Route path="social-media" element={<SocialMedia />} />
-                  <Route path="careers" element={<Careers />} />
-                  <Route path="blog" element={<ComingSoon />} />
-                  <Route path="case-studies" element={<ComingSoon />} />
-                  
-                  {/* Company Pages */}
-                  <Route path="company/profile" element={<AboutUsDetailed />} />
-                  <Route path="company/leadership" element={<HyvenLeadership />} />
-                  <Route path="company/methodology" element={<Methodology />} />
-                  <Route path="company/why-us" element={<WhyUs />} />
+                <Suspense fallback={<LoadingScreen onComplete={() => {}} />}>
+                  <Routes location={location}>
+                    <Route index element={<Index />} />
+                    <Route path="services" element={<Index />} />
+                    <Route path="about" element={<Index />} />
+                    <Route path="contact" element={<Index />} />
+                    <Route path="key-sectors" element={<Index />} />
+                    <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="terms-of-service" element={<TermsOfService />} />
+                    <Route path="faq" element={<FAQ />} />
+                    <Route path="social-media" element={<SocialMedia />} />
+                    <Route path="careers" element={<Careers />} />
+                    <Route path="blog" element={<ComingSoon />} />
+                    <Route path="case-studies" element={<ComingSoon />} />
+                    
+                    {/* Company Pages */}
+                    <Route path="company/profile" element={<AboutUsDetailed />} />
+                    <Route path="company/leadership" element={<HyvenLeadership />} />
+                    <Route path="company/methodology" element={<Methodology />} />
+                    <Route path="company/why-us" element={<WhyUs />} />
 
-                  {/* Services */}
-                  <Route path="services/accounting-systems" element={<AccountingSystems />} />
-                  <Route path="services/digital-development" element={<DigitalDevelopment />} />
-                  <Route path="services/ai-solutions" element={<AIServices />} />
-                  <Route path="services/technical-hardware" element={<TechnicalHardware />} />
-                  <Route path="services/digital-marketing" element={<DigitalMarketing />} />
-                  <Route path="services/cyber-security" element={<CyberSecurity />} />
+                    {/* Services */}
+                    <Route path="services/accounting-systems" element={<AccountingSystems />} />
+                    <Route path="services/digital-development" element={<DigitalDevelopment />} />
+                    <Route path="services/ai-solutions" element={<AIServices />} />
+                    <Route path="services/technical-hardware" element={<TechnicalHardware />} />
+                    <Route path="services/digital-marketing" element={<DigitalMarketing />} />
+                    <Route path="services/cyber-security" element={<CyberSecurity />} />
 
-                  {/* Key Sectors */}
-                  <Route path="key-sectors/healthcare" element={<Healthcare />} />
-                  <Route path="key-sectors/finance" element={<Finance />} />
-                  <Route path="key-sectors/retail" element={<Retail />} />
-                  <Route path="key-sectors/manufacturing" element={<Manufacturing />} />
-                  <Route path="key-sectors/education" element={<Education />} />
-                  <Route path="key-sectors/logistics" element={<Logistics />} />
-                  <Route path="key-sectors/energy" element={<Energy />} />
+                    {/* Key Sectors */}
+                    <Route path="key-sectors/healthcare" element={<Healthcare />} />
+                    <Route path="key-sectors/finance" element={<Finance />} />
+                    <Route path="key-sectors/retail" element={<Retail />} />
+                    <Route path="key-sectors/manufacturing" element={<Manufacturing />} />
+                    <Route path="key-sectors/education" element={<Education />} />
+                    <Route path="key-sectors/logistics" element={<Logistics />} />
+                    <Route path="key-sectors/energy" element={<Energy />} />
 
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
               </motion.div>
             </AnimatePresence>
 
