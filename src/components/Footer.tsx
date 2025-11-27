@@ -39,9 +39,9 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative pt-16 pb-8 bg-background border-t border-border/50 overflow-hidden">
+    <footer className="relative pt-12 sm:pt-16 pb-8 bg-background border-t border-border/50 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-8 sm:mb-12">
           {/* Column 1: Company Info */}
           <div className="lg:col-span-2 space-y-6">
             <Link to="/" className="flex items-center gap-2 group">

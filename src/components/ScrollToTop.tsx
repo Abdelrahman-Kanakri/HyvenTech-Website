@@ -50,7 +50,7 @@ const ScrollToTop = () => {
     // Check path-specific scroll logic
     if (pathname === `${BASE_PATH}/` || pathname === `${BASE_PATH}/home`) {
       // Home usually just means top
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       didScrollToSection = true;
     } 
     else if (pathname === `${BASE_PATH}/services`) {

@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Components
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -11,6 +12,7 @@ import LoadingScreen from "./components/LoadingScreen";
 import Chatbot from "./components/ChatBot";
 import ScrollToTop from "./components/ScrollToTop";
 import Navigation from "./components/Navigation";
+import BottomNavigation from "./components/BottomNavigation";
 import MobileLogo from "./components/MobileLogo";
 import Particles from "@/components/ui/Particles";
 
@@ -45,6 +47,7 @@ import WhyUs from "./pages/company/WhyUs";
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
+  const isMobile = useIsMobile();
 
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
@@ -72,9 +75,9 @@ const App = () => {
             />
           </div>
           
-          <div className="relative z-10">
-            <Navigation />
-            <MobileLogo />
+          <div className={`relative z-10 ${isMobile ? 'pb-24' : ''}`}>
+            {!isMobile && <Navigation />}
+            {isMobile && <MobileLogo />}
             
             <AnimatePresence mode="wait">
               <motion.div
@@ -127,6 +130,7 @@ const App = () => {
               </motion.div>
             </AnimatePresence>
 
+            {isMobile && <BottomNavigation />}
             <Chatbot />
             <Toaster />
             <Sonner position="top-center" />

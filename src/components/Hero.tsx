@@ -23,20 +23,20 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 sm:pt-20 md:pt-24 pb-16 sm:pb-20 md:pb-24">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-24">
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-primary opacity-30" />
       
       <div className="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-8 text-center max-w-4xl mx-auto">
+        <div className="flex flex-col items-center gap-8 text-center max-w-5xl mx-auto">
           {/* Visual Element - Abstract Gradient (Background) */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-primary/20 to-secondary/20 blur-[100px] -z-10 pointer-events-none animate-pulse" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full bg-gradient-to-tr from-primary/20 to-secondary/20 blur-[60px] sm:blur-[100px] -z-10 pointer-events-none animate-pulse" />
 
           {/* Text Content */}
-          <div className="w-full space-y-8">
+          <div className="w-full space-y-6 sm:space-y-8">
             {/* Main Headline */}
             <motion.h1
-              className="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
@@ -47,7 +47,7 @@ const Hero = () => {
 
             {/* Sub-headline */}
             <motion.p
-              className="text-lg sm:text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto"
+              className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -57,14 +57,14 @@ const Hero = () => {
 
             {/* Key Benefits */}
             <motion.div
-              className="flex flex-wrap justify-center gap-4 sm:gap-8 text-sm sm:text-base"
+              className="flex flex-wrap justify-center gap-3 sm:gap-6 text-sm sm:text-base"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
               {["Enterprise-Grade Security", "Scalable Architecture", "24/7 Support"].map((benefit, index) => (
                 <div key={index} className="flex items-center gap-2 text-foreground/80">
-                  <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
                   <span>{benefit}</span>
                 </div>
               ))}
@@ -72,7 +72,7 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6 sm:pt-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
@@ -99,7 +99,7 @@ const Hero = () => {
 
             {/* Trust Indicator */}
             <motion.p
-              className="text-sm text-muted-foreground pt-8"
+              className="text-xs sm:text-sm text-muted-foreground pt-6 sm:pt-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1, duration: 0.8 }}

@@ -28,7 +28,7 @@ const ClientLogos = () => {
           </p>
         </motion.div>
 
-        <div className="flex items-center justify-center max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-4 sm:gap-8 max-w-5xl mx-auto">
           {clients.map((client, index) => (
             <motion.div
               key={index}
@@ -43,9 +43,9 @@ const ClientLogos = () => {
                   href={client.link} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center"
+                  className="flex items-center justify-center w-full"
                 >
-                  <div className="glass p-6 sm:p-8 rounded-lg w-64 sm:w-80 h-32 sm:h-40 flex flex-col items-center justify-center hover:glow-strong transition-all duration-300 group cursor-pointer relative overflow-hidden">
+                  <div className="glass p-4 sm:p-6 md:p-8 rounded-lg w-full sm:w-64 md:w-80 h-24 sm:h-32 md:h-40 flex flex-col items-center justify-center hover:glow-strong transition-all duration-300 group cursor-pointer relative overflow-hidden">
                     {client.logo ? (
                       <img 
                         src={client.logo} 

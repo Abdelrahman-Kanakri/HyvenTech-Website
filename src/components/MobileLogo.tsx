@@ -13,7 +13,11 @@ const MobileLogo = () => {
     >
       <Link
         to="/"
-        state={{ scrollTo: "home" }}
+        onClick={() => {
+          if (window.location.hash === "#/" || window.location.pathname === "/") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        }}
         className="flex items-center gap-2 bg-background/80 backdrop-blur-md border border-border/50 px-3 py-2 rounded-xl shadow-lg active:scale-95 transition-transform"
       >
         <div className="w-6 h-6 rounded-md bg-gradient-glow flex items-center justify-center flex-shrink-0">

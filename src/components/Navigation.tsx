@@ -104,7 +104,12 @@ const Navigation = () => {
                 {...getLinkProps("/")}
                 className="flex items-center gap-2 group" 
                 aria-label="HyvenTech Home"
-                onClick={handleLinkClick}
+                onClick={() => {
+                  handleLinkClick();
+                  if (location.pathname === "/") {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
               >
                 <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform">
                   <span className="text-primary font-bold text-base sm:text-lg">HT</span>
