@@ -13,7 +13,6 @@ import Chatbot from "./components/ChatBot";
 import ScrollToTop from "./components/ScrollToTop";
 import Navigation from "./components/Navigation";
 import BottomNavigation from "./components/BottomNavigation";
-import MobileLogo from "./components/MobileLogo";
 
 // Lazy Loaded Components
 const Particles = lazy(() => import("@/components/ui/Particles"));
@@ -65,11 +64,11 @@ const App = () => {
             <Suspense fallback={null}>
               <Particles
                 particleColors={['#06B6D4', '#3B82F6', '#ffffff']}
-                particleCount={isMobile ? 50 : 300}
+                particleCount={isMobile ? 40 : 300}
                 particleSpread={12}
                 speed={0.05}
                 particleBaseSize={100}
-                moveParticlesOnHover={true}
+                moveParticlesOnHover={!isMobile}
                 particleHoverFactor={1.5}
                 alphaParticles={true}
                 sizeRandomness={1.2}
@@ -80,8 +79,7 @@ const App = () => {
           </div>
           
           <div className={`relative z-10 ${isMobile ? 'pb-24' : ''}`}>
-            {!isMobile && <Navigation />}
-            {isMobile && <MobileLogo />}
+            <Navigation />
             
             <AnimatePresence mode="wait">
               <motion.div

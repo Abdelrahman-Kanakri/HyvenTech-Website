@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-
-
 const navItems = [
   { name: "Home", href: "/" },
   { 
@@ -92,17 +90,17 @@ const Navigation = () => {
         initial={{ y: 0 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
-        className="fixed top-4 inset-x-0 z-50 hidden lg:block"
+        className="fixed top-4 inset-x-0 z-50 block"
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="w-[90%] max-w-6xl mx-auto">
-          <div className="glass backdrop-blur-xl bg-background/70 border border-border/50 rounded-2xl shadow-2xl shadow-primary/5 px-4 sm:px-6 py-3 sm:py-4">
+          <div className="lg:glass lg:backdrop-blur-xl lg:bg-background/70 lg:border lg:border-border/50 lg:rounded-2xl lg:shadow-2xl lg:shadow-primary/5 lg:px-6 lg:py-4">
             <div className="flex items-center justify-between w-full" ref={dropdownRef}>
               {/* Logo */}
               <Link 
                 {...getLinkProps("/")}
-                className="flex items-center gap-2 group" 
+                className="flex items-center gap-2 group p-2 lg:p-0 bg-background/80 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border lg:border-none border-border/50 rounded-xl lg:rounded-none shadow-lg lg:shadow-none transition-all active:scale-95 lg:active:scale-100" 
                 aria-label="HyvenTech Home"
                 onClick={() => {
                   handleLinkClick();
@@ -201,10 +199,10 @@ const Navigation = () => {
                 </Button>
               </div>
 
-              {/* Mobile Menu Button */}
+              {/* Mobile Menu Button - Floating Icon */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
+                className="lg:hidden p-3 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg text-foreground hover:text-primary transition-all active:scale-95"
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
               >
@@ -238,7 +236,7 @@ const Navigation = () => {
               <div className="p-6 pt-24">
                 <nav className="space-y-4" role="navigation">
                   {navItems.map((item) => (
-                    <div key={item.name}>
+                    <div key={item.name} className="border-b border-border/30 pb-2 last:border-0">
                       {item.dropdown ? (
                         <div>
                           <button
@@ -247,7 +245,7 @@ const Navigation = () => {
                             aria-expanded={openDropdown === item.name}
                           >
                             {item.name}
-                            <ChevronDown className={`h-5 w-5 transition-transform ${openDropdown === item.name ? 'rotate-180' : ''}`} />
+                            <ChevronDown className={`h-5 w-5 transition-transform duration-300 ${openDropdown === item.name ? 'rotate-180' : ''}`} />
                           </button>
                           <AnimatePresence>
                             {openDropdown === item.name && (
@@ -255,18 +253,25 @@ const Navigation = () => {
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
-                                className="ml-4 mt-2 space-y-2 overflow-hidden"
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="overflow-hidden"
                               >
-                                {item.dropdown.map((dropItem, index) => (
-                                  <Link
-                                    key={index}
-                                    {...getLinkProps(dropItem.href)}
-                                    className="block py-2 text-foreground/70 hover:text-primary transition-colors"
-                                    onClick={handleLinkClick}
-                                  >
-                                    {dropItem.name}
-                                  </Link>
-                                ))}
+                                <div className="pl-6 space-y-1 py-2">
+                                  {item.dropdown.map((dropItem, index) => (
+                                    <Link
+                                      key={index}
+                                      {...getLinkProps(dropItem.href)}
+                                      className={`block py-2 px-3 rounded-md text-sm transition-colors ${
+                                        dropItem.isHighlight 
+                                          ? 'text-primary font-medium bg-primary/5' 
+                                          : 'text-foreground/70 hover:text-primary hover:bg-white/5'
+                                      }`}
+                                      onClick={handleLinkClick}
+                                    >
+                                      {dropItem.name}
+                                    </Link>
+                                  ))}
+                                </div>
                               </motion.div>
                             )}
                           </AnimatePresence>

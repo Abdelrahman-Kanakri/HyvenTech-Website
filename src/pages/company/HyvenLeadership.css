@@ -248,10 +248,15 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
+    padding: 1.5rem; /* Reduced padding */
   }
 
   .name-large {
-    font-size: 2rem;
+    font-size: 1.5rem; /* Reduced from 2rem */
+  }
+
+  .role-large {
+    font-size: 1rem; /* Reduced from default */
   }
 
   .social-links {
@@ -262,6 +267,14 @@
   .name-vertical,
   .role-vertical {
     writing-mode: horizontal-tb;
+  }
+
+  /* Ensure overlay is visible on mobile */
+  .chroma-overlay {
+    opacity: 0.3;
+    mask-image: none;
+    -webkit-mask-image: none;
+    background: black;
   }
 }
 
@@ -276,11 +289,11 @@
   }
 
   .avatar-large {
-    width: 6rem;
-    height: 6rem;
+    width: 4rem; /* Reduced from 6rem */
+    height: 4rem;
   }
 
   .name-large {
-    font-size: 1.5rem;
+    font-size: 1.25rem; /* Further reduced */
   }
 }

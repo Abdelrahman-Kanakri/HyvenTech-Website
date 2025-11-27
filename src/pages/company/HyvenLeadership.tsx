@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Linkedin, Mail, Award, ChevronDown } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { useIsMobile } from "@/hooks/use-mobile";
 import hamzahImg from "@/assets/leadership/Hamzah.jpg";
 import abdelrahmanImg from "@/assets/leadership/Abdelrahman.jpg";
 import rakanImg from "@/assets/leadership/Rakan.jpg";
 import lanaImg from "@/assets/leadership/Lana.jpg";
 import mahmoudImg from "@/assets/leadership/Mahmoud.png";
+import "./HyvenLeadership.css";
 
 // Leader data with skills and achievements
 const leaders = [
@@ -90,8 +92,29 @@ const leaders = [
 
 const HyvenTechLeadership = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
-  // Toggle card: افتح أو اغلق الكرت
+  // Handle flashlight effect
+  useEffect(() => {
+    if (isMobile || !containerRef.current) return;
+
+    const container = containerRef.current;
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      container.style.setProperty('--x', `${x}px`);
+      container.style.setProperty('--y', `${y}px`);
+    };
+
+    container.addEventListener('mousemove', handleMouseMove);
+    return () => container.removeEventListener('mousemove', handleMouseMove);
+  }, [isMobile]);
+
+  // Toggle card
   const toggleCard = (id: number) => {
     setActiveId((prev) => (prev === id ? null : id));
   };
@@ -101,185 +124,172 @@ const HyvenTechLeadership = () => {
       <Navigation />
       
       {/* Header */}
-      <div className="container mx-auto px-4 pt-32 pb-16">
+      <div className="container mx-auto px-4 pt-32 pb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 tracking-tight">
-            <span className="inline-block glow rounded-2xl px-6 py-3">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 tracking-tight">
+            <span className="inline-block glow rounded-2xl px-4 sm:px-6 py-2 sm:py-3">
               <span className="text-primary">Our Leadership</span>
             </span>
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             Meet the visionaries driving innovation at HyvenTech
           </p>
         </motion.div>
       </div>
 
       {/* Team Grid */}
-      <div className="flex-1 container mx-auto px-4 pb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-          {leaders.map((leader, index) => {
-            const isActive = activeId === leader.id;
-            
-            return (
-              <motion.article
-                key={leader.id}
-                onClick={(e) => {
-                  toggleCard(leader.id);
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className={`
-                  relative group cursor-pointer overflow-hidden
-                  rounded-2xl border backdrop-blur-xl
-                  transition-all duration-300
-                  ${isActive 
-                    ? 'bg-white/10 border-primary/50 shadow-2xl shadow-primary/20' 
-                    : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-primary/30 hover:shadow-lg'
-                  }
-                `}
-              >
-                {/* Image */}
-                <div className="relative overflow-hidden">
-                  <img
-                    src={leader.image}
-                    alt={leader.name}
-                    className={`
-                      w-full h-[300px] object-cover
-                      transition-all duration-700
-                      ${isActive ? 'grayscale-0 scale-105' : 'grayscale group-hover:grayscale-0'}
-                    `}
-                  />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                </div>
+      <div className="flex-1 container mx-auto px-4 pb-20 h-[800px] md:h-[600px]">
+        <div 
+          ref={containerRef}
+          className="chroma-container"
+        >
+          {/* Flashlight Overlay - Only visible on desktop */}
+          {!isMobile && (
+            <>
+              <div className="chroma-overlay" />
+              <div className="chroma-fade" />
+            </>
+          )}
+          
+          {/* Mobile Overlay - Static visibility */}
+          {isMobile && (
+            <div className="absolute inset-0 pointer-events-none z-10 bg-black/30" />
+          )}
 
-                {/* Content */}
-                <div className="p-6">
-                  {/* Header Group */}
-                  <div className="mb-4">
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1">{leader.name}</h3>
-                    <p className="text-base text-primary font-semibold mb-3">{leader.role}</p>
-
-                    {/* Skills Badges */}
-                    <div className="flex flex-wrap gap-2">
-                      {leader.skills.map((skill, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 border border-primary/30 text-primary"
+          <div className="chroma-grid">
+            {leaders.map((leader, index) => {
+              const isActive = activeId === leader.id;
+              
+              return (
+                <motion.div
+                  key={leader.id}
+                  layout
+                  onClick={() => toggleCard(leader.id)}
+                  className={`chroma-card ${isActive ? 'active' : 'inactive'} cursor-pointer`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                >
+                  <div className="card-content">
+                    {/* Content Logic based on Active State & Device */}
+                    <AnimatePresence mode="wait">
+                      {isActive ? (
+                        <motion.div 
+                          key="active"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="horizontal-mode"
                         >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                          {/* Avatar Section */}
+                          <div className="avatar-section hidden sm:block">
+                            <div className="avatar-wrapper-large">
+                              <img
+                                src={leader.image}
+                                alt={leader.name}
+                                className="avatar-large object-cover"
+                              />
+                            </div>
+                          </div>
 
-                  {/* Expand Indicator */}
-                  {!isActive && (
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mt-4">
-                      <span>Click for more details</span>
-                      <ChevronDown className="w-4 h-4 animate-pulse" />
-                    </div>
-                  )}
+                          {/* Info Section */}
+                          <div className="info-section overflow-y-auto custom-scrollbar">
+                            <div>
+                              <h3 className="name-large">{leader.name}</h3>
+                              <p className="role-large">{leader.role}</p>
+                            </div>
 
-                  {/* Expanded Content */}
-                  <AnimatePresence initial={false}>
-                    {isActive && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ 
-                          height: "auto", 
-                          opacity: 1,
-                          transition: {
-                            height: { duration: 0.6, ease: "easeInOut" },
-                            opacity: { duration: 0.4, delay: 0.1 }
-                          }
-                        }}
-                        exit={{ 
-                          height: 0, 
-                          opacity: 0,
-                          transition: {
-                            height: { duration: 0.5, ease: "easeInOut" },
-                            opacity: { duration: 0.3 }
-                          }
-                        }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pt-4 border-t border-white/10 mt-4">
-                          {/* Bio */}
-                          <motion.div
-                            initial={{ y: 20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.2, duration: 0.5 }}
-                            className="mb-6"
-                          >
-                            <h4 className="text-sm font-bold text-primary mb-2 uppercase tracking-wide">About</h4>
-                            <p className="text-sm text-gray-300 leading-relaxed">{leader.bio}</p>
-                          </motion.div>
-
-                          {/* Achievements */}
-                          <motion.div
-                            initial={{ y: 20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.3, duration: 0.5 }}
-                            className="mb-6"
-                          >
-                            <h4 className="text-sm font-bold text-primary mb-3 uppercase tracking-wide flex items-center gap-2">
-                              <Award className="w-4 h-4" />
-                              Key Achievements
-                            </h4>
-                            <ul className="space-y-2">
-                              {leader.achievements.map((achievement, idx) => (
-                                <li key={idx} className="flex items-start gap-2 text-sm text-gray-300">
-                                  <span className="text-primary mt-1 flex-shrink-0">•</span>
-                                  <span>{achievement}</span>
-                                </li>
+                            <div className="flex flex-wrap gap-2 my-2">
+                              {leader.skills.map((skill, idx) => (
+                                <span
+                                  key={idx}
+                                  className="px-2 py-1 rounded-full text-xs font-medium bg-primary/10 border border-primary/30 text-primary"
+                                >
+                                  {skill}
+                                </span>
                               ))}
-                            </ul>
-                          </motion.div>
+                            </div>
 
-                          {/* Social Links */}
-                          <motion.div
-                            initial={{ y: 20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.4, duration: 0.5 }}
-                            className="flex flex-wrap gap-3"
-                          >
-                            {leader.linkedin && leader.linkedin !== "#" && (
+                            <div className="bio">
+                              <p>{leader.bio}</p>
+                            </div>
+
+                            <div className="space-y-2">
+                              <h4 className="text-sm font-bold text-primary uppercase tracking-wide flex items-center gap-2">
+                                <Award className="w-4 h-4" />
+                                Key Achievements
+                              </h4>
+                              <ul className="space-y-1">
+                                {leader.achievements.map((achievement, idx) => (
+                                  <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                    <span className="text-primary mt-1 flex-shrink-0">•</span>
+                                    <span>{achievement}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <div className="social-links pt-4">
+                              {leader.linkedin && leader.linkedin !== "#" && (
+                                <a
+                                  href={leader.linkedin}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="social-link"
+                                >
+                                  <Linkedin className="w-4 h-4" />
+                                  <span>LinkedIn</span>
+                                </a>
+                              )}
+                              
                               <a
-                                href={leader.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                href={`mailto:${leader.email}`}
                                 onClick={(e) => e.stopPropagation()}
-                                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-primary/20 hover:border-primary/50 text-white hover:text-primary transition-all text-sm font-medium"
+                                className="social-link"
                               >
-                                <Linkedin className="w-4 h-4" />
-                                <span>LinkedIn</span>
+                                <Mail className="w-4 h-4" />
+                                <span>Email</span>
                               </a>
-                            )}
-                            
-                            <a
-                              href={`mailto:${leader.email}`}
-                              onClick={(e) => e.stopPropagation()}
-                              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-primary/20 hover:border-primary/50 text-white hover:text-primary transition-all text-sm font-medium"
-                            >
-                              <Mail className="w-4 h-4" />
-                              <span>Email</span>
-                            </a>
-                          </motion.div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.article>
-            );
-          })}
+                            </div>
+                          </div>
+                        </motion.div>
+                      ) : (
+                        <motion.div 
+                          key="inactive"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="vertical-mode"
+                        >
+                          <div className="avatar-wrapper">
+                            <img
+                              src={leader.image}
+                              alt={leader.name}
+                              className="avatar-small object-cover"
+                            />
+                          </div>
+                          <div className="hidden md:block">
+                            <h3 className="name-vertical">{leader.name}</h3>
+                            <p className="role-vertical">{leader.role}</p>
+                          </div>
+                          <div className="md:hidden text-center">
+                            <h3 className="font-bold text-foreground">{leader.name}</h3>
+                            <p className="text-xs text-muted-foreground">{leader.role}</p>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -289,3 +299,4 @@ const HyvenTechLeadership = () => {
 };
 
 export default HyvenTechLeadership;
+

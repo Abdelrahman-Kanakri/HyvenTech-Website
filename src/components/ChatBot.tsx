@@ -74,7 +74,7 @@ const Chatbot = () => {
     }
   };
   return (
-    <div className="fixed bottom-36 right-4 lg:bottom-24 lg:right-6 z-50 flex flex-col items-end" ref={chatRef}>
+    <div className="fixed bottom-6 right-4 lg:bottom-10 lg:right-10 z-50 flex flex-col items-end" ref={chatRef}>
       <AnimatePresence>
         {isOpen && (
           <motion.div

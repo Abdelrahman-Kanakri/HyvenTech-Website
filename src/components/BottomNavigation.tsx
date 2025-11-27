@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
-import { Home, Briefcase, Info, Mail, Users } from "lucide-react";
+import { Home, Briefcase, Layers, Mail, Users } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "Services", href: "/services", icon: Briefcase },
-  { name: "Partners", href: "/#clients", icon: Users },
-  { name: "About", href: "/about-us", icon: Info },
+  { name: "Key Sectors", href: "/key-sectors", icon: Layers },
+  { name: "Company", href: "/about", icon: Users, additionalMatches: ["/company"] },
   { name: "Contact", href: "/contact", icon: Mail },
 ];
 
@@ -26,6 +26,7 @@ function DockItem({ mouseX, item }: { mouseX: MotionValue; item: typeof navItems
   const isActive = 
     (item.href === "/" && location.pathname === "/") ||
     (item.href !== "/" && location.pathname.startsWith(item.href)) ||
+    (item.additionalMatches?.some(match => location.pathname.startsWith(match))) ||
     (item.href.startsWith("/#") && location.hash === item.href.substring(1));
 
   return (
@@ -39,7 +40,14 @@ function DockItem({ mouseX, item }: { mouseX: MotionValue; item: typeof navItems
             : "bg-white/5 border-white/10 hover:bg-white/10"
         } backdrop-blur-md border`}
       >
-        <item.icon className={`w-1/2 h-1/2 ${isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"}`} />
+        <motion.div
+          whileHover={{ scale: 1.2, rotate: 5 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          className="w-full h-full flex items-center justify-center"
+        >
+          <item.icon className={`w-1/2 h-1/2 ${isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"}`} />
+        </motion.div>
       </motion.div>
       {isActive && (
         <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary shadow-[0_0_10px_rgba(76,201,240,0.8)]" />
