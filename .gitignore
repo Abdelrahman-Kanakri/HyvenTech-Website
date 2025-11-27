@@ -32,8 +32,6 @@ yarn-error.log*
 *.sln
 *.sw?
 
-# Leadership images (kept private, not committed)
-#src/assets/leadership/
 
 # Product specification
 PRODUCT_SPECIFICATION.pdf
