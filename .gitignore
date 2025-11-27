@@ -32,5 +32,8 @@ yarn-error.log*
 *.sln
 *.sw?
 
-# Optional: Ignore PDF specs if they shouldn't be in repo
+# Leadership images (kept private, not committed)
+src/assets/leadership/
+
+# Product specification
 PRODUCT_SPECIFICATION.pdf
