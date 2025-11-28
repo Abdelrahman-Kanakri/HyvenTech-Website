@@ -14,9 +14,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import Navigation from "./components/Navigation";
 import BottomNavigation from "./components/BottomNavigation";
 
-// Lazy Loaded Components
-const Particles = lazy(() => import("@/components/ui/Particles"));
-
 // Lazy Loaded Pages
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -60,24 +57,6 @@ const App = () => {
         <LoadingScreen onComplete={handleLoadingComplete} />
       ) : (
         <ErrorBoundary>
-          <div className="fixed inset-0 z-0 pointer-events-none">
-            <Suspense fallback={null}>
-              <Particles
-                particleColors={['#06B6D4', '#3B82F6', '#ffffff']}
-                particleCount={isMobile ? 40 : 300}
-                particleSpread={12}
-                speed={0.05}
-                particleBaseSize={100}
-                moveParticlesOnHover={!isMobile}
-                particleHoverFactor={1.5}
-                alphaParticles={true}
-                sizeRandomness={1.2}
-                cameraDistance={20}
-                disableRotation={false}
-              />
-            </Suspense>
-          </div>
-          
           <div className={`relative z-10 ${isMobile ? 'pb-24' : ''}`}>
             <Navigation />
             

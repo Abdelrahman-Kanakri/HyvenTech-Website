@@ -6,14 +6,14 @@ const team = [
   {
     name: "Hamzah Abu Jawhar",
     role: "Chief Technology Officer",
-    expertise: ["ERP Solutions", "IT Security", "IT technical Support Specialist"],
+    expertise:  ["ERP Solutions","IT Security", "IT technical Support Specialist"],
     initials: "HAJ",
     linkedin: "https://www.linkedin.com/in/hamza-a-jowher-5723b3124/",
   },
   {
     name: "Abdelrahman Kanakri",
     role: "Lead AI Engineer",
-    expertise: ["AI Model Development", "Data Science", "AI Automations"],
+    expertise: ["AI Model Development", "AI Automations", "Data Science"],
     initials: "AK",
     linkedin: "https://www.linkedin.com/in/abdelrahman-kanakri-909654247/",
   },
