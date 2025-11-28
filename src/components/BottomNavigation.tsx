@@ -20,7 +20,7 @@ function DockItem({ mouseX, item }: { mouseX: MotionValue; item: typeof navItems
     return val - bounds.x - bounds.width / 2;
   });
 
-  const widthSync = useTransform(distance, [-150, 0, 150], [44, 80, 44]);
+  const widthSync = useTransform(distance, [-150, 0, 150], [40, 60, 40]);
   const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
   const isActive = 
@@ -60,11 +60,11 @@ const BottomNavigation = () => {
   const mouseX = useMotionValue(Infinity);
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[95vw] lg:hidden">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[95vw] lg:hidden">
       <motion.div
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
-        className="flex items-end gap-3 px-4 py-3 rounded-3xl glass border border-white/10 shadow-2xl bg-black/40 backdrop-blur-xl"
+        className="flex items-end gap-2 px-3 py-2 rounded-2xl glass border border-white/10 shadow-2xl bg-black/40 backdrop-blur-xl"
       >
         {navItems.map((item) => (
           <DockItem key={item.name} mouseX={mouseX} item={item} />

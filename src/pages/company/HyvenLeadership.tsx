@@ -159,7 +159,7 @@ export default function HyvenTechLeadership() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, transition: { duration: 0.05 } }}
-                className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-card rounded-full h-6 w-6 border border-border"
+                className="flex absolute top-2 right-2 items-center justify-center bg-card rounded-full h-8 w-8 border border-border hover:bg-muted transition-colors z-50"
                 onClick={() => setActive(null)}
               >
                 <CloseIcon />

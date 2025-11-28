@@ -245,11 +245,11 @@ const Navigation = () => {
           >
             <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" onClick={() => setMobileMenuOpen(false)} />
             <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
+              initial={{ y: '-100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-full sm:w-80 bg-background border-l border-border/50 shadow-2xl overflow-y-auto"
+              className="absolute left-0 right-0 top-0 bg-background border-b border-border/50 shadow-2xl overflow-y-auto max-h-screen"
               role="dialog"
               aria-label="Mobile navigation menu"
             >

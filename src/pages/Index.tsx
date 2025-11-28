@@ -17,13 +17,21 @@ const Index = () => {
   return (
     <div className="min-h-screen relative">
       <Hero />
+      <div className="divider-glow" />
       <ClientLogos />
+      <div className="divider-glow" />
       <Services />
+      <div className="divider-glow" />
       <Industries />
+      <div className="divider-glow" />
       <Process />
+      <div className="divider-glow" />
       <WhyChooseUs />
+      <div className="divider-glow" />
       <About />
+      <div className="divider-glow" />
       <Team />
+      <div className="divider-glow" />
       <Contact />
       <Footer />
     </div>
