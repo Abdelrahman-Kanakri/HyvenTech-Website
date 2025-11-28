@@ -52,7 +52,7 @@ const Hero = () => {
       <div className="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-8 text-center max-w-5xl mx-auto">
           {/* Visual Element - Abstract Gradient (Background) */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full bg-gradient-to-tr from-primary/20 to-secondary/20 blur-[60px] sm:blur-[100px] -z-10 pointer-events-none animate-pulse" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full bg-gradient-to-tr from-primary/20 to-secondary/20 blur-[40px] sm:blur-[100px] -z-10 pointer-events-none sm:animate-pulse" />
 
           {/* Text Content */}
           <div className="w-full space-y-6 sm:space-y-8">
