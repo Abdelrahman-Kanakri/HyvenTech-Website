@@ -72,7 +72,7 @@ const AboutUsDetailed = () => {
           <div className="grid md:grid-cols-2 gap-8">
             <motion.div 
               whileHover={{ scale: 1.03, y: -5 }}
-              className="p-8 rounded-2xl glass border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+              className="p-8 rounded-2xl glass glow border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:glow-strong"
             >
               <Target className="w-12 h-12 text-primary mb-6" />
               <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
@@ -82,7 +82,7 @@ const AboutUsDetailed = () => {
             </motion.div>
             <motion.div 
               whileHover={{ scale: 1.03, y: -5 }}
-              className="p-8 rounded-2xl glass border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10"
+              className="p-8 rounded-2xl glass glow border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:glow-strong"
             >
               <Zap className="w-12 h-12 text-primary mb-6" />
               <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
@@ -126,7 +126,7 @@ const AboutUsDetailed = () => {
               <motion.div 
                 key={i} 
                 whileHover={{ scale: 1.03, y: -5 }}
-                className="bg-background p-6 rounded-xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+                className="bg-background p-6 rounded-xl border border-border/50 hover:border-primary/50 transition-all duration-300 glow hover:glow-strong"
               >
                 <h3 className="font-bold text-lg mb-3 text-primary">{item.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>

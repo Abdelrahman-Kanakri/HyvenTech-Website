@@ -5,7 +5,6 @@ import { ArrowRight, CheckCircle, LucideIcon } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Navigation from "@/components/Navigation";
 import BottomNavigation from "@/components/BottomNavigation";
-import MobileLogo from "@/components/MobileLogo";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
@@ -31,13 +30,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
 
   return (
     <div className={`min-h-screen flex flex-col ${isMobile ? 'pb-24' : ''}`}>
-      {/* Navigation Logic */}
-      <div className="hidden lg:block">
-        <Navigation />
-      </div>
-      <div className="lg:hidden">
-        <MobileLogo />
-      </div>
+      <Navigation />
       
       {/* Hero Section */}
       <section className="relative pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">

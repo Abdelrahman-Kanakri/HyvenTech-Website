@@ -29,17 +29,74 @@ export default defineConfig(({ mode }) => {
     build: {
       target: "es2020",
       cssCodeSplit: true,
-      minify: "esbuild", // Explicitly use esbuild for speed
+      minify: "terser", // Switch to terser for better compression
+      terserOptions: {
+        compress: {
+          drop_console: true, // Remove console.log in production
+          drop_debugger: true,
+          pure_funcs: ['console.log', 'console.info', 'console.debug'],
+          passes: 2, // Multiple compression passes
+        },
+        mangle: {
+          safari10: true,
+        },
+        format: {
+          comments: false, // Remove all comments
+        },
+      } as any,
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
-          manualChunks: {
-            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-            'ui-vendor': ['lucide-react', '@radix-ui/react-slot', '@radix-ui/react-accordion', 'clsx', 'tailwind-merge'],
-            'animation-vendor': ['framer-motion', 'ogl']
-          }
-        }
-      }
+          manualChunks: (id) => {
+            // Core React dependencies
+            if (id.includes('node_modules/react') || 
+                id.includes('node_modules/react-dom') || 
+                id.includes('node_modules/react-router-dom')) {
+              return 'react-vendor';
+            }
+            
+            // UI libraries (Radix UI, Lucide)
+            if (id.includes('node_modules/lucide-react') ||
+                id.includes('node_modules/@radix-ui') ||
+                id.includes('node_modules/clsx') ||
+                id.includes('node_modules/tailwind-merge') ||
+                id.includes('node_modules/class-variance-authority')) {
+              return 'ui-vendor';
+            }
+            
+            // Animation libraries (Framer Motion, OGL)
+            if (id.includes('node_modules/framer-motion') ||
+                id.includes('node_modules/ogl')) {
+              return 'animation-vendor';
+            }
+            
+            // Other node_modules
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          },
+          // Optimize chunk naming
+          chunkFileNames: 'assets/js/[name]-[hash].js',
+          entryFileNames: 'assets/js/[name]-[hash].js',
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.name?.endsWith('.css')) {
+              return 'assets/css/[name]-[hash][extname]';
+            }
+            return 'assets/[name]-[hash][extname]';
+          },
+        },
+        treeshake: {
+          moduleSideEffects: false,
+          propertyReadSideEffects: false,
+        },
+      },
+      // Additional optimizations
+      reportCompressedSize: true,
+      sourcemap: false, // Disable source maps in production for smaller bundles
+    },
+    // Optimize dependencies
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-router-dom'],
     },
   };
 });
