@@ -51,6 +51,8 @@ const ClientLogos = () => {
                       <img 
                         src={client.logo} 
                         alt={client.name} 
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
                       />
                     ) : (

@@ -176,6 +176,8 @@ export default function HyvenTechLeadership() {
                     height={200}
                     src={active.image}
                     alt={active.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
                   />
                 </motion.div>
@@ -278,6 +280,8 @@ export default function HyvenTechLeadership() {
                       <img 
                         src={leader.image} 
                         alt={leader.name}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
                     </motion.div>

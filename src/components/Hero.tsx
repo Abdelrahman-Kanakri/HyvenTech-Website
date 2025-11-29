@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useCallback } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const Particles = lazy(() => import("@/components/ui/Particles"));
@@ -9,21 +9,21 @@ const Particles = lazy(() => import("@/components/ui/Particles"));
 const Hero = () => {
   const isMobile = useIsMobile();
 
-  const handleContactClick = (e: React.MouseEvent) => {
+  const handleContactClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     const element = document.querySelector('#contact');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  };
+  }, []);
 
-  const handleServicesClick = (e: React.MouseEvent) => {
+  const handleServicesClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     const element = document.querySelector('#services');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  };
+  }, []);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-24">

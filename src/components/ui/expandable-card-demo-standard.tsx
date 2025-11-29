@@ -76,6 +76,8 @@ export default function ExpandableCardDemo() {
                   height={200}
                   src={active.src}
                   alt={active.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
                 />
               </motion.div>
@@ -139,6 +141,8 @@ export default function ExpandableCardDemo() {
                   height={100}
                   src={card.src}
                   alt={card.title}
+                  loading="lazy"
+                  decoding="async"
                   className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
                 />
               </motion.div>

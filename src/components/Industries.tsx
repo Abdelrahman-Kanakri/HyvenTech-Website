@@ -1,62 +1,54 @@
+import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { Heart, ShoppingCart, Factory, DollarSign, GraduationCap, Truck, Leaf, Rocket } from "lucide-react";
+import { Rocket } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-
-const industries = [
-  {
-    icon: Heart,
-    name: "Healthcare",
-    description: "HIPAA-compliant solutions for hospitals, clinics, and healthcare providers",
-    solutions: ["EMR Systems", "Patient Portals", "Telemedicine"],
-    link: "/key-sectors/healthcare"
-  },
-  {
-    icon: DollarSign,
-    name: "Finance & Banking",
-    description: "Secure, scalable fintech solutions with regulatory compliance",
-    solutions: ["Payment Systems", "Trading Platforms", "Risk Management"],
-    link: "/key-sectors/finance"
-  },
-  {
-    icon: ShoppingCart,
-    name: "Retail & E-Commerce",
-    description: "Omnichannel retail solutions driving customer engagement",
-    solutions: ["E-Commerce Platforms", "POS Systems", "Inventory Management"],
-    link: "/key-sectors/retail"
-  },
-  {
-    icon: Factory,
-    name: "Manufacturing",
-    description: "Industry 4.0 solutions for smart manufacturing and supply chain",
-    solutions: ["MES Systems", "IoT Monitoring", "Predictive Maintenance"],
-    link: "/key-sectors/manufacturing"
-  },
-
-  {
-    icon: GraduationCap,
-    name: "Education",
-    description: "EdTech platforms enhancing learning experiences",
-    solutions: ["LMS Platforms", "Student Portals", "Virtual Classrooms"],
-    link: "/key-sectors/education"
-  },
-  {
-    icon: Truck,
-    name: "Logistics",
-    description: "Supply chain optimization and fleet management solutions",
-    solutions: ["Route Optimization", "Warehouse Management", "Tracking Systems"],
-    link: "/key-sectors/logistics"
-  },
-  {
-    icon: Leaf,
-    name: "Energy & Utilities",
-    description: "Smart grid and renewable energy management systems",
-    solutions: ["Smart Metering", "Energy Analytics", "Grid Management"],
-    link: "/key-sectors/energy"
-  },
-];
+import { industries } from "@/constants/industries";
 
 const Industries = () => {
+  const renderedIndustries = useMemo(() => industries.map((industry, index) => {
+    const Icon = industry.icon;
+    return (
+      <motion.div
+        key={industry.name}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.05, duration: 0.5 }}
+      >
+        <Card className="glass glow h-full hover:glow-strong transition-all duration-300 group relative">
+          <CardHeader className="pb-3">
+            <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <Icon className="h-5 w-5 lg:h-7 lg:w-7 text-primary" />
+            </div>
+            <CardTitle className="text-sm lg:text-lg">{industry.name}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+              {industry.description}
+            </p>
+            <div className="space-y-1">
+              {industry.solutions.map((solution, sIndex) => (
+                <div key={sIndex} className="flex items-center gap-2">
+                  <div className="w-1 h-1 rounded-full bg-primary" />
+                  <span className="text-xs text-foreground">{solution}</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+          
+          {/* Rocket Icon Link */}
+          <Link 
+            to={industry.link}
+            className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-primary/10 hover:bg-primary/20 flex items-center justify-center transition-all group-hover:scale-110"
+          >
+            <Rocket className="h-4 w-4 text-primary" />
+          </Link>
+        </Card>
+      </motion.div>
+    );
+  }), []);
+
   return (
     <section id="key-sectors" className="py-12 sm:py-16 md:py-20 bg-muted/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,48 +68,7 @@ const Industries = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
-          {industries.map((industry, index) => {
-            const Icon = industry.icon;
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.5 }}
-              >
-                <Card className="glass glow h-full hover:glow-strong transition-all duration-300 group relative">
-                  <CardHeader className="pb-3">
-                    <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                      <Icon className="h-5 w-5 lg:h-7 lg:w-7 text-primary" />
-                    </div>
-                    <CardTitle className="text-sm lg:text-lg">{industry.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
-                      {industry.description}
-                    </p>
-                    <div className="space-y-1">
-                      {industry.solutions.map((solution, sIndex) => (
-                        <div key={sIndex} className="flex items-center gap-2">
-                          <div className="w-1 h-1 rounded-full bg-primary" />
-                          <span className="text-xs text-foreground">{solution}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                  
-                  {/* Rocket Icon Link */}
-                  <Link 
-                    to={industry.link}
-                    className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-primary/10 hover:bg-primary/20 flex items-center justify-center transition-all group-hover:scale-110"
-                  >
-                    <Rocket className="h-4 w-4 text-primary" />
-                  </Link>
-                </Card>
-              </motion.div>
-            );
-          })}
+          {renderedIndustries}
         </div>
       </div>
     </section>
@@ -125,3 +76,4 @@ const Industries = () => {
 };
 
 export default Industries;
+

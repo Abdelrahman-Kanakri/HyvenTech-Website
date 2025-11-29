@@ -1,48 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
-const navItems = [
-  { name: "Home", href: "/" },
-  { 
-    name: "Services", 
-    href: "/services",
-    dropdown: [
-      { name: "Accounting Systems", href: "/services/accounting-systems", isHighlight: false },
-      { name: "Digital Development", href: "/services/digital-development", isHighlight: false },
-      { name: "Artificial Intelligence", href: "/services/ai-solutions", isHighlight: false },
-      { name: "Technical Hardware", href: "/services/technical-hardware", isHighlight: false },
-      { name: "Digital Marketing", href: "/services/digital-marketing", isHighlight: false },
-      { name: "Cyber Security", href: "/services/cyber-security", isHighlight: false }
-    ]
-  },
-  { 
-    name: "Key Sectors", 
-    href: "/key-sectors",
-    dropdown: [
-      { name: "Healthcare", href: "/key-sectors/healthcare", isHighlight: false },
-      { name: "Finance & Banking", href: "/key-sectors/finance", isHighlight: false },
-      { name: "Retail & E-Commerce", href: "/key-sectors/retail", isHighlight: false },
-      { name: "Manufacturing", href: "/key-sectors/manufacturing", isHighlight: false },
-      { name: "Education", href: "/key-sectors/education", isHighlight: false },
-      { name: "Logistics", href: "/key-sectors/logistics", isHighlight: false },
-      { name: "Energy & Utilities", href: "/key-sectors/energy", isHighlight: false }
-    ]
-  },
-  { 
-    name: "Company", 
-    href: "/about",
-    dropdown: [
-      { name: "About HyvenTech", href: "/company/profile", isHighlight: true },
-      { name: "Leadership", href: "/company/leadership", isHighlight: false },
-      { name: "Our Methodology", href: "/company/methodology", isHighlight: false },
-      { name: "The HyvenTech Advantage", href: "/company/why-us", isHighlight: false }
-    ]
-  },
-  { name: "Contact", href: "/contact" },
-];
+import { navItems } from "@/constants/navigation";
 
 const Navigation = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -68,20 +29,96 @@ const Navigation = () => {
     setMobileMenuOpen(false);
   }, [location]);
 
-  const handleDropdownToggle = (itemName: string) => {
-    setOpenDropdown(openDropdown === itemName ? null : itemName);
-  };
+  const handleDropdownToggle = useCallback((itemName: string) => {
+    setOpenDropdown(prev => prev === itemName ? null : itemName);
+  }, []);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = useCallback(() => {
     setMobileMenuOpen(false);
     setOpenDropdown(null);
-  };
+  }, []);
 
-  const getLinkProps = (href: string) => {
+  const getLinkProps = useCallback((href: string) => {
     return {
       to: href
     };
-  };
+  }, []);
+
+  const handleLogoClick = useCallback(() => {
+    handleLinkClick();
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [handleLinkClick, location.pathname]);
+
+  const renderedNavItems = useMemo(() => navItems.map((item) => (
+    <div key={item.name} className="relative">
+      {item.dropdown ? (
+        <div className="flex items-center gap-1">
+          <Link
+            {...getLinkProps(item.href)}
+            onClick={handleLinkClick}
+            className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
+            aria-label={`Navigate to ${item.name} section`}
+          >
+            {item.name}
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+          </Link>
+          
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDropdownToggle(item.name);
+            }}
+            className="text-foreground/80 hover:text-primary transition-colors cursor-pointer p-1"
+            aria-label={`Toggle ${item.name} dropdown menu`}
+            aria-expanded={openDropdown === item.name}
+            aria-haspopup="true"
+          >
+            <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === item.name ? 'rotate-180' : ''}`} />
+          </button>
+          
+          <AnimatePresence>
+            {openDropdown === item.name && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-full mt-2 left-0 min-w-[220px] glass backdrop-blur-xl bg-background/90 border border-border/50 rounded-lg shadow-xl overflow-hidden"
+                role="menu"
+                aria-label={`${item.name} submenu`}
+              >
+                {item.dropdown.map((dropItem, index) => (
+                  <Link
+                    key={index}
+                    {...getLinkProps(dropItem.href)}
+                    onClick={handleLinkClick}
+                    className={`block px-4 py-3 text-sm hover:bg-primary/10 transition-colors ${
+                      dropItem.isHighlight ? 'text-primary font-semibold border-t border-border/50' : 'text-foreground/80'
+                    }`}
+                    role="menuitem"
+                  >
+                    {dropItem.name}
+                  </Link>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      ) : (
+        <Link
+          {...getLinkProps(item.href)}
+          onClick={handleLinkClick}
+          className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
+          aria-label={`Navigate to ${item.name}`}
+        >
+          {item.name}
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+        </Link>
+      )}
+    </div>
+  )), [navItems, openDropdown, handleLinkClick, handleDropdownToggle, getLinkProps]);
 
   return (
     <>
@@ -102,12 +139,7 @@ const Navigation = () => {
                 {...getLinkProps("/")}
                 className="hidden lg:flex items-center gap-2 group" 
                 aria-label="HyvenTech Home"
-                onClick={() => {
-                  handleLinkClick();
-                  if (location.pathname === "/") {
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }
-                }}
+                onClick={handleLogoClick}
               >
                 <div className="w-10 h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform">
                   <span className="text-primary font-bold text-lg">HT</span>
@@ -122,12 +154,7 @@ const Navigation = () => {
                 {...getLinkProps("/")}
                 className="lg:hidden flex items-center gap-2 p-2 bg-background/80 backdrop-blur-md border border-border/50 rounded-xl shadow-lg transition-all active:scale-95"
                 aria-label="HyvenTech Home"
-                onClick={() => {
-                  handleLinkClick();
-                  if (location.pathname === "/") {
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }
-                }}
+                onClick={handleLogoClick}
               >
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                   <span className="text-primary font-bold text-base">HT</span>
@@ -139,74 +166,7 @@ const Navigation = () => {
 
               {/* Desktop Navigation Links - Visible only on LG+ */}
               <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-                {navItems.map((item) => (
-                  <div key={item.name} className="relative">
-                    {item.dropdown ? (
-                      <div className="flex items-center gap-1">
-                        <Link
-                          {...getLinkProps(item.href)}
-                          onClick={handleLinkClick}
-                          className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
-                          aria-label={`Navigate to ${item.name} section`}
-                        >
-                          {item.name}
-                          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-                        </Link>
-                        
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDropdownToggle(item.name);
-                          }}
-                          className="text-foreground/80 hover:text-primary transition-colors cursor-pointer p-1"
-                          aria-label={`Toggle ${item.name} dropdown menu`}
-                          aria-expanded={openDropdown === item.name}
-                          aria-haspopup="true"
-                        >
-                          <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === item.name ? 'rotate-180' : ''}`} />
-                        </button>
-                        
-                        <AnimatePresence>
-                          {openDropdown === item.name && (
-                            <motion.div
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 10 }}
-                              transition={{ duration: 0.2 }}
-                              className="absolute top-full mt-2 left-0 min-w-[220px] glass backdrop-blur-xl bg-background/90 border border-border/50 rounded-lg shadow-xl overflow-hidden"
-                              role="menu"
-                              aria-label={`${item.name} submenu`}
-                            >
-                              {item.dropdown.map((dropItem, index) => (
-                                <Link
-                                  key={index}
-                                  {...getLinkProps(dropItem.href)}
-                                  onClick={handleLinkClick}
-                                  className={`block px-4 py-3 text-sm hover:bg-primary/10 transition-colors ${
-                                    dropItem.isHighlight ? 'text-primary font-semibold border-t border-border/50' : 'text-foreground/80'
-                                  }`}
-                                  role="menuitem"
-                                >
-                                  {dropItem.name}
-                                </Link>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    ) : (
-                      <Link
-                        {...getLinkProps(item.href)}
-                        onClick={handleLinkClick}
-                        className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
-                        aria-label={`Navigate to ${item.name}`}
-                      >
-                        {item.name}
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-                      </Link>
-                    )}
-                  </div>
-                ))}
+                {renderedNavItems}
                 
                 {/* CTA Button */}
                 <Button
@@ -327,3 +287,4 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
