@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     // CRITICAL: Must match GitHub repository name exactly for Pages deployment
-    base: "/Fusion-Innovation-IT/",
+    base: "/HyvenTech/",  
     server: {
       host: "::",
       port: 8080,

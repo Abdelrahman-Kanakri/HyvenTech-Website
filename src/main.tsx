@@ -1,16 +1,18 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom"; 
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
 import "./index.css";
 
+const basename = import.meta.env.BASE_URL; 
+
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <HelmetProvider>
-      <HashRouter>
+      <BrowserRouter basename={basename}>
         <App />
-      </HashRouter>
+      </BrowserRouter>
     </HelmetProvider>
   </React.StrictMode>
 );
