@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
-    base: "/HyvenTech",
+    base: "/HyvenTech/",
     server: {
       host: "::",
       port: 8080,
