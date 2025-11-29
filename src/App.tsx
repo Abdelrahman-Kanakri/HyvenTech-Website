@@ -13,6 +13,7 @@ import Chatbot from "./components/ChatBot";
 import ScrollToTop from "./components/ScrollToTop";
 import Navigation from "./components/Navigation";
 import BottomNavigation from "./components/BottomNavigation";
+import LoadingBar from "./components/LoadingBar";
 
 // Lazy Loaded Pages
 const Index = lazy(() => import("./pages/Index"));
@@ -53,6 +54,7 @@ const App = () => {
   
   return (
     <TooltipProvider>
+      <LoadingBar />
       {isLoading ? (
         <LoadingScreen onComplete={handleLoadingComplete} />
       ) : (
