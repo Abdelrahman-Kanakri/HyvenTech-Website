@@ -118,7 +118,7 @@ const Navigation = () => {
         </Link>
       )}
     </div>
-  )), [navItems, openDropdown, handleLinkClick, handleDropdownToggle, getLinkProps]);
+  )), [openDropdown, handleLinkClick, handleDropdownToggle, getLinkProps]);
 
   return (
     <>
