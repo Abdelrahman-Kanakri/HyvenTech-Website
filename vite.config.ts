@@ -8,8 +8,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
-    // Keep 'base' to ensure assets (JS, CSS) are loaded correctly relative to the repo name.
-    base: "/HyvenTech/",
+    // CRITICAL: Must match GitHub repository name exactly for Pages deployment
+    base: "/Fusion-Innovation-IT/",
     server: {
       host: "::",
       port: 8080,
