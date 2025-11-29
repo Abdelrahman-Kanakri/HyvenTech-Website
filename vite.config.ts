@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
+    // Keep 'base' to ensure assets (JS, CSS) are loaded correctly relative to the repo name.
     base: "/HyvenTech/",
     server: {
       host: "::",
