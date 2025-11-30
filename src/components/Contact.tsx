@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 const contactInfo = [
   {
@@ -94,7 +95,10 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="glass glow p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl"
           >
-            <form className="space-y-5 sm:space-y-6">
+            <form className="space-y-5 sm:space-y-6" onSubmit={(e) => {
+              e.preventDefault();
+              toast.success("Message sent successfully!");
+            }}>
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
                   Name
@@ -127,7 +131,7 @@ const Contact = () => {
                   className="bg-background/50 text-base resize-none"
                 />
               </div>
-              <Button className="w-full glow-strong bg-primary hover:bg-primary/90 active:bg-primary/80 text-primary-foreground min-h-[48px] text-base touch-manipulation">
+              <Button type="submit" className="w-full glow-strong bg-primary hover:bg-primary/90 active:bg-primary/80 text-primary-foreground min-h-[48px] text-base touch-manipulation">
                 Send Message
               </Button>
             </form>

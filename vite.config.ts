@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -65,10 +66,9 @@ export default defineConfig(({ mode }) => {
               return 'ui-vendor';
             }
             
-            // Animation libraries (Framer Motion, OGL)
-            if (id.includes('node_modules/framer-motion') ||
-                id.includes('node_modules/ogl')) {
-              return 'animation-vendor';
+            // Animation libraries - Split for better caching
+            if (id.includes('node_modules/framer-motion')) {
+              return 'framer-motion';
             }
             
             // Other node_modules
@@ -98,6 +98,12 @@ export default defineConfig(({ mode }) => {
     // Optimize dependencies
     optimizeDeps: {
       include: ['react', 'react-dom', 'react-router-dom'],
+    },
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: [],
+      include: ['src/**/*.test.{ts,tsx}'],
     },
   };
 });

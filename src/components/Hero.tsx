@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 import { lazy, Suspense, useCallback } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const Particles = lazy(() => import("@/components/ui/Particles"));
+
 
 const Hero = () => {
   const isMobile = useIsMobile();
@@ -29,25 +29,6 @@ const Hero = () => {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-24">
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-primary opacity-30" />
-      
-      {/* Particles Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <Suspense fallback={null}>
-          <Particles
-            particleColors={['#06B6D4', '#3B82F6', '#ffffff']}
-            particleCount={isMobile ? 40 : 300}
-            particleSpread={12}
-            speed={0.05}
-            particleBaseSize={100}
-            moveParticlesOnHover={!isMobile}
-            particleHoverFactor={1.5}
-            alphaParticles={true}
-            sizeRandomness={1.2}
-            cameraDistance={20}
-            disableRotation={false}
-          />
-        </Suspense>
-      </div>
 
       <div className="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-8 text-center max-w-5xl mx-auto">
