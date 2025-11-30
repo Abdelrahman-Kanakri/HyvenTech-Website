@@ -9,11 +9,13 @@ import { useIsMobile } from "@/hooks/use-mobile";
 // Components
 import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingScreen from "./components/LoadingScreen";
-import Chatbot from "./components/ChatBot";
 import ScrollToTop from "./components/ScrollToTop";
 import Navigation from "./components/Navigation";
-import BottomNavigation from "./components/BottomNavigation";
 import LoadingBar from "./components/LoadingBar";
+
+// Lazy Load Non-Critical Components
+const Chatbot = lazy(() => import("./components/ChatBot"));
+const BottomNavigation = lazy(() => import("./components/BottomNavigation"));
 
 // Lazy Loaded Pages
 const Index = lazy(() => import("./pages/Index"));
@@ -115,8 +117,10 @@ const App = () => {
               </motion.div>
             </AnimatePresence>
 
-            {isMobile && <BottomNavigation />}
-            <Chatbot />
+            <Suspense fallback={null}>
+              {isMobile && <BottomNavigation />}
+              <Chatbot />
+            </Suspense>
             <Toaster />
             <Sonner position="top-center" />
           </div>

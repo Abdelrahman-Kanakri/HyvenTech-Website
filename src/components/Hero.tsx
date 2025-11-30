@@ -42,7 +42,7 @@ const Hero = () => {
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight"
               initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+              transition={{ duration: 0.8 }}
             >
               <span className="text-foreground">Custom Software Solutions for </span>
               <span className="text-primary">Enterprise Digital Transformation</span>

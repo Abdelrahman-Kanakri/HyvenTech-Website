@@ -45,7 +45,7 @@ export default defineConfig(({ mode }) => {
         format: {
           comments: false, // Remove all comments
         },
-      } as any,
+      },
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
@@ -57,9 +57,8 @@ export default defineConfig(({ mode }) => {
               return 'react-vendor';
             }
             
-            // UI libraries (Radix UI, Lucide)
-            if (id.includes('node_modules/lucide-react') ||
-                id.includes('node_modules/@radix-ui') ||
+            // UI libraries (Radix UI)
+            if (id.includes('node_modules/@radix-ui') ||
                 id.includes('node_modules/clsx') ||
                 id.includes('node_modules/tailwind-merge') ||
                 id.includes('node_modules/class-variance-authority')) {
