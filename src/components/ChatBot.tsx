@@ -75,7 +75,7 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-28 right-4 lg:bottom-10 lg:right-10 z-50 flex flex-col items-end" ref={chatRef}>
+    <div className="fixed bottom-6 right-4 lg:bottom-6 lg:right-10 z-50 flex flex-col items-end" ref={chatRef}>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -159,16 +159,16 @@ const Chatbot = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 ${
+        className={`w-12 h-12 lg:w-14 lg:h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 ${
           isOpen 
             ? "bg-muted text-foreground rotate-90" 
             : "bg-gradient-glow text-primary hover:shadow-[0_0_30px_rgba(76,201,240,0.4)]"
         }`}
       >
         {isOpen ? (
-          <X className="h-6 w-6" />
+          <X className="h-5 w-5 lg:h-6 lg:w-6" />
         ) : (
-          <MessageSquare className="h-7 w-7" />
+          <MessageSquare className="h-6 w-6 lg:h-7 lg:w-7" />
         )}
       </motion.button>
     </div>

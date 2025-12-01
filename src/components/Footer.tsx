@@ -2,9 +2,28 @@ import { motion } from "framer-motion";
 import { Linkedin, Github, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import logo from "@/assets/Logo/Assets-07.svg";
+import logoLight from "@/assets/Logo/Assets-03.svg";
+import logoDark from "@/assets/Logo/Assets-04.svg";
+import { useEffect, useState } from "react";
 
 const Footer = () => {
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  // Track theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      const currentTheme = document.documentElement.classList.contains('light') ? 'light' : 'dark';
+      setTheme(currentTheme);
+    };
+    
+    checkTheme();
+    
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
+  
   const socialLinks = [
     { icon: Linkedin, label: "LinkedIn", href: "#" },
     { icon: Github, label: "GitHub", href: "#" },
@@ -45,15 +64,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-8 sm:mb-12">
           {/* Column 1: Company Info */}
           <div className="lg:col-span-2 space-y-6">
-            <Link to="/" className="flex items-center gap-3 group">
+            <Link to="/" className="flex items-center gap-3 group p-2 px-3 rounded-xl bg-background/50 border border-border/30 hover:border-primary/50 transition-all w-fit">
               <img 
-                src={logo} 
+                src={theme === 'light' ? logoLight : logoDark} 
                 alt="HyvenTech Logo" 
-                className="h-10 w-auto object-contain group-hover:scale-110 transition-transform"
+                className="w-32 h-auto object-contain group-hover:scale-110 transition-transform rounded-xl"
               />
-              <span className="font-bold text-xl">
-                HyvenTech
-              </span>
             </Link>
             <p className="text-muted-foreground max-w-sm leading-relaxed">
               Empowering businesses with innovative technology solutions. We build the digital infrastructure that powers the future of enterprise.

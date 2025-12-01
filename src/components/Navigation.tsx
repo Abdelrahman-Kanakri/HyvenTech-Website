@@ -4,14 +4,33 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navItems } from "@/constants/navigation";
-import logo from "@/assets/Logo/Assets-07.svg";
+import logoLight from "@/assets/Logo/Assets-03.svg";
+import logoDark from "@/assets/Logo/Assets-04.svg";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Navigation = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const location = useLocation();
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Track theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      const currentTheme = document.documentElement.classList.contains('light') ? 'light' : 'dark';
+      setTheme(currentTheme);
+    };
+    
+    checkTheme();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -132,46 +151,43 @@ const Navigation = () => {
         aria-label="Main navigation"
       >
         <div className="w-[90%] max-w-6xl mx-auto">
-          <div className="lg:glass lg:backdrop-blur-xl lg:bg-background/70 lg:border lg:border-border/50 lg:rounded-2xl lg:shadow-2xl lg:shadow-primary/5 lg:px-6 lg:py-4">
+          <div className="lg:glass lg:backdrop-blur-xl lg:bg-background/70 lg:border lg:border-border/50 lg:rounded-3xl lg:shadow-2xl lg:shadow-primary/5 lg:px-6 lg:py-2">
             <div className="flex items-center justify-between w-full" ref={dropdownRef}>
               
               {/* Desktop Logo - Visible only on LG+ */}
               <Link 
                 {...getLinkProps("/")}
-                className="hidden lg:flex items-center gap-3 group" 
+                className="hidden lg:flex items-center gap-3 group p-2 px-3 rounded-xl bg-background/50 border border-border/30 hover:border-primary/50 transition-all" 
                 aria-label="HyvenTech Home"
                 onClick={handleLogoClick}
               >
                 <img 
-                  src={logo} 
+                  src={theme === 'light' ? logoLight : logoDark} 
                   alt="HyvenTech Logo" 
-                  className="h-10 w-auto object-contain group-hover:scale-110 transition-transform"
+                  className="w-32 h-auto object-contain group-hover:scale-110 transition-transform rounded-xl"
                 />
-                <span className="font-bold text-lg">
-                  HyvenTech
-                </span>
               </Link>
 
               {/* Mobile/Tablet Logo - Floating Style (Visible < LG) */}
               <Link 
                 {...getLinkProps("/")}
-                className="lg:hidden flex items-center gap-2 p-2 bg-background/80 backdrop-blur-md border border-border/50 rounded-xl shadow-lg transition-all active:scale-95"
+                className="lg:hidden flex items-center gap-2 p-2 px-3 bg-background/80 backdrop-blur-md border border-border/50 rounded-xl shadow-lg transition-all active:scale-95 hover:border-primary/50"
                 aria-label="HyvenTech Home"
                 onClick={handleLogoClick}
               >
                 <img 
-                  src={logo} 
+                  src={theme === 'light' ? logoLight : logoDark} 
                   alt="HyvenTech Logo" 
-                  className="h-7 w-auto object-contain"
+                  className="w-24 h-auto object-contain rounded-xl"
                 />
-                <span className="font-bold text-sm text-foreground">
-                  HyvenTech
-                </span>
               </Link>
 
               {/* Desktop Navigation Links - Visible only on LG+ */}
               <div className="hidden lg:flex items-center gap-6 xl:gap-8">
                 {renderedNavItems}
+                
+                {/* Theme Toggle */}
+                <ThemeToggle />
                 
                 {/* CTA Button */}
                 <Button
@@ -272,6 +288,14 @@ const Navigation = () => {
                       )}
                     </div>
                   ))}
+                  
+                  {/* Theme Toggle */}
+                  <div className="pt-4 pb-2 border-t border-border/30">
+                    <div className="flex items-center justify-between">  
+                      <span className="text-sm font-medium text-foreground">Theme</span>
+                      <ThemeToggle />
+                    </div>
+                  </div>
                   
                   <Button
                     asChild
