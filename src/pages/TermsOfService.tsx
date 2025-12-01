@@ -6,7 +6,7 @@ const TermsOfService = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
-      <div className="container mx-auto px-4 py-32 flex-grow max-w-4xl">
+      <div className="container mx-auto px-4 pt-48 pb-32 flex-grow max-w-4xl">
         <h1 className="text-4xl font-bold mb-8">Terms of Service & Copyright</h1>
         <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground">
           
