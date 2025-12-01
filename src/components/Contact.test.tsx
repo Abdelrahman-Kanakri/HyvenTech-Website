@@ -8,11 +8,11 @@ import { toast } from 'sonner';
 // Mock the framer-motion to avoid animation issues in tests
 vi.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, whileInView, viewport, ...props }: any) => <div {...props}>{children}</div>,
-    a: ({ children, whileInView, viewport, ...props }: any) => <a {...props}>{children}</a>,
-    nav: ({ children, whileInView, viewport, ...props }: any) => <nav {...props}>{children}</nav>,
+    div: ({ children, ...props }: React.ComponentProps<'div'>) => <div {...props}>{children}</div>,
+    a: ({ children, ...props }: React.ComponentProps<'a'>) => <a {...props}>{children}</a>,
+    nav: ({ children, ...props }: React.ComponentProps<'nav'>) => <nav {...props}>{children}</nav>,
   },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
+  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
 
 // Mock sonner
