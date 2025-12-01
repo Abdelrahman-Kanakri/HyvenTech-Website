@@ -53,7 +53,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
               transition={{ delay: 0.2 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6"
             >
-              <span className="glow rounded-xl px-3 sm:px-4 py-2 inline-block">
+              <span className="rounded-xl px-3 sm:px-4 py-2 inline-block">
                 <span className="text-primary">{title} Solutions</span>
               </span>
             </motion.h1>
@@ -79,7 +79,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
               <div className="flex items-center gap-3 mb-6 sm:mb-8">
                 <Target className="w-6 h-6 sm:w-8 sm:h-8 text-primary flex-shrink-0" />
                 <h2 className="text-2xl sm:text-3xl font-bold">
-                  <span className="glow rounded-xl px-3 sm:px-4 py-2 inline-block">
+                  <span className="rounded-xl px-3 sm:px-4 py-2 inline-block">
                     <span className="text-primary">Industry Challenges</span>
                   </span>
                 </h2>
@@ -107,7 +107,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
               <div className="flex items-center gap-3 mb-6 sm:mb-8">
                 <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-primary flex-shrink-0" />
                 <h2 className="text-2xl sm:text-3xl font-bold">
-                  <span className="glow rounded-xl px-3 sm:px-4 py-2 inline-block">
+                  <span className="rounded-xl px-3 sm:px-4 py-2 inline-block">
                     <span className="text-primary">Our Solutions</span>
                   </span>
                 </h2>

@@ -43,7 +43,7 @@ const Contact = () => {
           className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
-            <span className="glow rounded-xl px-4 py-2 inline-block">Contact <span className="text-primary">Us</span></span>
+            <span className="rounded-xl px-4 py-2 inline-block">Contact <span className="text-primary">Us</span></span>
           </h2>
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-0">
             Ready to transform your business? Let's discuss your project

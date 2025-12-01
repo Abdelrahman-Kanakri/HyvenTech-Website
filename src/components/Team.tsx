@@ -25,11 +25,11 @@ const team = [
     linkedin: "https://www.linkedin.com/in/rakannmmasdeh-rakan-783859383/",
   },
   {
-    name: "Mahmoud Al-Kdhoor",
+    name: "Mahmoud Al-Khdoor",
     role: "Social Media Manager",
     expertise: ["Strategic Planning", "Sales", "Marketing"],
     initials: "MAK",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/%D9%85%D8%AD%D9%85%D9%88%D8%AF-%D8%A7%D9%84%D8%AE%D8%B6%D9%88%D8%B1-809808391/",
   },
   {
     name: "Lana Alzoubi",
@@ -53,7 +53,7 @@ const Team = () => {
           className="text-center mb-10 sm:mb-12 md:mb-16"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
-            <span className="glow rounded-xl px-4 py-2 inline-block"><span className="text-primary">Leadership</span></span>
+            <span className="rounded-xl px-4 py-2 inline-block"><span className="text-primary">Leadership</span></span>
           </h2>
           <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-0">
             Meet the professionals driving innovation and excellence

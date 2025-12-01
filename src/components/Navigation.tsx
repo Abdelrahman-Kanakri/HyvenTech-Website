@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navItems } from "@/constants/navigation";
+import logo from "@/assets/Logo/Assets-07.svg";
 
 const Navigation = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -137,13 +138,15 @@ const Navigation = () => {
               {/* Desktop Logo - Visible only on LG+ */}
               <Link 
                 {...getLinkProps("/")}
-                className="hidden lg:flex items-center gap-2 group" 
+                className="hidden lg:flex items-center gap-3 group" 
                 aria-label="HyvenTech Home"
                 onClick={handleLogoClick}
               >
-                <div className="w-10 h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <span className="text-primary font-bold text-lg">HT</span>
-                </div>
+                <img 
+                  src={logo} 
+                  alt="HyvenTech Logo" 
+                  className="h-10 w-auto object-contain group-hover:scale-110 transition-transform"
+                />
                 <span className="font-bold text-lg">
                   HyvenTech
                 </span>
@@ -156,9 +159,11 @@ const Navigation = () => {
                 aria-label="HyvenTech Home"
                 onClick={handleLogoClick}
               >
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary font-bold text-base">HT</span>
-                </div>
+                <img 
+                  src={logo} 
+                  alt="HyvenTech Logo" 
+                  className="h-7 w-auto object-contain"
+                />
                 <span className="font-bold text-sm text-foreground">
                   HyvenTech
                 </span>

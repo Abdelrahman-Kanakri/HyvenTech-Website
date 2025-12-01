@@ -49,7 +49,7 @@ export const leaders: Leader[] = [
   },
   {
     id: 3,
-    name: "Mahmoud Al-Kdhoor",
+    name: "Mahmoud Al-Khdoor",
     role: "CMO",
     image: mahmoudImg,
     skills: ["Brand Strategy", "Content Creation", "Community Management", "SEO"],
@@ -59,7 +59,7 @@ export const leaders: Leader[] = [
       "Created award-winning content campaigns with 10M+ total reach",
       "Built and nurtured engaged community of 50,000+ active followers"
     ],
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/%D9%85%D8%AD%D9%85%D9%88%D8%AF-%D8%A7%D9%84%D8%AE%D8%B6%D9%88%D8%B1-809808391/",
     email: "mahmoud@hyventech.com"
   },
   {

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Linkedin, Github, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import logo from "@/assets/Logo/Assets-07.svg";
 
 const Footer = () => {
   const socialLinks = [
@@ -44,10 +45,12 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-8 sm:mb-12">
           {/* Column 1: Company Info */}
           <div className="lg:col-span-2 space-y-6">
-            <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 rounded-lg bg-gradient-glow flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-primary font-bold text-lg">HT</span>
-              </div>
+            <Link to="/" className="flex items-center gap-3 group">
+              <img 
+                src={logo} 
+                alt="HyvenTech Logo" 
+                className="h-10 w-auto object-contain group-hover:scale-110 transition-transform"
+              />
               <span className="font-bold text-xl">
                 HyvenTech
               </span>

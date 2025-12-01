@@ -22,7 +22,7 @@ const AboutUsDetailed = () => {
             className="max-w-4xl mx-auto text-center"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="glow rounded-xl px-4 py-2 inline-block"><span className="text-primary">About HyvenTech</span></span>
+              <span className="rounded-xl px-4 py-2 inline-block"><span className="text-primary">About HyvenTech</span></span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
               HyvenTech delivers integrated technological solutions for diverse industries, including Healthcare, Finance, and Logistics. By fusing Artificial Intelligence with custom software and hardware systems, we turn complex business challenges into smart, manageable growth.

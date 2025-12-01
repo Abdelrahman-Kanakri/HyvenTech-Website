@@ -53,7 +53,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
               transition={{ delay: 0.2 }}
               className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6"
             >
-              <span className="glow rounded-xl px-3 sm:px-4 py-2 inline-block">
+              <span className="rounded-xl px-3 sm:px-4 py-2 inline-block">
                 <span className="text-primary">{title}</span>
               </span>
             </motion.h1>
@@ -91,7 +91,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
             {/* Benefits Column */}
             <div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8">
-                <span className="glow rounded-xl px-3 sm:px-4 py-2 inline-block">
+                <span className="rounded-xl px-3 sm:px-4 py-2 inline-block">
                   <span className="text-primary">Key Benefits</span>
                 </span>
               </h2>

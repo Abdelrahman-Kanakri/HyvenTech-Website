@@ -1,16 +1,19 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 
 import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Industries from "@/components/Industries";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import Process from "@/components/Process";
 import ClientLogos from "@/components/ClientLogos";
-import Team from "@/components/Team";
-import About from "@/components/About";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 
+// Lazy load below-the-fold components to reduce initial bundle size
+const Services = lazy(() => import("@/components/Services"));
+const Industries = lazy(() => import("@/components/Industries"));
+const WhyChooseUs = lazy(() => import("@/components/WhyChooseUs"));
+const Process = lazy(() => import("@/components/Process"));
+const Team = lazy(() => import("@/components/Team"));
+const About = lazy(() => import("@/components/About"));
+const Contact = lazy(() => import("@/components/Contact"));
+const Footer = lazy(() => import("@/components/Footer"));
+
+const LoadingFallback = () => <div className="py-20" />;
 
 const Index = () => {
 
@@ -20,20 +23,44 @@ const Index = () => {
       <div className="divider-glow" />
       <ClientLogos />
       <div className="divider-glow" />
-      <Services />
+      
+      <Suspense fallback={<LoadingFallback />}>
+        <Services />
+      </Suspense>
       <div className="divider-glow" />
-      <Industries />
+      
+      <Suspense fallback={<LoadingFallback />}>
+        <Industries />
+      </Suspense>
       <div className="divider-glow" />
-      <Process />
+      
+      <Suspense fallback={<LoadingFallback />}>
+        <Process />
+      </Suspense>
       <div className="divider-glow" />
-      <WhyChooseUs />
+      
+      <Suspense fallback={<LoadingFallback />}>
+        <WhyChooseUs />
+      </Suspense>
       <div className="divider-glow" />
-      <About />
+      
+      <Suspense fallback={<LoadingFallback />}>
+        <About />
+      </Suspense>
       <div className="divider-glow" />
-      <Team />
+      
+      <Suspense fallback={<LoadingFallback />}>
+        <Team />
+      </Suspense>
       <div className="divider-glow" />
-      <Contact />
-      <Footer />
+      
+      <Suspense fallback={<LoadingFallback />}>
+        <Contact />
+      </Suspense>
+      
+      <Suspense fallback={<LoadingFallback />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

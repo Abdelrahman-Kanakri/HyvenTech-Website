@@ -3,15 +3,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { v4 as uuidv4 } from 'uuid'; // Import UUID
+import { v4 as uuidv4 } from 'uuid';
+import { n8nApiService } from "@/services/n8nApiService";
 
 const Chatbot = () => {
-  const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL || "OK";
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([
     { text: "Hello! How can I help you with HyvenTech services today?", isUser: false },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [isSending, setIsSending] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -39,46 +40,37 @@ const Chatbot = () => {
   // 4. Handle Send Message
   const handleSendMessage = async (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim() || isSending) return;
 
     const userText = inputValue;
 
     // Add user message to UI immediately
     setMessages((prev) => [...prev, { text: userText, isUser: true }]);
     setInputValue("");
+    setIsSending(true);
 
     try {
-      // Send data to n8n
-      const response = await fetch(N8N_WEBHOOK_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // 👇 CRITICAL FIX: Send the sessionId so n8n knows who this is
-        body: JSON.stringify({ 
-            message: userText, 
-            sessionId: sessionId.current 
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.status}`);
-      }
-
-      const text = await response.text(); 
-      const data = text ? JSON.parse(text) : {};
-
-      // Handle the response (Check for 'output', 'text', or 'reply')
-      const botReply = data.output || data.text || data.reply || "I received your message but got no text back.";
+      // Send message using the new n8n API service
+      // This automatically handles:
+      // - Request queueing (max 3 concurrent)
+      // - Exponential backoff retries (3 attempts)
+      // - Error handling for 429/502/503 errors
+      const botReply = await n8nApiService.sendChatMessage(userText, sessionId.current);
 
       setMessages((prev) => [...prev, { text: botReply, isUser: false }]);
 
     } catch (error) {
       console.error("Error sending message:", error);
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : "Sorry, I'm having trouble connecting to the server right now.";
+      
       setMessages((prev) => [
         ...prev, 
-        { text: "Sorry, I'm having trouble connecting to the server right now.", isUser: false }
+        { text: errorMessage, isUser: false }
       ]);
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -146,12 +138,13 @@ const Chatbot = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Type a message..."
                   className="bg-background/50 border-border/50 focus:border-primary/50"
+                  disabled={isSending}
                 />
                 <Button 
                   type="submit" 
                   size="icon" 
                   className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
-                  disabled={!inputValue.trim()}
+                  disabled={!inputValue.trim() || isSending}
                 >
                   <Send className="h-4 w-4" />
                 </Button>
