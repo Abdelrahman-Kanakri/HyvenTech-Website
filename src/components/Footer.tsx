@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Linkedin, Github, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
+import { Linkedin, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logoLight from "@/assets/Logo/Assets-03.svg";
@@ -26,7 +26,6 @@ const Footer = () => {
   
   const socialLinks = [
     { icon: Linkedin, label: "LinkedIn", href: "#" },
-    { icon: Github, label: "GitHub", href: "#" },
     { icon: Facebook, label: "Facebook", href: "#" },
     { icon: Twitter, label: "Twitter", href: "#" },
     { icon: Instagram, label: "Instagram", href: "#" },

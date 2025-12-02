@@ -121,7 +121,6 @@ export async function sendChatMessage(
       // Handle the response (Check for 'output', 'text', or 'reply')
       return data.output || data.text || data.reply || 'I received your message but got no text back.';
     } catch (error) {
-      console.error('Error sending chat message to n8n:', error);
       throw new Error('Sorry, I\'m having trouble connecting to the server right now.');
     }
   });
@@ -156,7 +155,6 @@ export async function submitContactForm(data: {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
     } catch (error) {
-      console.error('Error submitting contact form to n8n:', error);
       throw new Error('Failed to send message. Please try again later.');
     }
   });
@@ -198,7 +196,6 @@ export async function sendBatchRequest<T>(
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
       } catch (error) {
-        console.error('Error sending batch request to n8n:', error);
         throw error;
       }
     });
