@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HyvenTech</title>
-    <link rel="icon" type="image/png" href="/src/assets/Logo/Assets-21 (1).png" sizes="1024x1024">
+    <link
+      rel="icon"
+      type="image/png"
+      href="/src/assets/Logo/Assets-21 (1).png"
+      sizes="1024x1024"
+    />
     <meta
       name="description"
       content="Transforming businesses with cutting-edge solutions in ERP, AI, web development, and technical excellence."
@@ -28,5 +33,20 @@
     <div id="root"></div>
 
     <script type="module" src="./src/main.tsx"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyA-V3j34PJ1rBbt8jNkj4TJh1F7FVUi8Co",
+        authDomain: "hyvenjotech.firebaseapp.com",
+        projectId: "hyvenjotech",
+        storageBucket: "hyvenjotech.firebasestorage.app",
+        messagingSenderId: "580003116836",
+        appId: "1:580003116836:web:7b582063a2afcc0ecca5b1",
+        measurementId: "G-PE1ENHYB6T",
+      };
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
   </body>
 </html>
