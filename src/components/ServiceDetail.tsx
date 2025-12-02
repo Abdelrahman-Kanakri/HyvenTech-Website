@@ -33,7 +33,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative pt-20 sm:pt-24 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
+      <section className="relative pt-24 sm:pt-28 lg:pt-36 pb-12 sm:pb-16 lg:pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-primary opacity-10 pointer-events-none" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -134,7 +134,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 lg:py-20">
+      <section className="py-12 sm:py-16 lg:py-20 mb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div 
             whileHover={{ scale: 1.01 }}

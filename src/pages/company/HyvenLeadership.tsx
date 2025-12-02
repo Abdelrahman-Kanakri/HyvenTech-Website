@@ -225,16 +225,14 @@ const HyvenLeadership = memo(() => {
       <Navigation />
       
       {/* Header */}
-      <header className="container mx-auto px-4 pt-28 sm:pt-32 pb-8 text-center">
+      <header className="container mx-auto px-4 pt-32 sm:pt-36 pb-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
-            <span className="inline-block glow rounded-2xl px-4 sm:px-6 py-2">
-              Our <span className="text-primary">Leadership</span>
-            </span>
+            Our <span className="text-primary">Leadership</span>
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
             Meet the visionaries driving innovation at HyvenTech
@@ -243,7 +241,7 @@ const HyvenLeadership = memo(() => {
       </header>
 
       {/* Leadership List */}
-      <main className="flex-1 container mx-auto px-4 pb-20">
+      <main className="flex-1 container mx-auto px-4 pb-20 mb-20">
         <div className="max-w-3xl mx-auto space-y-4">
           {leaders.map((leader, index) => (
             <LeaderCard
