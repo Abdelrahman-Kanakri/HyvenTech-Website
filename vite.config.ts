@@ -82,6 +82,10 @@ export default defineConfig(({ mode }) => {
             if (assetInfo.name?.endsWith('.css')) {
               return 'assets/css/[name]-[hash][extname]';
             }
+            // Optimize image assets
+            if (assetInfo.name?.match(/\.(png|jpe?g|svg|gif|webp|avif)$/)) {
+              return 'assets/img/[name]-[hash][extname]';
+            }
             return 'assets/[name]-[hash][extname]';
           },
         },
@@ -93,10 +97,18 @@ export default defineConfig(({ mode }) => {
       // Additional optimizations
       reportCompressedSize: true,
       sourcemap: false, // Disable source maps in production for smaller bundles
+      // Optimize CSS
+      cssMinify: true,
     },
     // Optimize dependencies
     optimizeDeps: {
       include: ['react', 'react-dom', 'react-router-dom'],
+      // Exclude heavy dependencies from pre-bundling if not needed immediately
+      exclude: [],
+    },
+    // Enable CSS code splitting for better caching
+    css: {
+      devSourcemap: false,
     },
     test: {
       globals: true,

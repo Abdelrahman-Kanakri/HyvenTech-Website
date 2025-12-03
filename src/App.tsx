@@ -53,6 +53,9 @@ const App = () => {
   const handleLoadingComplete = useCallback(() => {
     setIsLoading(false);
   }, []);
+
+  // PERFORMANCE: Disable animations on mobile for better performance
+  const shouldAnimate = !isMobile;
   
   return (
     <TooltipProvider>
@@ -65,16 +68,17 @@ const App = () => {
             <Navigation />
             
             <AnimatePresence mode="wait">
-              <motion.div
-                key={location.pathname}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <ScrollToTop />
-                <Suspense fallback={<LoadingScreen onComplete={() => {}} />}>
-                  <Routes location={location}>
+              {shouldAnimate ? (
+                <motion.div
+                  key={location.pathname}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ScrollToTop />
+                  <Suspense fallback={<LoadingScreen onComplete={() => {}} />}>
+                    <Routes location={location}>
                     <Route index element={<Index />} />
                     <Route path="services" element={<Index />} />
                     <Route path="about" element={<Index />} />
@@ -115,6 +119,53 @@ const App = () => {
                   </Routes>
                 </Suspense>
               </motion.div>
+              ) : (
+                // Mobile: No animations for better performance
+                <div key={location.pathname}>
+                  <ScrollToTop />
+                  <Suspense fallback={<LoadingScreen onComplete={() => {}} />}>
+                    <Routes location={location}>
+                      <Route index element={<Index />} />
+                      <Route path="services" element={<Index />} />
+                      <Route path="about" element={<Index />} />
+                      <Route path="contact" element={<Index />} />
+                      <Route path="key-sectors" element={<Index />} />
+                      <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                      <Route path="terms-of-service" element={<TermsOfService />} />
+                      <Route path="faq" element={<FAQ />} />
+                      <Route path="social-media" element={<SocialMedia />} />
+                      <Route path="careers" element={<Careers />} />
+                      <Route path="blog" element={<ComingSoon />} />
+                      <Route path="case-studies" element={<ComingSoon />} />
+                      
+                      {/* Company Pages */}
+                      <Route path="company/profile" element={<AboutUsDetailed />} />
+                      <Route path="company/leadership" element={<HyvenLeadership />} />
+                      <Route path="company/methodology" element={<Methodology />} />
+                      <Route path="company/why-us" element={<WhyUs />} />
+
+                      {/* Services */}
+                      <Route path="services/accounting-systems" element={<AccountingSystems />} />
+                      <Route path="services/digital-development" element={<DigitalDevelopment />} />
+                      <Route path="services/ai-solutions" element={<AIServices />} />
+                      <Route path="services/technical-hardware" element={<TechnicalHardware />} />
+                      <Route path="services/digital-marketing" element={<DigitalMarketing />} />
+                      <Route path="services/cyber-security" element={<CyberSecurity />} />
+
+                      {/* Key Sectors */}
+                      <Route path="key-sectors/healthcare" element={<Healthcare />} />
+                      <Route path="key-sectors/finance" element={<Finance />} />
+                      <Route path="key-sectors/retail" element={<Retail />} />
+                      <Route path="key-sectors/manufacturing" element={<Manufacturing />} />
+                      <Route path="key-sectors/education" element={<Education />} />
+                      <Route path="key-sectors/logistics" element={<Logistics />} />
+                      <Route path="key-sectors/energy" element={<Energy />} />
+
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </Suspense>
+                </div>
+              )}
             </AnimatePresence>
 
             <Suspense fallback={null}>

@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navItems } from "@/constants/navigation";
-import logoLight from "@/assets/Logo/Assets-03.svg";
-import logoDark from "@/assets/Logo/Assets-04.svg";
+import logoLight from "@/assets/Logo/Assets-03.png";
+import logoDark from "@/assets/Logo/Assets-04.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Navigation = () => {

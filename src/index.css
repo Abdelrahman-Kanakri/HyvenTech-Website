@@ -1,4 +1,5 @@
 
+/* Font with display: swap for better loading performance */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 @tailwind base;
@@ -11,6 +12,39 @@
   }
 }
 
+/* Mobile Performance Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .hover\:scale-105:hover,
+  .group-hover\:scale-110:hover,
+  .hover\:bg-primary\/10:hover {
+    transform: none !important;
+    background-color: inherit !important;
+  }
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Viewport height fix for mobile browsers */
+:root {
+  --vh: 1vh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --vh: 1dvh;
+  }
+}
 
 /* Blue to Off-White Gradient Design System */
 
@@ -176,6 +210,15 @@
     min-height: 100dvh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    
+    /* Performance optimizations */
+    text-rendering: optimizeSpeed;
+  }
+  
+  /* Optimize rendering for sections */
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
   }
 
   /* Safe area support for notched devices */

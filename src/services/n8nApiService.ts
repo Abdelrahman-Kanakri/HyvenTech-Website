@@ -26,10 +26,46 @@ const RETRY_CONFIG = {
 };
 
 /**
+ * Request timeout (15 seconds)
+ */
+const REQUEST_TIMEOUT = 15000;
+
+/**
+ * Debounce delay for chat messages (300ms)
+ */
+const DEBOUNCE_DELAY = 300;
+
+/**
  * Sleep utility for delays
  */
 const sleep = (ms: number): Promise<void> => 
   new Promise(resolve => setTimeout(resolve, ms));
+
+/**
+ * Debounce utility
+ */
+let debounceTimer: NodeJS.Timeout | null = null;
+
+function debounce<T extends (...args: any[]) => Promise<any>>(
+  fn: T,
+  delay: number
+): (...args: Parameters<T>) => Promise<ReturnType<T>> {
+  return (...args: Parameters<T>): Promise<ReturnType<T>> => {
+    return new Promise((resolve, reject) => {
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+      debounceTimer = setTimeout(async () => {
+        try {
+          const result = await fn(...args);
+          resolve(result);
+        } catch (error) {
+          reject(error);
+        }
+      }, delay);
+    });
+  };
+}
 
 /**
  * Calculate exponential backoff delay
@@ -40,7 +76,7 @@ const calculateBackoffDelay = (attempt: number): number => {
 };
 
 /**
- * Fetch with exponential backoff retry logic
+ * Fetch with exponential backoff retry logic and timeout
  */
 async function fetchWithRetry(
   url: string,
@@ -50,8 +86,17 @@ async function fetchWithRetry(
   let lastError: Error | null = null;
 
   for (let attempt = 0; attempt < maxRetries; attempt++) {
+    // Create AbortController for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT);
+
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
 
       // Success - return immediately
       if (response.ok) {
@@ -71,7 +116,13 @@ async function fetchWithRetry(
       // Non-retryable error - throw immediately
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     } catch (error) {
+      clearTimeout(timeoutId);
       lastError = error as Error;
+
+      // Check if request was aborted due to timeout
+      if (lastError.name === 'AbortError') {
+        lastError = new Error('Request timeout - server took too long to respond');
+      }
 
       // If this is a network error and we have retries left, try again
       if (attempt < maxRetries - 1) {
@@ -203,6 +254,12 @@ export async function sendBatchRequest<T>(
 }
 
 /**
+ * Debounced version of sendChatMessage (300ms delay)
+ * Prevents API spam when users type rapidly
+ */
+export const sendChatMessageDebounced = debounce(sendChatMessage, DEBOUNCE_DELAY);
+
+/**
  * Get current queue status (for debugging/monitoring)
  */
 export function getQueueStatus() {
@@ -216,6 +273,7 @@ export function getQueueStatus() {
 // Export as a service object for easier mocking in tests
 export const n8nApiService = {
   sendChatMessage,
+  sendChatMessageDebounced,
   submitContactForm,
   sendBatchRequest,
   getQueueStatus,

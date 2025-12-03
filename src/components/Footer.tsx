@@ -1,9 +1,8 @@
-import { motion } from "framer-motion";
 import { Linkedin, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import logoLight from "@/assets/Logo/Assets-03.svg";
-import logoDark from "@/assets/Logo/Assets-04.svg";
+import logoLight from "@/assets/Logo/Assets-03.png";
+import logoDark from "@/assets/Logo/Assets-04.png";
 import { useEffect, useState } from "react";
 
 const Footer = () => {

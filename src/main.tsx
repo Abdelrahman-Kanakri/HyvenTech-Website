@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
 import "./index.css";
+import { registerServiceWorker } from "./utils/registerSW";
 
 const basename = import.meta.env.BASE_URL; 
 
@@ -16,3 +17,6 @@ createRoot(document.getElementById("root")!).render(
     </HelmetProvider>
   </React.StrictMode>
 );
+
+// Register service worker for PWA capabilities
+registerServiceWorker();

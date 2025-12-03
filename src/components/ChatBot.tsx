@@ -50,12 +50,14 @@ const Chatbot = () => {
     setIsSending(true);
 
     try {
-      // Send message using the new n8n API service
+      // Send message using the debounced n8n API service
       // This automatically handles:
-      // - Request queueing (max 3 concurrent)
+      // - Request queueing (max 10 concurrent)
+      // - Request debouncing (300ms delay)
+      // - Request timeout (15s AbortController)
       // - Exponential backoff retries (3 attempts)
       // - Error handling for 429/502/503 errors
-      const botReply = await n8nApiService.sendChatMessage(userText, sessionId.current);
+      const botReply = await n8nApiService.sendChatMessageDebounced(userText, sessionId.current);
 
       setMessages((prev) => [...prev, { text: botReply, isUser: false }]);
 
