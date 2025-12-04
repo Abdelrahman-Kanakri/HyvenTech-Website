@@ -15,7 +15,21 @@ const Footer = lazy(() => import("@/components/Footer"));
 
 const LoadingFallback = () => <div className="py-20" />;
 
+import { useLocation } from "react-router-dom";
+
 const Index = () => {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (location.state?.scrollToContact) {
+      const element = document.querySelector('#contact-section');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Clear the state to prevent scrolling on refresh
+        window.history.replaceState({}, document.title);
+      }
+    }
+  }, [location]);
 
   return (
     <div className="min-h-screen relative">
@@ -54,9 +68,11 @@ const Index = () => {
       </Suspense>
       <div className="divider-glow" />
       
-      <Suspense fallback={<LoadingFallback />}>
-        <Contact />
-      </Suspense>
+      <div id="contact-section">
+        <Suspense fallback={<LoadingFallback />}>
+          <Contact />
+        </Suspense>
+      </div>
       
       <Suspense fallback={<LoadingFallback />}>
         <Footer />

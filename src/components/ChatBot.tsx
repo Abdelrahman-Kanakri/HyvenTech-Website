@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { v4 as uuidv4 } from 'uuid';
 import { n8nApiService } from "@/services/n8nApiService";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Chatbot = () => {
+  const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([
     { text: "Hello! How can I help you with HyvenTech services today?", isUser: false },
@@ -67,15 +69,15 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-4 lg:bottom-6 lg:right-10 z-50 flex flex-col items-end" ref={chatRef}>
+    <div className="fixed bottom-24 right-4 lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2 lg:right-6 z-50 flex flex-col items-end lg:items-center" ref={chatRef}>
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ duration: 0.2 }}
-            className="mb-4 w-[350px] sm:w-[380px] h-[500px] max-h-[80vh] glass backdrop-blur-xl bg-background/90 border border-border/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            initial={isMobile ? { opacity: 0, scale: 0.2, y: 80 } : { opacity: 0, scale: 0.9, x: 20 }}
+            animate={isMobile ? { opacity: 1, scale: 1, y: 0 } : { opacity: 1, scale: 1, x: 0 }}
+            exit={isMobile ? { opacity: 0, scale: 0.2, y: 80 } : { opacity: 0, scale: 0.9, x: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="mb-4 lg:mb-0 lg:absolute lg:right-20 lg:top-1/2 lg:-translate-y-1/2 w-[350px] sm:w-[380px] h-[500px] max-h-[80vh] glass backdrop-blur-xl bg-background/90 border border-border/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden origin-bottom-right lg:origin-right"
           >
             <div className="p-4 border-b border-border/50 bg-primary/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -117,6 +119,15 @@ const Chatbot = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setIsOpen(!isOpen)}
+        className={`hidden lg:flex w-14 h-14 rounded-full shadow-2xl items-center justify-center transition-all duration-300 ${isOpen ? 'bg-destructive rotate-90' : 'bg-primary glow-strong'}`}
+      >
+        {isOpen ? <X className="w-6 h-6 text-white" /> : <Bot className="w-8 h-8 text-primary-foreground" />}
+      </motion.button>
     </div>
   );
 };

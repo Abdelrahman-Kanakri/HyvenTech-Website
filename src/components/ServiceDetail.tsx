@@ -6,7 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import Navigation from "@/components/Navigation";
 import BottomNavigation from "@/components/BottomNavigation";
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface ServiceDetailProps {
   title: string;
@@ -27,6 +27,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
   features,
 }) => {
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   return (
     <div className={`min-h-screen flex flex-col ${isMobile ? 'pb-24' : ''}`}>
@@ -73,10 +74,8 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
               transition={{ delay: 0.4 }}
               className="flex flex-wrap justify-center gap-4"
             >
-              <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all" asChild>
-                <Link to="/contact">
-                  Get Started <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
+              <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
+                Get Started <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </motion.div>
           </div>
@@ -145,8 +144,8 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
               Contact us today to discuss how our {title} solutions can help you achieve your goals.
             </p>
-            <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all" asChild>
-              <Link to="/contact">Schedule a Consultation</Link>
+            <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
+              Schedule a Consultation
             </Button>
           </motion.div>
         </div>

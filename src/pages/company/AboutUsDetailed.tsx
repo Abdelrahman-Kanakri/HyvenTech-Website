@@ -4,9 +4,11 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Target, Zap, Shield, Users, ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AboutUsDetailed = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
@@ -184,10 +186,8 @@ const AboutUsDetailed = () => {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join the hundreds of businesses that have trusted HyvenTech with their digital future.
           </p>
-          <Button asChild size="lg" className="glow text-lg px-8">
-            <Link to="/contact">
-              Start Your Journey <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
+          <Button size="lg" className="glow text-lg px-8" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
+            Start Your Journey <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </div>
       </section>

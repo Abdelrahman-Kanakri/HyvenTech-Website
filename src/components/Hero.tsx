@@ -11,7 +11,7 @@ const Hero = () => {
 
   const handleContactClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-    const element = document.querySelector('#contact');
+    const element = document.querySelector('#contact-section');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }

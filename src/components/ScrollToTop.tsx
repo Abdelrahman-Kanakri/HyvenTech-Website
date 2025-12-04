@@ -81,6 +81,10 @@ const ScrollToTop = () => {
         scrollToElement('#about', 0, 5);
         scrollHandled = true;
       }
+      else if (previousPath.includes('/contact')) {
+        scrollToElement('#contact-section', 0, 5);
+        scrollHandled = true;
+      }
     }
 
     // CASE 2: Section navigation from routes (e.g., /services, /key-sectors)

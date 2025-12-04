@@ -72,13 +72,33 @@ const Navigation = () => {
     }
   }, [handleLinkClick, location.pathname]);
 
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    if (href === "/#contact") {
+      e.preventDefault();
+      handleLinkClick();
+      
+      const isHomePage = location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/services" || location.pathname === "/about";
+      
+      if (isHomePage) {
+        const element = document.querySelector('#contact-section');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        navigate('/', { state: { scrollToContact: true } });
+      }
+    } else {
+      handleLinkClick();
+    }
+  };
+
   const renderedNavItems = useMemo(() => navItems.map((item) => (
     <div key={item.name} className="relative">
       {item.dropdown ? (
         <div className="flex items-center gap-1">
           <Link
             {...getLinkProps(item.href)}
-            onClick={handleLinkClick}
+            onClick={(e) => handleNavClick(e, item.href)}
             className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
             aria-label={`Navigate to ${item.name} section`}
           >
@@ -130,7 +150,7 @@ const Navigation = () => {
       ) : (
         <Link
           {...getLinkProps(item.href)}
-          onClick={handleLinkClick}
+          onClick={(e) => handleNavClick(e, item.href)}
           className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
           aria-label={`Navigate to ${item.name}`}
         >
@@ -139,7 +159,7 @@ const Navigation = () => {
         </Link>
       )}
     </div>
-  )), [openDropdown, handleLinkClick, handleDropdownToggle, getLinkProps]);
+  )), [openDropdown, handleLinkClick, handleDropdownToggle, getLinkProps, location.pathname, navigate]);
 
   return (
     <>
@@ -169,19 +189,7 @@ const Navigation = () => {
                 />
               </Link>
 
-              {/* Mobile/Tablet Logo - Floating Style (Visible < LG) */}
-              <Link 
-                {...getLinkProps("/")}
-                className="lg:hidden flex items-center gap-2 p-2 px-3 bg-background/80 backdrop-blur-md border border-border/50 rounded-xl shadow-lg transition-all active:scale-95 hover:border-primary/50"
-                aria-label="HyvenTech Home"
-                onClick={handleLogoClick}
-              >
-                <img 
-                  src={theme === 'light' ? logoLight : logoDark} 
-                  alt="HyvenTech Logo" 
-                  className="w-24 h-auto object-contain rounded-xl"
-                />
-              </Link>
+
 
               {/* Desktop Navigation Links - Visible only on LG+ */}
               <div className="hidden lg:flex items-center gap-6 xl:gap-8">
@@ -190,41 +198,43 @@ const Navigation = () => {
                 {/* Theme Toggle */}
                 <ThemeToggle />
                 
-                {/* Chat Button */}
-                <button
-                  onClick={() => {
-                    const event = new CustomEvent('toggleChatbot');
-                    window.dispatchEvent(event);
-                  }}
-                  className="p-2 rounded-full hover:bg-primary/10 transition-colors text-foreground/80 hover:text-primary"
-                  aria-label="Open chat"
-                >
-                  <Bot className="h-5 w-5" />
-                </button>
+
                 
-                {/* CTA Button */}
-                <Button
-                  asChild
-                  className="glow bg-primary hover:bg-primary/90 text-primary-foreground px-6 transition-all hover:scale-105"
-                >
-                  <Link 
-                    {...getLinkProps("/contact")} 
-                    onClick={(e) => {
-                      handleLinkClick();
-                      toast.success("Let's get started! 🚀", {
-                        description: "Redirecting you to our contact page..."
-                      });
-                    }}
+                  <Button
+                    asChild
+                    className="glow bg-primary hover:bg-primary/90 text-primary-foreground px-6 transition-all hover:scale-105"
                   >
-                    Get Started
-                  </Link>
-                </Button>
+                    <a 
+                      href="/contact"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleLinkClick();
+                        
+                        const isHomePage = location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/services" || location.pathname === "/about";
+                        
+                        if (isHomePage) {
+                          const element = document.querySelector('#contact-section');
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                        } else {
+                          navigate('/', { state: { scrollToContact: true } });
+                        }
+                        
+                        toast.success("Let's get started! 🚀", {
+                          description: "Redirecting you to our contact page..."
+                        });
+                      }}
+                    >
+                      Get Started
+                    </a>
+                  </Button>
               </div>
 
               {/* Mobile/Tablet Menu Button - Floating Icon (Visible < LG) */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-3 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg text-foreground hover:text-primary transition-all active:scale-95"
+                className="lg:hidden ml-auto p-3 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg text-foreground hover:text-primary transition-all active:scale-95"
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
               >
@@ -255,7 +265,26 @@ const Navigation = () => {
               role="dialog"
               aria-label="Mobile navigation menu"
             >
-              <div className="p-6 pt-24">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-8">
+                  <Link 
+                    {...getLinkProps("/")}
+                    className="flex items-center gap-2"
+                    onClick={handleLogoClick}
+                  >
+                    <img 
+                      src={theme === 'light' ? logoLight : logoDark} 
+                      alt="HyvenTech Logo" 
+                      className="w-24 h-auto object-contain"
+                    />
+                  </Link>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 rounded-full hover:bg-primary/10 transition-colors"
+                  >
+                    <X className="h-6 w-6 text-foreground" />
+                  </button>
+                </div>
                 <nav className="space-y-4" role="navigation">
                   {navItems.map((item) => (
                     <div key={item.name} className="border-b border-border/30 pb-2 last:border-0">
@@ -322,17 +351,30 @@ const Navigation = () => {
                     asChild
                     className="w-full glow bg-primary hover:bg-primary/90 text-primary-foreground mt-6"
                   >
-                    <Link 
-                      {...getLinkProps("/contact")} 
-                      onClick={() => {
+                    <a 
+                      href="/contact"
+                      onClick={(e) => {
+                        e.preventDefault();
                         handleLinkClick();
+                        
+                        const isHomePage = location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/services" || location.pathname === "/about";
+                        
+                        if (isHomePage) {
+                          const element = document.querySelector('#contact-section');
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                        } else {
+                          navigate('/', { state: { scrollToContact: true } });
+                        }
+
                         toast.success("Let's get started! 🚀", {
                           description: "Redirecting you to our contact page..."
                         });
                       }}
                     >
                         Get Started
-                    </Link>
+                    </a>
                   </Button>
                 </nav>
               </div>

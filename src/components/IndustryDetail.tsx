@@ -6,7 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import Navigation from "@/components/Navigation";
 import BottomNavigation from "@/components/BottomNavigation";
 import Footer from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface IndustryDetailProps {
   title: string;
@@ -27,6 +27,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
   solutions,
 }) => {
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   return (
     <div className={`min-h-screen flex flex-col ${isMobile ? 'pb-24' : ''}`}>
@@ -145,8 +146,8 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
             <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
               Partner with HyvenTech to leverage cutting-edge technology tailored for the {title} sector.
             </p>
-            <Button size="lg" className="glow w-full sm:w-auto" asChild>
-              <Link to="/contact">Get a Custom Proposal</Link>
+            <Button size="lg" className="glow w-full sm:w-auto" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
+              Get a Custom Proposal
             </Button>
           </motion.div>
         </div>

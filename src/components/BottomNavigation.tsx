@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
 import { Home, Briefcase, Layers, Mail, Users, Bot } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navItems = [
   { name: "Home", href: "/", icon: Home },
@@ -14,6 +14,7 @@ const navItems = [
 function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: typeof navItems[0]; onChatClick?: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const distance = useTransform(mouseX, (val) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -33,6 +34,19 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
     if (item.isChat) {
       e.preventDefault();
       onChatClick?.();
+    } else if (item.href === "/#contact") {
+      e.preventDefault();
+      
+      const isHomePage = location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/services" || location.pathname === "/about";
+      
+      if (isHomePage) {
+        const element = document.querySelector('#contact-section');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        navigate('/', { state: { scrollToContact: true } });
+      }
     }
   };
 
@@ -59,8 +73,10 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
 
   return (
     <div className="relative group" onClick={handleClick}>
-      {item.isChat ? (
-        content
+      {item.isChat || item.href === "/#contact" ? (
+        <div className="cursor-pointer">
+          {content}
+        </div>
       ) : (
         <Link to={item.href}>
           {content}
