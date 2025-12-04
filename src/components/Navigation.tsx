@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X, Bot } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navItems } from "@/constants/navigation";
-import logoLight from "@/assets/Logo/Assets-03.png";
-import logoDark from "@/assets/Logo/Assets-04.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { toast } from "sonner";
+
+const logoLight = "/Logo/Assets-03.png";
+const logoDark = "/Logo/Assets-04.png";
 
 const Navigation = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);

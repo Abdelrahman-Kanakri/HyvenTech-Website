@@ -1,8 +1,8 @@
-import hamzahImg from "@/assets/leadership/Hamzah.jpg";
-import abdelrahmanImg from "@/assets/leadership/Abdelrahman.jpg";
-import rakanImg from "@/assets/leadership/Rakan.jpg";
-import lanaImg from "@/assets/leadership/Lana.jpg";
-import mahmoudImg from "@/assets/leadership/Mahmoud.png";
+const hamzahImg = "/leadership/Hamzah.jpg";
+const abdelrahmanImg = "/leadership/Abdelrahman.jpg";
+const rakanImg = "/leadership/Rakan.jpg";
+const lanaImg = "/leadership/Lana.jpg";
+const mahmoudImg = "/leadership/Mahmoud.png";
 
 export interface Leader {
   id: number;

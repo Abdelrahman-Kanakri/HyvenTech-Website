@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import knowbe4Logo from "@/assets/knowbe4-logo.svg";
+const knowbe4Logo = "/knowbe4-logo.svg";
 
 const clients = [
   { 

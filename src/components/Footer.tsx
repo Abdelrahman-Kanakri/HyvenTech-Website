@@ -1,9 +1,10 @@
 import { Linkedin, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import logoLight from "@/assets/Logo/Assets-03.png";
-import logoDark from "@/assets/Logo/Assets-04.png";
 import { useEffect, useState } from "react";
+
+const logoLight = "/Logo/Assets-03.png";
+const logoDark = "/Logo/Assets-04.png";
 
 const Footer = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
