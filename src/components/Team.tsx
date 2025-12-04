@@ -18,13 +18,6 @@ const team = [
     linkedin: "https://www.linkedin.com/in/abdelrahman-kanakri-909654247/",
   },
   {
-    name: "Rakan Masadeh",
-    role: "Social Media & AI Engineer",
-    expertise: ["Social Media", "Data Science", "ERP Solutions"],
-    initials: "RM",
-    linkedin: "https://www.linkedin.com/in/rakannmmasdeh-rakan-783859383/",
-  },
-  {
     name: "Mahmoud Al-Khdoor",
     role: "Social Media Manager",
     expertise: ["Strategic Planning", "Sales", "Marketing"],
@@ -32,12 +25,13 @@ const team = [
     linkedin: "https://www.linkedin.com/in/%D9%85%D8%AD%D9%85%D9%88%D8%AF-%D8%A7%D9%84%D8%AE%D8%B6%D9%88%D8%B1-809808391/",
   },
   {
-    name: "Lana Alzoubi",
-    role: "Social Media",
-    expertise: ["Marketing", "Content Creation", "Community Management"],
-    initials: "LA",
-    linkedin: "https://www.linkedin.com/in/lana-alzoubi-029438369/",
+    name: "Rakan Masadeh",
+    role: "Social Media & AI Engineer",
+    expertise: ["Social Media", "Data Science", "ERP Solutions"],
+    initials: "RM",
+    linkedin: "https://www.linkedin.com/in/rakannmmasdeh-rakan-783859383/",
   },
+  
 ];
 
 

@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, Bot } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navItems } from "@/constants/navigation";
 import logoLight from "@/assets/Logo/Assets-03.png";
 import logoDark from "@/assets/Logo/Assets-04.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { toast } from "sonner";
 
 const Navigation = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -105,7 +106,7 @@ const Navigation = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full mt-2 left-0 min-w-[220px] glass backdrop-blur-xl bg-background/90 border border-border/50 rounded-lg shadow-xl overflow-hidden"
+                className="absolute top-full mt-2 left-0 min-w-[220px] glass backdrop-blur-3xl bg-background/95 border border-border/50 rounded-lg shadow-xl overflow-hidden"
                 role="menu"
                 aria-label={`${item.name} submenu`}
               >
@@ -189,12 +190,32 @@ const Navigation = () => {
                 {/* Theme Toggle */}
                 <ThemeToggle />
                 
+                {/* Chat Button */}
+                <button
+                  onClick={() => {
+                    const event = new CustomEvent('toggleChatbot');
+                    window.dispatchEvent(event);
+                  }}
+                  className="p-2 rounded-full hover:bg-primary/10 transition-colors text-foreground/80 hover:text-primary"
+                  aria-label="Open chat"
+                >
+                  <Bot className="h-5 w-5" />
+                </button>
+                
                 {/* CTA Button */}
                 <Button
                   asChild
-                  className="glow bg-primary hover:bg-primary/90 text-primary-foreground px-6"
+                  className="glow bg-primary hover:bg-primary/90 text-primary-foreground px-6 transition-all hover:scale-105"
                 >
-                  <Link {...getLinkProps("/contact")} onClick={handleLinkClick}>
+                  <Link 
+                    {...getLinkProps("/contact")} 
+                    onClick={(e) => {
+                      handleLinkClick();
+                      toast.success("Let's get started! 🚀", {
+                        description: "Redirecting you to our contact page..."
+                      });
+                    }}
+                  >
                     Get Started
                   </Link>
                 </Button>
@@ -224,7 +245,7 @@ const Navigation = () => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" onClick={() => setMobileMenuOpen(false)} />
+            <div className="absolute inset-0 bg-background/95 backdrop-blur-3xl" onClick={() => setMobileMenuOpen(false)} />
             <motion.div
               initial={{ y: '-100%' }}
               animate={{ y: 0 }}
@@ -301,7 +322,15 @@ const Navigation = () => {
                     asChild
                     className="w-full glow bg-primary hover:bg-primary/90 text-primary-foreground mt-6"
                   >
-                    <Link {...getLinkProps("/contact")} onClick={handleLinkClick}>
+                    <Link 
+                      {...getLinkProps("/contact")} 
+                      onClick={() => {
+                        handleLinkClick();
+                        toast.success("Let's get started! 🚀", {
+                          description: "Redirecting you to our contact page..."
+                        });
+                      }}
+                    >
                         Get Started
                     </Link>
                   </Button>

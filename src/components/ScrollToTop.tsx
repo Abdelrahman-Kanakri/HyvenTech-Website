@@ -1,12 +1,21 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 import { useLocation, useNavigationType } from "react-router-dom";
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
   const navType = useNavigationType();
 
+  // Save scroll position before page reload
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem("lastScrollPosition", window.scrollY.toString());
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
+
   useLayoutEffect(() => {
-    // Disable browser's native scroll restoration
+    // Disable browser's native scroll restoration to handle it manually
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
@@ -38,6 +47,22 @@ const ScrollToTop = () => {
       
       return false;
     };
+
+    // Check if page was reloaded
+    const navigationEntry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
+    const isReload = navigationEntry?.type === 'reload';
+
+    if (isReload) {
+      const lastScroll = sessionStorage.getItem("lastScrollPosition");
+      if (lastScroll) {
+        window.scrollTo({
+          top: parseInt(lastScroll),
+          behavior: "instant"
+        });
+        sessionStorage.removeItem("lastScrollPosition"); // Consume it so it doesn't affect next navigation
+        return; // Skip other scroll logic on reload
+      }
+    }
 
     const previousPath = sessionStorage.getItem("prevPath");
     let scrollHandled = false;

@@ -1,12 +1,14 @@
 import { Linkedin, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logoLight from "@/assets/Logo/Assets-03.png";
 import logoDark from "@/assets/Logo/Assets-04.png";
 import { useEffect, useState } from "react";
 
 const Footer = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const location = useLocation();
+  const isCareerPage = location.pathname === '/careers';
 
   // Track theme changes
   useEffect(() => {
@@ -31,9 +33,10 @@ const Footer = () => {
   ];
 
   const contactItems = [
-    { icon: MapPin, label: "123 Innovation Drive, Tech City, TC 90210", href: "#" },
-    { icon: Mail, label: "contact@hyventech.com", href: "mailto:contact@hyventech.com" },
-    { icon: Phone, label: "+1 (555) 123-4567", href: "tel:+15551234567" },
+    { icon: MapPin, label: "Amman, Jordan", href: "https://www.google.com/maps/search/?api=1&query=Amman,Jordan" },
+    { icon: Mail, label: "info@hyventechjo.com", href: "mailto:info@hyventechjo.com" },
+    ...(isCareerPage ? [{ icon: Mail, label: "career@hyventechjo.com", href: "mailto:career@hyventechjo.com" }] : []),
+    { icon: Phone, label: "+962 7993 3392", href: "tel:+96279933392" },
   ];
 
   const servicesLinks = [

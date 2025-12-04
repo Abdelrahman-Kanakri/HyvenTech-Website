@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Bot } from "lucide-react";
+import { X, Send, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { v4 as uuidv4 } from 'uuid';
@@ -16,11 +16,19 @@ const Chatbot = () => {
   const chatRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // 1. Generate a Unique Session ID once per page load
-  // This ensures every user gets their own private conversation memory
   const sessionId = useRef(uuidv4());
 
-  // 2. Close when clicking outside
+  // Listen for toggle event
+  useEffect(() => {
+    const handleToggle = () => {
+      setIsOpen(prev => !prev);
+    };
+
+    window.addEventListener('toggleChatbot', handleToggle);
+    return () => window.removeEventListener('toggleChatbot', handleToggle);
+  }, []);
+
+  // Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (chatRef.current && !chatRef.current.contains(event.target as Node) && isOpen) {
@@ -32,45 +40,27 @@ const Chatbot = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  // 3. Auto-scroll to bottom
+  // Auto-scroll
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isOpen]);
 
-  // 4. Handle Send Message
   const handleSendMessage = async (e?: React.FormEvent) => {
     e?.preventDefault();
     if (!inputValue.trim() || isSending) return;
 
     const userText = inputValue;
-
-    // Add user message to UI immediately
     setMessages((prev) => [...prev, { text: userText, isUser: true }]);
     setInputValue("");
     setIsSending(true);
 
     try {
-      // Send message using the debounced n8n API service
-      // This automatically handles:
-      // - Request queueing (max 10 concurrent)
-      // - Request debouncing (300ms delay)
-      // - Request timeout (15s AbortController)
-      // - Exponential backoff retries (3 attempts)
-      // - Error handling for 429/502/503 errors
       const botReply = await n8nApiService.sendChatMessageDebounced(userText, sessionId.current);
-
       setMessages((prev) => [...prev, { text: botReply, isUser: false }]);
-
     } catch (error) {
-      console.error("Error sending message:", error);
-      const errorMessage = error instanceof Error 
-        ? error.message 
-        : "Sorry, I'm having trouble connecting to the server right now.";
-      
-      setMessages((prev) => [
-        ...prev, 
-        { text: errorMessage, isUser: false }
-      ]);
+      console.error("Error sending message:",error);
+      const errorMessage = error instanceof Error ? error.message : "Sorry, I'm having trouble connecting to the server right now.";
+      setMessages((prev) => [...prev, { text: errorMessage, isUser: false }]);
     } finally {
       setIsSending(false);
     }
@@ -87,7 +77,6 @@ const Chatbot = () => {
             transition={{ duration: 0.2 }}
             className="mb-4 w-[350px] sm:w-[380px] h-[500px] max-h-[80vh] glass backdrop-blur-xl bg-background/90 border border-border/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
-            {/* Header */}
             <div className="p-4 border-b border-border/50 bg-primary/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gradient-glow flex items-center justify-center shadow-lg shadow-primary/20">
@@ -101,30 +90,15 @@ const Chatbot = () => {
                   </p>
                 </div>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsOpen(false)}
-                className="hover:bg-primary/10 text-muted-foreground hover:text-foreground rounded-full"
-              >
+              <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="hover:bg-primary/10 text-muted-foreground hover:text-foreground rounded-full">
                 <X className="h-5 w-5" />
               </Button>
             </div>
 
-            {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-primary/20 scrollbar-track-transparent">
               {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}
-                >
-                  <div
-                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${
-                      msg.isUser
-                        ? "bg-primary text-primary-foreground rounded-tr-none shadow-lg shadow-primary/20"
-                        : "bg-muted/50 text-foreground rounded-tl-none border border-border/50"
-                    }`}
-                  >
+                <div key={index} className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}>
+                  <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.isUser ? "bg-primary text-primary-foreground rounded-tr-none shadow-lg shadow-primary/20" : "bg-muted/50 text-foreground rounded-tl-none border border-border/50"}`}>
                     {msg.text}
                   </div>
                 </div>
@@ -132,22 +106,10 @@ const Chatbot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
             <form onSubmit={handleSendMessage} className="p-4 border-t border-border/50 bg-background/50">
               <div className="flex gap-2">
-                <Input
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Type a message..."
-                  className="bg-background/50 border-border/50 focus:border-primary/50"
-                  disabled={isSending}
-                />
-                <Button 
-                  type="submit" 
-                  size="icon" 
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
-                  disabled={!inputValue.trim() || isSending}
-                >
+                <Input value={inputValue} onChange={(e) => setInputValue(e.target.value)} placeholder="Type a message..." className="bg-background/50 border-border/50 focus:border-primary/50" disabled={isSending} />
+                <Button type="submit" size="icon" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20" disabled={!inputValue.trim() || isSending}>
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
@@ -155,24 +117,6 @@ const Chatbot = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Toggle Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(!isOpen)}
-        className={`w-12 h-12 lg:w-14 lg:h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 ${
-          isOpen 
-            ? "bg-muted text-foreground rotate-90" 
-            : "bg-gradient-glow text-primary hover:shadow-[0_0_30px_rgba(76,201,240,0.4)]"
-        }`}
-      >
-        {isOpen ? (
-          <X className="h-5 w-5 lg:h-6 lg:w-6" />
-        ) : (
-          <MessageSquare className="h-6 w-6 lg:h-7 lg:w-7" />
-        )}
-      </motion.button>
     </div>
   );
 };

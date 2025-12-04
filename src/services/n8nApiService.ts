@@ -46,11 +46,11 @@ const sleep = (ms: number): Promise<void> =>
  */
 let debounceTimer: NodeJS.Timeout | null = null;
 
-function debounce<T extends (...args: any[]) => Promise<any>>(
+function debounce<T extends (...args: unknown[]) => Promise<unknown>>(
   fn: T,
   delay: number
-): (...args: Parameters<T>) => Promise<ReturnType<T>> {
-  return (...args: Parameters<T>): Promise<ReturnType<T>> => {
+): (...args: Parameters<T>) => Promise<Awaited<ReturnType<T>>> {
+  return (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>> => {
     return new Promise((resolve, reject) => {
       if (debounceTimer) {
         clearTimeout(debounceTimer);
@@ -58,7 +58,7 @@ function debounce<T extends (...args: any[]) => Promise<any>>(
       debounceTimer = setTimeout(async () => {
         try {
           const result = await fn(...args);
-          resolve(result);
+          resolve(result as Awaited<ReturnType<T>>);
         } catch (error) {
           reject(error);
         }
@@ -231,23 +231,19 @@ export async function sendBatchRequest<T>(
   // Process each batch
   for (const batch of batches) {
     await queue.add(async () => {
-      try {
-        const response = await fetchWithRetry(N8N_WEBHOOK_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            type: 'batch',
-            items: batch,
-          }),
-        });
+      const response = await fetchWithRetry(N8N_WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'batch',
+          items: batch,
+        }),
+      });
 
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-      } catch (error) {
-        throw error;
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
     });
   }

@@ -44,16 +44,15 @@ const benefits = [
 
 const WhyUs = () => {
   return (
-    <div className="min-h-screen pt-24 pb-64 ">
+    <div className="min-h-screen py-12 sm:py-16 md:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 mt-8 sm:mt-12 md:mt-16"
         >
-          <br></br>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
           <span className="rounded-xl px-4 py-2 inline-block"><span className="text-primary">The HyvenTech Advantages</span></span>
           </h1>
@@ -72,7 +71,7 @@ const WhyUs = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.03, y: -5 }}
+                whileHover={{ scale: 1.01, y: -2 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >

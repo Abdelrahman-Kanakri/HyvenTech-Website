@@ -10,8 +10,8 @@ const ComingSoon = () => {
     <div className="min-h-screen flex flex-col">
       <Navigation />
       
-      <div className="flex-grow flex items-center justify-center relative overflow-hidden pt-20">
-        <div className="container mx-auto px-4 text-center relative z-10">
+      <div className="flex-grow flex items-center justify-center relative overflow-hidden py-12 sm:py-16 md:py-20">
+        <div className="container mx-auto px-4 text-center relative z-10 mt-8 sm:mt-12 md:mt-16">
           <div className="w-24 h-24 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-8 animate-pulse">
             <Construction className="w-12 h-12 text-primary" />
           </div>

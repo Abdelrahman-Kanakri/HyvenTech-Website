@@ -3,16 +3,17 @@ import { useEffect, useRef } from 'react';
 /**
  * Throttle function to limit execution rate
  */
-const throttle = <T extends (...args: any[]) => void>(
+const throttle = <T extends (...args: unknown[]) => void>(
   func: T,
-  limit: number
+  wait: number
 ): ((...args: Parameters<T>) => void) => {
-  let inThrottle: boolean;
-  return function(this: any, ...args: Parameters<T>) {
-    if (!inThrottle) {
+  let timeout: NodeJS.Timeout | null = null;
+  return function(this: unknown, ...args: Parameters<T>) {
+    if (!timeout) {
       func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
+      timeout = setTimeout(() => {
+        timeout = null;
+      }, wait);
     }
   };
 };
@@ -79,26 +80,28 @@ export const usePassiveTouch = ({
 }: UsePassiveTouchOptions) => {
   useEffect(() => {
     const target = element || window;
+
+    type TouchEventListener = (event: TouchEvent) => void;
     
     if (onTouchStart) {
-      target.addEventListener('touchstart', onTouchStart as any, { passive: true });
+      target.addEventListener('touchstart', onTouchStart as TouchEventListener, { passive: true } as AddEventListenerOptions);
     }
     if (onTouchMove) {
-      target.addEventListener('touchmove', onTouchMove as any, { passive: true });
+      target.addEventListener('touchmove', onTouchMove as TouchEventListener, { passive: true } as AddEventListenerOptions);
     }
     if (onTouchEnd) {
-      target.addEventListener('touchend', onTouchEnd as any, { passive: true });
+      target.addEventListener('touchend', onTouchEnd as TouchEventListener, { passive: true } as AddEventListenerOptions);
     }
 
     return () => {
       if (onTouchStart) {
-        target.removeEventListener('touchstart', onTouchStart as any);
+        target.removeEventListener('touchstart', onTouchStart as TouchEventListener);
       }
       if (onTouchMove) {
-        target.removeEventListener('touchmove', onTouchMove as any);
+        target.removeEventListener('touchmove', onTouchMove as TouchEventListener);
       }
       if (onTouchEnd) {
-        target.removeEventListener('touchend', onTouchEnd as any);
+        target.removeEventListener('touchend', onTouchEnd as TouchEventListener);
       }
     };
   }, [onTouchStart, onTouchMove, onTouchEnd, element]);

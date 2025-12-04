@@ -78,19 +78,4 @@ export const leaders: Leader[] = [
     email: "rakan@hyventech.com"
   },
   
-  {
-    id: 5,
-    name: "Lana Alzoubi",
-    role: "Social Media Specialist",
-    image: lanaImg,
-    skills: ["Content Writing", "Video Production", "Influencer Relations", "Analytics"],
-    bio: "Lana creates engaging content and manages community interactions, building strong relationships between our brand and audience.",
-    achievements: [
-      "Produced 200+ high-performing social media posts with viral reach",
-      "Managed influencer partnership program generating 2M+ impressions",
-      "Achieved industry-leading 15% average engagement rate across platforms"
-    ],
-    linkedin: "https://www.linkedin.com/in/lana-alzoubi-029438369/",
-    email: "lana@hyventech.com"
-  }
 ];

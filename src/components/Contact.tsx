@@ -3,22 +3,22 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner";
+import { useForm, ValidationError } from "@formspree/react";
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "info@hyventech.com",
-    href: "mailto:info@hyventech.com",
-    ariaLabel: "Send email to info@hyventech.com",
+    value: "info@hyventechjo.com",
+    href: "mailto:info@hyventechjo.com",
+    ariaLabel: "Send email to info@hyventechjo.com",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+962 79 000 000",
-    href: "tel:+96279000000",
-    ariaLabel: "Call +962 79 000 000",
+    value: "+962 7993 3392",
+    href: "tel:+96279933392",
+    ariaLabel: "Call +962 7993 3392",
   },
   {
     icon: MapPin,
@@ -32,6 +32,8 @@ const contactInfo = [
 ];
 
 const Contact = () => {
+  const [state, handleSubmit] = useForm("xnnezjyg");
+
   return (
     <section id="contact" className="py-12 sm:py-16 md:py-20 relative pb-20 sm:pb-24 md:pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -95,46 +97,69 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="glass glow p-5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl"
           >
-            <form className="space-y-5 sm:space-y-6" onSubmit={(e) => {
-              e.preventDefault();
-              toast.success("Message sent successfully!");
-            }}>
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Name
-                </label>
-                <Input
-                  id="name"
-                  placeholder="Your name"
-                  className="bg-background/50 h-11 sm:h-12 text-base"
-                />
+            {state.succeeded ? (
+              <div className="glass glow-strong p-6 rounded-lg text-center border border-primary/50">
+                <h3 className="text-xl font-bold text-primary mb-2">Message Sent! 🎉</h3>
+                <p className="text-muted-foreground">
+                  Thanks for contacting HyvenTech. We'll get back to you at <strong>info@hyventechjo.com</strong> shortly.
+                </p>
               </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  className="bg-background/50 h-11 sm:h-12 text-base"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  placeholder="Tell us about your project"
-                  rows={5}
-                  className="bg-background/50 text-base resize-none"
-                />
-              </div>
-              <Button type="submit" className="w-full glow-strong bg-primary hover:bg-primary/90 active:bg-primary/80 text-primary-foreground min-h-[48px] text-base touch-manipulation">
-                Send Message
-              </Button>
-            </form>
+            ) : (
+              <form className="space-y-5 sm:space-y-6" onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Name
+                  </label>
+                  <Input
+                    id="name"
+                    name="name"
+                    placeholder="Your name"
+                    className="bg-background/50 h-11 sm:h-12 text-base"
+                    required
+                  />
+                  <ValidationError prefix="Name" field="name" errors={state.errors} />
+                </div>
+                
+                {/* Hidden Subject Field for Email Filtering */}
+                <input type="hidden" name="_subject" value="New submission from Contact US"/>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    className="bg-background/50 h-11 sm:h-12 text-base"
+                    required
+                  />
+                  <ValidationError prefix="Email" field="email" errors={state.errors} />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    placeholder="Tell us about your project"
+                    rows={5}
+                    className="bg-background/50 text-base resize-none"
+                    required
+                  />
+                  <ValidationError prefix="Message" field="message" errors={state.errors} />
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full glow-strong bg-primary hover:bg-primary/90 active:bg-primary/80 text-primary-foreground min-h-[48px] text-base touch-manipulation"
+                  disabled={state.submitting}
+                >
+                  {state.submitting ? "Sending..." : "Send Message"}
+                </Button>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>

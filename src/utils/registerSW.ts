@@ -15,7 +15,9 @@ export const registerServiceWorker = async (): Promise<void> => {
       scope: '/',
     });
 
-    console.log('Service Worker registered successfully:', registration.scope);
+    if (import.meta.env.DEV) {
+      console.log('Service Worker registered successfully:', registration.scope);
+    }
 
     // Check for updates
     registration.addEventListener('updatefound', () => {
@@ -25,7 +27,9 @@ export const registerServiceWorker = async (): Promise<void> => {
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
             // New service worker available
-            console.log('New version available! Please refresh.');
+            if (import.meta.env.DEV) {
+              console.log('New version available! Please refresh.');
+            }
             
             // Optionally notify user
             if (confirm('A new version is available. Would you like to update?')) {
@@ -55,7 +59,9 @@ export const unregisterServiceWorker = async (): Promise<void> => {
     try {
       const registration = await navigator.serviceWorker.ready;
       await registration.unregister();
-      console.log('Service Worker unregistered');
+      if (import.meta.env.DEV) {
+        console.log('Service Worker unregistered');
+      }
     } catch (error) {
       console.error('Service Worker unregistration failed:', error);
     }
