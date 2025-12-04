@@ -11,7 +11,7 @@
   "categories": ["business", "technology", "productivity"],
   "icons": [
     {
-      "src": "/src/assets/Logo/Assets-21 (1).png",
+      "src": "/Logo/Assets-21.png",
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any maskable"
