@@ -34,7 +34,7 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
     if (item.isChat) {
       e.preventDefault();
       onChatClick?.();
-    } else if (item.href === "/#contact") {
+    } else if (item.href === "/contact" || item.href === "/#contact") {
       e.preventDefault();
       
       const isHomePage = location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/services" || location.pathname === "/about";
@@ -45,7 +45,7 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       } else {
-        navigate('/', { state: { scrollToContact: true } });
+        navigate('/contact');
       }
     }
   };

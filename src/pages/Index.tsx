@@ -21,7 +21,7 @@ const Index = () => {
   const location = useLocation();
 
   React.useEffect(() => {
-    if (location.state?.scrollToContact) {
+    if (location.state?.scrollToContact || location.pathname === '/contact') {
       const element = document.querySelector('#contact-section');
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });

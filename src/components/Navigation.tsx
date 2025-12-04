@@ -73,7 +73,7 @@ const Navigation = () => {
   }, [handleLinkClick, location.pathname]);
 
   const handleNavClick = (e: React.MouseEvent, href: string) => {
-    if (href === "/#contact") {
+    if (href === "/contact" || href === "/#contact") {
       e.preventDefault();
       handleLinkClick();
       
@@ -85,7 +85,7 @@ const Navigation = () => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       } else {
-        navigate('/', { state: { scrollToContact: true } });
+        navigate('/contact');
       }
     } else {
       handleLinkClick();

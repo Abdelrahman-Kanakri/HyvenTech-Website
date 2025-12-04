@@ -87,5 +87,5 @@ export const navItems = [
       },
     ],
   },
-  { name: "Contact", href: "/#contact" },
+  { name: "Contact", href: "/contact" },
 ];
