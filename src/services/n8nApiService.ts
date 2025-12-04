@@ -5,13 +5,13 @@ import PQueue from 'p-queue';
  * 
  * Centralized service for interacting with n8n webhooks.
  * Features:
- * - Request queueing with concurrency control (max 10 concurrent requests)
+ * - Request queueing with concurrency control (max 3 concurrent requests)
  * - Exponential backoff retry logic for transient errors
  * - Robust error handling
  */
 
-// Request queue with max 10 concurrent requests
-const queue = new PQueue({ concurrency: 10 });
+// Request queue with max 3 concurrent requests (optimized for mobile performance)
+const queue = new PQueue({ concurrency: 3 });
 
 const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL || '';
 

@@ -1,26 +1,13 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
-  const isMobile = useIsMobile();
-  const [text, setText] = useState(isMobile ? "HyvenTech" : "");
-  const [arabicText, setArabicText] = useState(isMobile ? "هايفن التقنية" : "");
+  const [text, setText] = useState("");
+  const [arabicText, setArabicText] = useState("");
   const fullText = "HyvenTech";
   const fullArabicText = "هايفن التقنية";
 
   useEffect(() => {
-    // On mobile: show instant text, faster completion
-    if (isMobile) {
-      setText(fullText);
-      setArabicText(fullArabicText);
-      const timer = setTimeout(() => {
-        onComplete();
-      }, 400); // Much faster on mobile
-      return () => clearTimeout(timer);
-    }
-
-    // On desktop: keep typewriter effect
     let index = 0;
     const interval = setInterval(() => {
       setText(fullText.slice(0, index + 1));
@@ -35,25 +22,8 @@ const LoadingScreen = ({ onComplete }: { onComplete: () => void }) => {
     }, 35);
 
     return () => clearInterval(interval);
-  }, [onComplete, isMobile]);
+  }, [onComplete]);
 
-  // Simplified mobile version - no animations
-  if (isMobile) {
-    return (
-      <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
-        <div className="relative flex flex-col items-center gap-2">
-          <div className="text-4xl font-bold tracking-tighter text-primary">
-            {text}
-          </div>
-          <div className="text-3xl font-bold tracking-tighter text-primary font-poppins">
-            {arabicText}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Desktop version with animations
   return (
     <div className="fixed inset-0 z-50 bg-background flex items-center justify-center">
       <div className="relative flex flex-col items-center gap-2">
