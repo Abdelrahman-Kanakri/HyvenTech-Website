@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Menu, X, Bot } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ChevronDown, Menu, X } from "lucide-react";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { navItems } from "@/constants/navigation";
+import { ROUTES } from "@/router/constants";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { toast } from "sonner";
+import { useSmoothNav } from "@/hooks/useSmoothNav";
 
 const logoLight = "/Logo/Assets-03.png";
 const logoDark = "/Logo/Assets-04.png";
@@ -15,8 +16,8 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const location = useLocation();
-  const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { navigateTo } = useSmoothNav();
 
   // Track theme changes
   useEffect(() => {
@@ -26,8 +27,6 @@ const Navigation = () => {
     };
     
     checkTheme();
-    
-    // Watch for theme changes
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     
@@ -49,6 +48,7 @@ const Navigation = () => {
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
+    setOpenDropdown(null);
   }, [location]);
 
   const handleDropdownToggle = useCallback((itemName: string) => {
@@ -60,107 +60,112 @@ const Navigation = () => {
     setOpenDropdown(null);
   }, []);
 
-  const getLinkProps = useCallback((href: string) => {
-    return {
-      to: href
-    };
-  }, []);
-
-  const handleLogoClick = useCallback(() => {
+  const handleLogoClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
     handleLinkClick();
-    if (location.pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [handleLinkClick, location.pathname]);
+    navigateTo(ROUTES.HOME, 'hero');
+  }, [handleLinkClick, navigateTo]);
 
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
-    if (href === "/contact" || href === "/#contact") {
-      e.preventDefault();
-      handleLinkClick();
-      
-      const isHomePage = location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/services" || location.pathname === "/about";
-      
-      if (isHomePage) {
-        const element = document.querySelector('#contact-section');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      } else {
-        navigate('/contact');
-      }
-    } else {
-      handleLinkClick();
-    }
-  };
+  // Smart section navigation handler
+  const handleSectionClick = useCallback((e: React.MouseEvent, path: string, sectionId: string) => {
+    e.preventDefault();
+    handleLinkClick();
+    navigateTo(path, sectionId);
+  }, [handleLinkClick, navigateTo]);
 
-  const renderedNavItems = useMemo(() => navItems.map((item) => (
-    <div key={item.name} className="relative">
-      {item.dropdown ? (
-        <div className="flex items-center gap-1">
-          <Link
-            {...getLinkProps(item.href)}
-            onClick={(e) => handleNavClick(e, item.href)}
-            className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
-            aria-label={`Navigate to ${item.name} section`}
+  const renderedNavItems = useMemo(() => navItems.map((item) => {
+    // Determine if this is a section link
+    const isSectionLink = item.name === "Services" || item.name === "Key Sectors" || item.name === "Company" || item.name === "Contact";
+    
+    return (
+      <div key={item.name} className="relative">
+        {item.dropdown ? (
+          <div className="flex items-center gap-1">
+            <a
+              href={item.name === "Services" ? ROUTES.SERVICES : item.name === "Key Sectors" ? ROUTES.KEY_SECTORS : ROUTES.ABOUT}
+              onClick={(e) => handleSectionClick(
+                e,
+                item.name === "Services" ? ROUTES.SERVICES : item.name === "Key Sectors" ? ROUTES.KEY_SECTORS : ROUTES.ABOUT,
+                item.name === "Services" ? 'services' : item.name === "Key Sectors" ? 'key-sectors' : 'about'
+              )}
+              className="text-base transition-colors relative group cursor-pointer text-foreground/80 hover:text-primary"
+              aria-label={`Navigate to ${item.name} section`}
+            >
+              {item.name}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+            </a>
+          
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDropdownToggle(item.name);
+              }}
+              className="text-foreground/80 hover:text-primary transition-colors cursor-pointer p-1"
+              aria-label={`Toggle ${item.name} dropdown menu`}
+              aria-expanded={openDropdown === item.name}
+              aria-haspopup="true"
+            >
+              <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === item.name ? 'rotate-180' : ''}`} />
+            </button>
+          
+            <AnimatePresence>
+              {openDropdown === item.name && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full mt-2 left-0 min-w-[220px] bg-background/95 md:glass md:backdrop-blur-3xl border border-border/50 rounded-lg shadow-xl overflow-hidden"
+                  role="menu"
+                  aria-label={`${item.name} submenu`}
+                >
+                  {item.dropdown.map((dropItem, index) => (
+                    <NavLink
+                      key={index}
+                      to={dropItem.href}
+                      onClick={handleLinkClick}
+                      className={({ isActive }) => `block px-4 py-3 text-sm transition-colors ${
+                        dropItem.isHighlight 
+                          ? 'text-primary font-semibold border-t border-border/50' 
+                          : isActive
+                            ? 'bg-primary/10 text-primary'
+                            : 'text-foreground/80 hover:bg-primary/10 hover:text-primary'
+                      }`}
+                      role="menuitem"
+                    >
+                      {dropItem.name}
+                    </NavLink>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ) : item.name === "Contact" ? (
+          <a
+            href={ROUTES.CONTACT}
+            onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
+            className="text-base transition-colors relative group cursor-pointer text-foreground/80 hover:text-primary"
+            aria-label="Navigate to Contact"
           >
             {item.name}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-          </Link>
-          
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDropdownToggle(item.name);
-            }}
-            className="text-foreground/80 hover:text-primary transition-colors cursor-pointer p-1"
-            aria-label={`Toggle ${item.name} dropdown menu`}
-            aria-expanded={openDropdown === item.name}
-            aria-haspopup="true"
+          </a>
+        ) : (
+          <NavLink
+            to={item.href}
+            onClick={handleLinkClick}
+            className={({ isActive }) => `text-base transition-colors relative group cursor-pointer ${
+              isActive ? 'text-primary' : 'text-foreground/80 hover:text-primary'
+            }`}
+            aria-label={`Navigate to ${item.name}`}
           >
-            <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === item.name ? 'rotate-180' : ''}`} />
-          </button>
-          
-          <AnimatePresence>
-            {openDropdown === item.name && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.2 }}
-                className="absolute top-full mt-2 left-0 min-w-[220px] glass backdrop-blur-3xl bg-background/95 border border-border/50 rounded-lg shadow-xl overflow-hidden"
-                role="menu"
-                aria-label={`${item.name} submenu`}
-              >
-                {item.dropdown.map((dropItem, index) => (
-                  <Link
-                    key={index}
-                    {...getLinkProps(dropItem.href)}
-                    onClick={handleLinkClick}
-                    className={`block px-4 py-3 text-sm hover:bg-primary/10 transition-colors ${
-                      dropItem.isHighlight ? 'text-primary font-semibold border-t border-border/50' : 'text-foreground/80'
-                    }`}
-                    role="menuitem"
-                  >
-                    {dropItem.name}
-                  </Link>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      ) : (
-        <Link
-          {...getLinkProps(item.href)}
-          onClick={(e) => handleNavClick(e, item.href)}
-          className="text-base text-foreground/80 hover:text-primary transition-colors relative group cursor-pointer"
-          aria-label={`Navigate to ${item.name}`}
-        >
-          {item.name}
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-        </Link>
-      )}
-    </div>
-  )), [openDropdown, handleLinkClick, handleDropdownToggle, getLinkProps, location.pathname, navigate]);
+            {item.name}
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+          </NavLink>
+        )}
+      </div>
+    );
+  }), [openDropdown, handleLinkClick, handleDropdownToggle, handleSectionClick]);
 
   return (
     <>
@@ -177,8 +182,8 @@ const Navigation = () => {
             <div className="flex items-center justify-between w-full" ref={dropdownRef}>
               
               {/* Desktop Logo - Visible only on LG+ */}
-              <Link 
-                {...getLinkProps("/")}
+              <a 
+                href={ROUTES.HOME}
                 className="hidden lg:flex items-center gap-3 group p-2 px-3 rounded-xl bg-background/50 border border-border/30 hover:border-primary/50 transition-all" 
                 aria-label="HyvenTech Home"
                 onClick={handleLogoClick}
@@ -188,9 +193,7 @@ const Navigation = () => {
                   alt="HyvenTech Logo" 
                   className="w-32 h-auto object-contain group-hover:scale-110 transition-transform rounded-xl"
                 />
-              </Link>
-
-
+              </a>
 
               {/* Desktop Navigation Links - Visible only on LG+ */}
               <div className="hidden lg:flex items-center gap-6 xl:gap-8">
@@ -199,43 +202,19 @@ const Navigation = () => {
                 {/* Theme Toggle */}
                 <ThemeToggle />
                 
-
-                
-                  <Button
-                    asChild
-                    className="glow bg-primary hover:bg-primary/90 text-primary-foreground px-6 transition-all hover:scale-105"
-                  >
-                    <a 
-                      href="/contact"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleLinkClick();
-                        
-                        const isHomePage = location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/services" || location.pathname === "/about";
-                        
-                        if (isHomePage) {
-                          const element = document.querySelector('#contact-section');
-                          if (element) {
-                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                          }
-                        } else {
-                          navigate('/', { state: { scrollToContact: true } });
-                        }
-                        
-                        toast.success("Let's get started! 🚀", {
-                          description: "Redirecting you to our contact page..."
-                        });
-                      }}
-                    >
-                      Get Started
-                    </a>
-                  </Button>
+                <a
+                  href={ROUTES.CONTACT}
+                  onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
+                  className="glow transition-all hover:scale-105 bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-md inline-flex items-center justify-center font-medium text-sm"
+                >
+                  Get Started
+                </a>
               </div>
 
               {/* Mobile/Tablet Menu Button - Floating Icon (Visible < LG) */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden ml-auto p-3 bg-background/80 backdrop-blur-md border border-border/50 rounded-full shadow-lg text-foreground hover:text-primary transition-all active:scale-95"
+                className="lg:hidden ml-auto p-3 bg-background/95 border border-border/50 rounded-full shadow-lg text-foreground hover:text-primary transition-all active:scale-95"
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
               >
@@ -256,7 +235,7 @@ const Navigation = () => {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            <div className="absolute inset-0 bg-background/95 backdrop-blur-3xl" onClick={() => setMobileMenuOpen(false)} />
+            <div className="absolute inset-0 bg-background/98" onClick={() => setMobileMenuOpen(false)} />
             <motion.div
               initial={{ y: '-100%' }}
               animate={{ y: 0 }}
@@ -268,8 +247,8 @@ const Navigation = () => {
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-8">
-                  <Link 
-                    {...getLinkProps("/")}
+                  <a 
+                    href={ROUTES.HOME}
                     className="flex items-center gap-2"
                     onClick={handleLogoClick}
                   >
@@ -278,7 +257,7 @@ const Navigation = () => {
                       alt="HyvenTech Logo" 
                       className="w-24 h-auto object-contain"
                     />
-                  </Link>
+                  </a>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
                     className="p-2 rounded-full hover:bg-primary/10 transition-colors"
@@ -302,40 +281,52 @@ const Navigation = () => {
                           <AnimatePresence>
                             {openDropdown === item.name && (
                               <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3, ease: "easeInOut" }}
-                                className="overflow-hidden"
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: "easeOut" }}
+                                className="overflow-hidden will-change-transform"
                               >
                                 <div className="pl-6 space-y-1 py-2">
                                   {item.dropdown.map((dropItem, index) => (
-                                    <Link
+                                    <NavLink
                                       key={index}
-                                      {...getLinkProps(dropItem.href)}
-                                      className={`block py-2 px-3 rounded-md text-sm transition-colors ${
+                                      to={dropItem.href}
+                                      className={({ isActive }) => `block py-2 px-3 rounded-md text-sm transition-colors ${
                                         dropItem.isHighlight 
                                           ? 'text-primary font-medium bg-primary/5' 
-                                          : 'text-foreground/70 hover:text-primary hover:bg-white/5'
+                                          : isActive
+                                            ? 'text-primary bg-primary/10'
+                                            : 'text-foreground/70 hover:text-primary hover:bg-white/5'
                                       }`}
                                       onClick={handleLinkClick}
                                     >
                                       {dropItem.name}
-                                    </Link>
+                                    </NavLink>
                                   ))}
                                 </div>
                               </motion.div>
                             )}
                           </AnimatePresence>
                         </div>
-                      ) : (
-                        <Link
-                          {...getLinkProps(item.href)}
-                          onClick={handleLinkClick}
-                          className="block text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
+                      ) : item.name === "Contact" ? (
+                        <a
+                          href={ROUTES.CONTACT}
+                          onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
+                          className="block text-lg font-medium transition-colors py-2 text-foreground hover:text-primary"
                         >
                           {item.name}
-                        </Link>
+                        </a>
+                      ) : (
+                        <NavLink
+                          to={item.href}
+                          onClick={handleLinkClick}
+                          className={({ isActive }) => `block text-lg font-medium transition-colors py-2 ${
+                            isActive ? 'text-primary' : 'text-foreground hover:text-primary'
+                          }`}
+                        >
+                          {item.name}
+                        </NavLink>
                       )}
                     </div>
                   ))}
@@ -348,35 +339,13 @@ const Navigation = () => {
                     </div>
                   </div>
                   
-                  <Button
-                    asChild
-                    className="w-full glow bg-primary hover:bg-primary/90 text-primary-foreground mt-6"
+                  <a
+                    href={ROUTES.CONTACT}
+                    onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
+                    className="w-full glow mt-6 bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-3 rounded-md inline-flex items-center justify-center font-medium"
                   >
-                    <a 
-                      href="/contact"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleLinkClick();
-                        
-                        const isHomePage = location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/services" || location.pathname === "/about";
-                        
-                        if (isHomePage) {
-                          const element = document.querySelector('#contact-section');
-                          if (element) {
-                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                          }
-                        } else {
-                          navigate('/', { state: { scrollToContact: true } });
-                        }
-
-                        toast.success("Let's get started! 🚀", {
-                          description: "Redirecting you to our contact page..."
-                        });
-                      }}
-                    >
-                        Get Started
-                    </a>
-                  </Button>
+                    Get Started
+                  </a>
                 </nav>
               </div>
             </motion.div>
@@ -388,4 +357,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-

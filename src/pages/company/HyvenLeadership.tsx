@@ -19,17 +19,15 @@ const LeaderCard = memo(({
 }) => {
   return (
     <motion.div
-      layout
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ 
         duration: 0.4, 
-        delay: index * 0.1,
-        layout: { type: "spring", stiffness: 200, damping: 25 }
+        delay: index * 0.1
       }}
       className={`
         relative overflow-hidden rounded-2xl border border-border/50 
-        bg-card/50 backdrop-blur-sm cursor-pointer glow
+        bg-card/95 cursor-pointer glow will-change-transform
         transition-shadow duration-300
         ${isExpanded ? 'shadow-2xl shadow-primary/10 ring-1 ring-primary/20 glow-strong' : 'hover:shadow-lg hover:shadow-primary/5'}
       `}
@@ -37,15 +35,13 @@ const LeaderCard = memo(({
     >
       {/* Collapsed State */}
       <motion.div 
-        layout="position"
         className="flex items-center gap-4 p-4 sm:p-5"
       >
         {/* Avatar */}
         <motion.div 
-          layout
           className={`
             relative flex-shrink-0 rounded-full overflow-hidden
-            border-2 transition-all duration-300
+            border-2 transition-all duration-300 will-change-transform
             ${isExpanded ? 'border-primary w-16 h-16 sm:w-20 sm:h-20' : 'border-primary/30 w-12 h-12 sm:w-14 sm:h-14'}
           `}
         >
@@ -62,7 +58,6 @@ const LeaderCard = memo(({
         {/* Basic Info */}
         <div className="flex-1 min-w-0">
           <motion.h3 
-            layout="position"
             className={`
               font-bold text-foreground truncate transition-all
               ${isExpanded ? 'text-lg sm:text-xl' : 'text-base sm:text-lg'}
@@ -71,7 +66,6 @@ const LeaderCard = memo(({
             {leader.name}
           </motion.h3>
           <motion.p 
-            layout="position"
             className="text-primary text-sm sm:text-base font-medium truncate"
           >
             {leader.role}

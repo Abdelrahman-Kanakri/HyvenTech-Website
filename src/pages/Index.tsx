@@ -1,4 +1,6 @@
 import React, { Suspense, lazy } from "react";
+import { useLocation } from "react-router-dom";
+import { useScrollSpy } from "@/hooks/useScrollSpy";
 
 import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
@@ -15,37 +17,72 @@ const Footer = lazy(() => import("@/components/Footer"));
 
 const LoadingFallback = () => <div className="py-20" />;
 
-import { useLocation } from "react-router-dom";
-
 const Index = () => {
   const location = useLocation();
+  
+  // Enable scroll-spy for automatic URL updates
+  useScrollSpy([
+    'hero',
+    'services', 
+    'key-sectors',
+    'about',
+    'contact'
+  ]);
 
+  // Scroll-to-Path Logic: Handle page refresh/direct access
   React.useEffect(() => {
-    if (location.state?.scrollToContact || location.pathname === '/contact') {
-      const element = document.querySelector('#contact-section');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        // Clear the state to prevent scrolling on refresh
-        window.history.replaceState({}, document.title);
-      }
+    const sectionMap: Record<string, string> = {
+      '/': 'hero',
+      '/hero': 'hero',
+      '/services': 'services',
+      '/key-sectors': 'key-sectors',
+      '/about': 'about',
+      '/contact': 'contact',
+    };
+
+    const sectionId = sectionMap[location.pathname];
+    
+    if (sectionId) {
+      // Small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const headerOffset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
     }
-  }, [location]);
+  }, []); // Only run on mount
 
   return (
     <div className="min-h-screen relative">
-      <Hero />
+      <section id="hero">
+        <Hero />
+      </section>
       <div className="divider-glow" />
       <ClientLogos />
       <div className="divider-glow" />
       
-      <Suspense fallback={<LoadingFallback />}>
-        <Services />
-      </Suspense>
+      <section id="services">
+        <Suspense fallback={<LoadingFallback />}>
+          <Services />
+        </Suspense>
+      </section>
       <div className="divider-glow" />
       
-      <Suspense fallback={<LoadingFallback />}>
-        <Industries />
-      </Suspense>
+      <section id="key-sectors">
+        <Suspense fallback={<LoadingFallback />}>
+          <Industries />
+        </Suspense>
+      </section>
       <div className="divider-glow" />
       
       <Suspense fallback={<LoadingFallback />}>
@@ -58,9 +95,11 @@ const Index = () => {
       </Suspense>
       <div className="divider-glow" />
       
-      <Suspense fallback={<LoadingFallback />}>
-        <About />
-      </Suspense>
+      <section id="about">
+        <Suspense fallback={<LoadingFallback />}>
+          <About />
+        </Suspense>
+      </section>
       <div className="divider-glow" />
       
       <Suspense fallback={<LoadingFallback />}>
@@ -68,11 +107,11 @@ const Index = () => {
       </Suspense>
       <div className="divider-glow" />
       
-      <div id="contact-section">
+      <section id="contact">
         <Suspense fallback={<LoadingFallback />}>
           <Contact />
         </Suspense>
-      </div>
+      </section>
       
       <Suspense fallback={<LoadingFallback />}>
         <Footer />

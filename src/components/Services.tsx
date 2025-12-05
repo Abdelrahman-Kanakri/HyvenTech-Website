@@ -110,7 +110,7 @@ const Services = () => {
             return (
               <motion.div key={index} variants={itemVariants}>
                 <Card 
-                  className="glass glow h-full group hover:glow-strong active:scale-[0.98] transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2 touch-manipulation flex flex-col relative z-10"
+                  className="glass glow h-full group hover:glow-strong active:scale-[0.98] transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2 touch-manipulation flex flex-col relative z-10 will-change-transform"
                 >
                   <CardHeader className="pb-3 lg:pb-4">
                     <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 lg:mb-4 group-hover:scale-110 transition-transform">

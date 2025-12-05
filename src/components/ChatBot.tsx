@@ -77,7 +77,7 @@ const Chatbot = () => {
             animate={isMobile ? { opacity: 1, scale: 1, y: 0 } : { opacity: 1, scale: 1, y: 0, x: 0 }}
             exit={isMobile ? { opacity: 0, scale: 0.2, y: 80 } : { opacity: 0, scale: 0.9, y: 20, x: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="mb-4 lg:mb-0 lg:absolute lg:bottom-20 lg:right-0 w-[350px] sm:w-[380px] h-[500px] max-h-[80vh] glass backdrop-blur-xl bg-background/90 border border-border/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden origin-bottom-right"
+            className="mb-4 lg:mb-0 lg:absolute lg:bottom-20 lg:right-0 w-[350px] sm:w-[380px] h-[500px] max-h-[80vh] glass md:backdrop-blur-xl bg-background/95 border border-border/50 rounded-2xl shadow-2xl flex flex-col overflow-hidden origin-bottom-right"
           >
             <div className="p-4 border-b border-border/50 bg-primary/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -127,7 +127,7 @@ const Chatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
             transition={{ delay: 1, duration: 0.3 }}
-            className="hidden lg:block absolute bottom-20 right-0 bg-background/80 backdrop-blur-md border border-border/50 px-4 py-2 rounded-xl shadow-lg text-sm font-medium whitespace-nowrap pointer-events-none"
+            className="hidden lg:block absolute bottom-20 right-0 bg-background/95 md:backdrop-blur-md border border-border/50 px-4 py-2 rounded-xl shadow-lg text-sm font-medium whitespace-nowrap pointer-events-none"
           >
             <div className="absolute -bottom-2 right-6 w-4 h-4 bg-background/80 border-b border-r border-border/50 transform rotate-45"></div>
             Chat with us 👋

@@ -1,20 +1,20 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
 import { Home, Briefcase, Layers, Mail, Users, Bot } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { ROUTES } from "@/router/constants";
 
 const navItems = [
-  { name: "Home", href: "/", icon: Home },
-  { name: "Services", href: "/#services", icon: Briefcase },
-  { name: "Company", href: "/#about", icon: Users, additionalMatches: ["/company"] },
-  { name: "Contact", href: "/#contact", icon: Mail },
+  { name: "Home", href: ROUTES.HOME, icon: Home },
+  { name: "Services", href: ROUTES.SERVICES, icon: Briefcase },
+  { name: "Company", href: ROUTES.ABOUT, icon: Users, additionalMatches: ["/company"] },
+  { name: "Contact", href: ROUTES.CONTACT, icon: Mail },
   { name: "Chat", href: "#", icon: Bot, isChat: true },
 ];
 
 function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: typeof navItems[0]; onChatClick?: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const navigate = useNavigate();
 
   const distance = useTransform(mouseX, (val) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -34,19 +34,6 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
     if (item.isChat) {
       e.preventDefault();
       onChatClick?.();
-    } else if (item.href === "/contact" || item.href === "/#contact") {
-      e.preventDefault();
-      
-      const isHomePage = location.pathname === "/" || location.pathname === "/contact" || location.pathname === "/services" || location.pathname === "/about";
-      
-      if (isHomePage) {
-        const element = document.querySelector('#contact-section');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      } else {
-        navigate('/contact');
-      }
     }
   };
 
@@ -58,7 +45,7 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
         isActive 
           ? "bg-primary/20 border-primary/50 shadow-[0_0_20px_rgba(76,201,240,0.3)]" 
           : "bg-white/5 border-white/10 hover:bg-white/10"
-      } backdrop-blur-md border`}
+      } md:backdrop-blur-md border`}
     >
       <motion.div
         whileHover={{ scale: 1.2, rotate: 5 }}
@@ -72,15 +59,15 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
   );
 
   return (
-    <div className="relative group" onClick={handleClick}>
-      {item.isChat || item.href === "/#contact" ? (
+    <div className="relative group" onClick={item.isChat ? handleClick : undefined}>
+      {item.isChat ? (
         <div className="cursor-pointer">
           {content}
         </div>
       ) : (
-        <Link to={item.href}>
+        <NavLink to={item.href}>
           {content}
-        </Link>
+        </NavLink>
       )}
       {isActive && (
         <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary shadow-[0_0_10px_rgba(76,201,240,0.8)]" />
@@ -91,6 +78,9 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
 
 const BottomNavigation = () => {
   const mouseX = useMotionValue(Infinity);
+  
+  // Detect if device supports hover (desktop) vs touch (mobile)
+  const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
 
   const handleChatClick = () => {
     // Emit custom event to toggle chatbot
@@ -101,9 +91,9 @@ const BottomNavigation = () => {
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[95vw] lg:hidden">
       <motion.div
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => mouseX.set(Infinity)}
-        className="flex items-end gap-2 px-3 py-2 rounded-2xl glass border border-white/10 shadow-2xl bg-black/40 backdrop-blur-xl"
+        onMouseMove={isTouchDevice ? undefined : (e) => mouseX.set(e.pageX)}
+        onMouseLeave={isTouchDevice ? undefined : () => mouseX.set(Infinity)}
+        className="flex items-end gap-2 px-3 py-2 rounded-2xl glass border border-white/10 shadow-2xl bg-black/95 md:backdrop-blur-xl"
       >
         {navItems.map((item) => (
           <DockItem key={item.name} mouseX={mouseX} item={item} onChatClick={item.isChat ? handleChatClick : undefined} />

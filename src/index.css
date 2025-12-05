@@ -1,6 +1,5 @@
-
 /* Font with display: swap for better loading performance */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +7,7 @@
 
 @layer utilities {
   .font-poppins {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 }
 
@@ -210,11 +209,11 @@
     min-height: 100dvh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    
+
     /* Performance optimizations */
     text-rendering: optimizeSpeed;
   }
-  
+
   /* Optimize rendering for sections */
   section {
     content-visibility: auto;
@@ -253,13 +252,24 @@
     }
   }
 
-  /* Glow effects */
+  /* Glow effects - Simplified on mobile for performance */
   .glow {
-    box-shadow: var(--glow-primary);
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.15);
   }
 
   .glow-strong {
-    box-shadow: var(--glow-strong);
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.25);
+  }
+
+  /* Full glow effects on desktop only */
+  @media (min-width: 768px) {
+    .glow {
+      box-shadow: var(--glow-primary);
+    }
+
+    .glow-strong {
+      box-shadow: var(--glow-strong);
+    }
   }
 
   /* Gradient backgrounds */

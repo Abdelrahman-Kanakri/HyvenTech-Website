@@ -1,5 +1,6 @@
 import { useLayoutEffect, useEffect } from "react";
 import { useLocation, useNavigationType } from "react-router-dom";
+import { isSectionRoute } from "@/router/constants";
 
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
@@ -20,35 +21,39 @@ const ScrollToTop = () => {
       window.history.scrollRestoration = 'manual';
     }
 
-    /**
-     * Scroll to element with retry mechanism
-     */
-    const scrollToElement = (selector: string, attempt = 0, maxAttempts = 3) => {
-      const element = document.querySelector(selector);
-      
-      if (element) {
-        const headerOffset = 80;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+    const previousPath = sessionStorage.getItem("prevPath");
+    const previousHash = sessionStorage.getItem("prevHash");
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        });
-        return true;
-      }
+    // Check if both current and previous paths are section routes
+    const isCurrentSectionRoute = isSectionRoute(pathname);
+    const isPreviousSectionRoute = previousPath ? isSectionRoute(previousPath) : false;
 
-      // Retry if element not found
-      if (attempt < maxAttempts) {
-        setTimeout(() => {
-          scrollToElement(selector, attempt + 1, maxAttempts);
-        }, 100);
-      }
-      
-      return false;
-    };
+    // Detect if only hash changed (same pathname, different hash)
+    const isHashOnlyChange = previousPath === pathname && previousHash !== hash;
 
-    // Check if page was reloaded
+    // RULE 1: If switching between section routes, DON'T scroll to top
+    // The Index component's useEffect will handle the section scrolling
+    if (isCurrentSectionRoute && isPreviousSectionRoute) {
+      // Skip scroll-to-top - let section scroll logic handle it
+      sessionStorage.setItem("prevPath", pathname);
+      sessionStorage.setItem("prevHash", hash || '');
+      return;
+    }
+
+    // RULE 2: If hash-only change on same page, DON'T scroll to top
+    if (isHashOnlyChange) {
+      sessionStorage.setItem("prevHash", hash || '');
+      return;
+    }
+
+    // RULE 3: Coming FROM a subpage TO a section route - let Index handle it
+    if (isCurrentSectionRoute && !isPreviousSectionRoute && previousPath) {
+      sessionStorage.setItem("prevPath", pathname);
+      sessionStorage.setItem("prevHash", hash || '');
+      return;
+    }
+
+    // RULE 4: Check if page was reloaded
     const navigationEntry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
     const isReload = navigationEntry?.type === 'reload';
 
@@ -59,70 +64,21 @@ const ScrollToTop = () => {
           top: parseInt(lastScroll),
           behavior: "instant"
         });
-        sessionStorage.removeItem("lastScrollPosition"); // Consume it so it doesn't affect next navigation
-        return; // Skip other scroll logic on reload
+        sessionStorage.removeItem("lastScrollPosition");
+        sessionStorage.setItem("prevPath", pathname);
+        sessionStorage.setItem("prevHash", hash || '');
+        return;
       }
     }
 
-    const previousPath = sessionStorage.getItem("prevPath");
-    let scrollHandled = false;
-
-    // CASE 1: Back button (POP) to Home from a subpage
-    if (navType === "POP" && (pathname === "/" || pathname === "/home") && previousPath) {
-      if (previousPath.includes('/services/')) {
-        scrollToElement('#services', 0, 5);
-        scrollHandled = true;
-      } 
-      else if (previousPath.includes('/key-sectors/')) {
-        scrollToElement('#key-sectors', 0, 5);
-        scrollHandled = true;
-      } 
-      else if (previousPath.includes('/company/') || previousPath.includes('/about')) {
-        scrollToElement('#about', 0, 5);
-        scrollHandled = true;
-      }
-      else if (previousPath.includes('/contact')) {
-        scrollToElement('#contact-section', 0, 5);
-        scrollHandled = true;
-      }
-    }
-
-    // CASE 2: Section navigation from routes (e.g., /services, /key-sectors)
-    if (!scrollHandled) {
-      if (hash) {
-        scrollToElement(hash);
-        scrollHandled = true;
-      } 
-      else if (pathname === '/' || pathname === '/home') {
-        // Navigating to home page - scroll to top smoothly
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        scrollHandled = true;
-      }
-      else if (pathname === '/services') {
-        scrollToElement('#services');
-        scrollHandled = true;
-      }
-      else if (pathname === '/key-sectors') {
-        scrollToElement('#key-sectors');
-        scrollHandled = true;
-      }
-      else if (pathname === '/contact') {
-        scrollToElement('#contact');
-        scrollHandled = true;
-      }
-      else if (pathname === '/about') {
-        scrollToElement('#about');
-        scrollHandled = true;
-      }
-    }
-
-    // CASE 3: Default - scroll to top for other pages
-    if (!scrollHandled) {
+    // RULE 5: Default - scroll to top for actual page changes (not section changes)
+    if (previousPath && previousPath !== pathname && !isCurrentSectionRoute) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
 
-    // Update previous path for next navigation
+    // Update tracking
     sessionStorage.setItem("prevPath", pathname);
+    sessionStorage.setItem("prevHash", hash || '');
 
   }, [pathname, hash, navType]);
 

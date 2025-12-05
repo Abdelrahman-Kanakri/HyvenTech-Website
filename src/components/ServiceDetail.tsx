@@ -43,7 +43,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
               animate={{ opacity: 1, scale: 1 }}
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.5 }}
-              className="w-16 h-16 sm:w-20 sm:h-20 mx-auto glass backdrop-blur-xl bg-gradient-glow rounded-2xl flex items-center justify-center mb-6 sm:mb-8 glow shadow-lg shadow-primary/20 group"
+              className="w-16 h-16 sm:w-20 sm:h-20 mx-auto glass md:backdrop-blur-xl bg-gradient-glow rounded-2xl flex items-center justify-center mb-6 sm:mb-8 glow shadow-lg shadow-primary/20 group will-change-transform"
             >
               <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary group-hover:scale-110 transition-transform" />
             </motion.div>
@@ -138,7 +138,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
           <motion.div 
             whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.3 }}
-            className="max-w-4xl mx-auto glass backdrop-blur-xl bg-primary/5 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-primary/20 glow shadow-xl"
+            className="max-w-4xl mx-auto glass md:backdrop-blur-xl bg-primary/10 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-primary/20 glow shadow-xl"
           >
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">Ready to Transform Your Business?</h2>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
