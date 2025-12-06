@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
 import { Home, Briefcase, Layers, Mail, Users, Bot } from "lucide-react";
 import { useLocation } from "react-router-dom";
-import { ROUTES, isSectionRoute } from "@/router/constants";
+import { ROUTES } from "@/router/constants";
 import { useSmoothNav } from "@/hooks/useSmoothNav";
 
 const navItems = [
@@ -43,7 +43,7 @@ function DockItem({ mouseX, item, onChatClick, onNavigate }: {
     if (item.isChat) {
       onChatClick?.();
     } else if (onNavigate && item.sectionId) {
-      // Special handling for Home - always navigate to ensure it works
+      // Special handling for Home to ensure it resets to top
       if (item.href === "/" || item.name === "Home") {
         onNavigate(ROUTES.HOME, "hero");
       } else {
@@ -79,6 +79,7 @@ function DockItem({ mouseX, item, onChatClick, onNavigate }: {
         href={item.href}
         onClick={handleClick}
         className="cursor-pointer"
+        aria-label={item.name}
       >
         {content}
       </a>
@@ -94,10 +95,10 @@ const BottomNavigation = () => {
   const { navigateTo } = useSmoothNav();
   
   // Detect if device supports hover (desktop) vs touch (mobile)
+  // This prevents the "dock effect" from interfering with touch
   const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
 
   const handleChatClick = () => {
-    // Emit custom event to toggle chatbot
     const event = new CustomEvent('toggleChatbot');
     window.dispatchEvent(event);
   };
