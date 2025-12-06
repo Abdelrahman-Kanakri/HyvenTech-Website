@@ -20,7 +20,14 @@ const Chatbot = () => {
 
   const sessionId = useRef(uuidv4());
 
-  // Listen for toggle event
+  // 1. SYNC STATE: Broadcast state change to BottomNavigation
+  useEffect(() => {
+    // Create a custom event detailing whether the chat is open or closed
+    const event = new CustomEvent('chatbotStateChange', { detail: isOpen });
+    window.dispatchEvent(event);
+  }, [isOpen]);
+
+  // Listen for toggle event (from BottomNavigation or other sources)
   useEffect(() => {
     const handleToggle = () => {
       setIsOpen(prev => !prev);

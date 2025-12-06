@@ -37,15 +37,14 @@ function DockItem({ mouseX, item, isActive, onClick }: {
         className="cursor-pointer relative z-10"
         aria-label={item.name}
       >
-        {/* Container: Added subtle background to ALL items for uniform size */}
         <motion.div
           ref={ref}
           style={{ width, height: width }}
           className={`aspect-square rounded-2xl flex items-center justify-center relative transition-all duration-300 ${
-            isActive ? "" : "bg-white/5 border border-white/5" // Inactive items now have a box too
+            isActive ? "" : "bg-white/5 border border-white/5" 
           }`}
         >
-          {/* SLIDING BACKGROUND (The Glow) - Shows only when active */}
+          {/* SLIDING BACKGROUND (The Glow) */}
           <AnimatePresence>
             {isActive && (
               <motion.div
@@ -90,19 +89,29 @@ const BottomNavigation = () => {
   const location = useLocation();
   const [chatOpen, setChatOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
-  const [isAtTop, setIsAtTop] = useState(true); // Track if we are at the top
+  const [isAtTop, setIsAtTop] = useState(true);
   
   const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
 
-  // SCROLL SPY LOGIC
+  // 1. SYNC STATE: Listen for updates directly from the ChatBot component
+  useEffect(() => {
+    const handleStateChange = (e: CustomEvent) => {
+      setChatOpen(e.detail);
+    };
+    
+    // We explicitly cast the event type to handle TS warning or just ignore in JS
+    window.addEventListener('chatbotStateChange', handleStateChange as EventListener);
+    return () => window.removeEventListener('chatbotStateChange', handleStateChange as EventListener);
+  }, []);
+
+  // 2. SCROLL SPY LOGIC (Maintained from previous fixes)
   useEffect(() => {
     const handleScroll = () => {
-      // Force "At Top" state when scroll is near 0
       setIsAtTop(window.scrollY < 100);
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Check immediately
+    handleScroll(); 
 
     if (location.pathname !== '/' && !isSectionRoute(location.pathname)) {
       setActiveSection(""); 
@@ -118,7 +127,6 @@ const BottomNavigation = () => {
         });
       },
       { 
-        // Trigger when the element hits the middle 20% of the screen
         rootMargin: "-40% 0px -40% 0px" 
       }
     );
@@ -134,28 +142,28 @@ const BottomNavigation = () => {
 
     observeElements();
     const timer = setTimeout(observeElements, 500);
+    const retryTimer = setTimeout(observeElements, 1500);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
       clearTimeout(timer);
+      clearTimeout(retryTimer);
     };
   }, [location.pathname]);
 
   const handleChatClick = () => {
-    setChatOpen(!chatOpen);
+    // We emit the toggle event. The ChatBot will receive it, 
+    // update its state, and emit a 'chatbotStateChange' event back to us.
     const event = new CustomEvent('toggleChatbot');
     window.dispatchEvent(event);
   };
 
-  useEffect(() => {
-    const handleClose = () => setChatOpen(false);
-    window.addEventListener('closeChatbot', handleClose);
-    return () => window.removeEventListener('closeChatbot', handleClose);
-  }, []);
-
   const handleNavigate = (path: string, sectionId?: string) => {
-    if (chatOpen) setChatOpen(false); 
+    // If navigating, we assume the chat should close visually, 
+    // but we let the ScrollToTop logic handle the actual movement.
+    // Note: navigateTo usually doesn't close chat automatically unless logic added,
+    // but the 'chatbotStateChange' will keep us accurate.
     navigateTo(path, sectionId);
   };
 
@@ -168,17 +176,18 @@ const BottomNavigation = () => {
       >
         {navItems.map((item) => {
           const isActive = (() => {
-            if (chatOpen) return item.isChat || false;
-            if (item.isChat) return false;
-            
-            // Priority 1: If at very top, force Home active
+            // Priority 1: Chat State (Synced with ChatBot component)
+            if (item.isChat) return chatOpen;
+            if (chatOpen) return false; // If chat is open, other tabs are inactive
+
+            // Priority 2: Home at Top
             if (isAtTop && (item.href === "/" || item.href === ROUTES.HOME)) return true;
             if (isAtTop && item.sectionId !== 'hero') return false;
 
-            // Priority 2: Scroll Spy
+            // Priority 3: Scroll Spy
             if (activeSection) return item.sectionId === activeSection;
 
-            // Priority 3: Path Match
+            // Priority 4: Path Matching
             if (location.pathname === item.href || location.pathname.startsWith(`${item.href}/`)) return true;
             if (item.additionalMatches?.some(match => location.pathname.startsWith(match))) return true;
             
@@ -196,11 +205,7 @@ const BottomNavigation = () => {
                 if (item.isChat) {
                   handleChatClick();
                 } else if (item.sectionId) {
-                  if (item.href === "/" || item.name === "Home") {
-                    handleNavigate(ROUTES.HOME, "hero");
-                  } else {
-                    handleNavigate(item.href, item.sectionId);
-                  }
+                  handleNavigate(item.href, item.sectionId);
                 }
               }}
             />
