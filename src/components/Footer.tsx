@@ -30,7 +30,7 @@ const Footer = () => {
     { icon: Linkedin, label: "LinkedIn", href: "#" },
     { icon: Facebook, label: "Facebook", href: "#" },
     { icon: Twitter, label: "Twitter", href: "#" },
-    { icon: Instagram, label: "Instagram", href: "#" },
+    { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/hyventech" },
   ];
 
   const contactItems = [

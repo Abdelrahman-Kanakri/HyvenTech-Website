@@ -1,18 +1,24 @@
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
 import { Home, Briefcase, Layers, Mail, Users, Bot } from "lucide-react";
-import { NavLink, useLocation } from "react-router-dom";
-import { ROUTES } from "@/router/constants";
+import { useLocation } from "react-router-dom";
+import { ROUTES, isSectionRoute } from "@/router/constants";
+import { useSmoothNav } from "@/hooks/useSmoothNav";
 
 const navItems = [
-  { name: "Home", href: ROUTES.HOME, icon: Home },
-  { name: "Services", href: ROUTES.SERVICES, icon: Briefcase },
-  { name: "Company", href: ROUTES.ABOUT, icon: Users, additionalMatches: ["/company"] },
-  { name: "Contact", href: ROUTES.CONTACT, icon: Mail },
+  { name: "Home", href: ROUTES.HOME, icon: Home, sectionId: "hero" },
+  { name: "Services", href: ROUTES.SERVICES, icon: Briefcase, sectionId: "services" },
+  { name: "Company", href: ROUTES.ABOUT, icon: Users, sectionId: "about", additionalMatches: ["/company"] },
+  { name: "Contact", href: ROUTES.CONTACT, icon: Mail, sectionId: "contact" },
   { name: "Chat", href: "#", icon: Bot, isChat: true },
 ];
 
-function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: typeof navItems[0]; onChatClick?: () => void }) {
+function DockItem({ mouseX, item, onChatClick, onNavigate }: { 
+  mouseX: MotionValue; 
+  item: typeof navItems[0]; 
+  onChatClick?: () => void;
+  onNavigate?: (path: string, sectionId?: string) => void;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
@@ -24,16 +30,25 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
   const widthSync = useTransform(distance, [-150, 0, 150], [40, 60, 40]);
   const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
+  // Check if this item is active based on current path
   const isActive = 
     item.isChat ||
-    (item.href === "/" && location.pathname === "/" && !location.hash) ||
-    (item.href.startsWith("/#") && location.hash === item.href.substring(1)) ||
+    (item.href === "/" && location.pathname === "/") ||
+    (location.pathname === item.href) ||
     (item.additionalMatches?.some(match => location.pathname.startsWith(match)));
 
   const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
     if (item.isChat) {
-      e.preventDefault();
       onChatClick?.();
+    } else if (onNavigate && item.sectionId) {
+      // Special handling for Home - always navigate to ensure it works
+      if (item.href === "/" || item.name === "Home") {
+        onNavigate(ROUTES.HOME, "hero");
+      } else {
+        onNavigate(item.href, item.sectionId);
+      }
     }
   };
 
@@ -59,16 +74,14 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
   );
 
   return (
-    <div className="relative group" onClick={item.isChat ? handleClick : undefined}>
-      {item.isChat ? (
-        <div className="cursor-pointer">
-          {content}
-        </div>
-      ) : (
-        <NavLink to={item.href}>
-          {content}
-        </NavLink>
-      )}
+    <div className="relative group">
+      <a
+        href={item.href}
+        onClick={handleClick}
+        className="cursor-pointer"
+      >
+        {content}
+      </a>
       {isActive && (
         <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary shadow-[0_0_10px_rgba(76,201,240,0.8)]" />
       )}
@@ -78,6 +91,7 @@ function DockItem({ mouseX, item, onChatClick }: { mouseX: MotionValue; item: ty
 
 const BottomNavigation = () => {
   const mouseX = useMotionValue(Infinity);
+  const { navigateTo } = useSmoothNav();
   
   // Detect if device supports hover (desktop) vs touch (mobile)
   const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
@@ -88,6 +102,10 @@ const BottomNavigation = () => {
     window.dispatchEvent(event);
   };
 
+  const handleNavigate = (path: string, sectionId?: string) => {
+    navigateTo(path, sectionId);
+  };
+
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[95vw] lg:hidden">
       <motion.div
@@ -96,7 +114,13 @@ const BottomNavigation = () => {
         className="flex items-end gap-2 px-3 py-2 rounded-2xl glass border border-white/10 shadow-2xl bg-black/95 md:backdrop-blur-xl"
       >
         {navItems.map((item) => (
-          <DockItem key={item.name} mouseX={mouseX} item={item} onChatClick={item.isChat ? handleChatClick : undefined} />
+          <DockItem 
+            key={item.name} 
+            mouseX={mouseX} 
+            item={item} 
+            onChatClick={item.isChat ? handleChatClick : undefined}
+            onNavigate={!item.isChat ? handleNavigate : undefined}
+          />
         ))}
       </motion.div>
     </div>
