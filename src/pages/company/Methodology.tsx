@@ -79,7 +79,6 @@ const Methodology = () => {
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                whileHover={{ scale: 1.01, y: -2 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 className="relative mb-12 md:mb-16 last:mb-0"
@@ -97,43 +96,49 @@ const Methodology = () => {
                     <div className="h-full w-0.5 bg-border md:hidden mx-auto mt-4" />
                   </div>
 
-                  {/* Content Card */}
-                  <Card className="flex-1 glass glow hover:glow-strong transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 border border-border/50 hover:border-primary/50">
-                    <CardContent className="p-6 sm:p-8">
-                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                        <div>
-                          <h3 className="text-2xl font-bold text-foreground mb-2">
-                            {step.title}
-                          </h3>
-                          <div className="flex items-center gap-2 text-sm text-primary font-medium bg-primary/10 px-3 py-1 rounded-full w-fit">
-                            <span className="relative flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                            </span>
-                            {step.duration}
+                  {/* Content Card - Fixed Hover State */}
+                  <motion.div
+                    className="flex-1"
+                    whileHover={{ y: -4 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <Card className="h-full glass hover:bg-background/80 transition-all duration-500 ease-out border border-border/50 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5">
+                      <CardContent className="p-6 sm:p-8">
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                          <div>
+                            <h3 className="text-2xl font-bold text-foreground mb-2">
+                              {step.title}
+                            </h3>
+                            <div className="flex items-center gap-2 text-sm text-primary font-medium bg-primary/10 px-3 py-1 rounded-full w-fit">
+                              <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                              </span>
+                              {step.duration}
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <p className="text-muted-foreground leading-relaxed mb-6 text-lg">
-                        {step.description}
-                      </p>
-
-                      <div className="bg-muted/30 rounded-lg p-4 border border-border/50">
-                        <p className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
-                          <ArrowRight className="h-4 w-4 text-primary" />
-                          Key Deliverables
+                        <p className="text-muted-foreground leading-relaxed mb-6 text-lg">
+                          {step.description}
                         </p>
-                        <div className="flex flex-wrap gap-2">
-                          {step.deliverables.map((item, i) => (
-                            <span key={i} className="text-xs sm:text-sm px-3 py-1 rounded bg-background border border-border text-muted-foreground">
-                              {item}
-                            </span>
-                          ))}
+
+                        <div className="bg-muted/30 rounded-lg p-4 border border-border/50">
+                          <p className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                            <ArrowRight className="h-4 w-4 text-primary" />
+                            Key Deliverables
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {step.deliverables.map((item, i) => (
+                              <span key={i} className="text-xs sm:text-sm px-3 py-1 rounded bg-background border border-border text-muted-foreground">
+                                {item}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 </div>
               </motion.div>
             );

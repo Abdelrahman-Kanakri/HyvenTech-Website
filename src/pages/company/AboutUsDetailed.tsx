@@ -9,6 +9,16 @@ import { Link, useNavigate } from "react-router-dom";
 const AboutUsDetailed = () => {
   const navigate = useNavigate();
 
+  // Reusable hover animation for consistency
+  const softHover = {
+    rest: { scale: 1, y: 0 },
+    hover: { 
+      scale: 1.01, 
+      y: -4,
+      transition: { type: "spring", stiffness: 300, damping: 20 }
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
@@ -20,7 +30,7 @@ const AboutUsDetailed = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="max-w-4xl mx-auto text-center"
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
@@ -41,6 +51,7 @@ const AboutUsDetailed = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
               className="space-y-6"
             >
               <h2 className="text-3xl font-bold">Who We Are</h2>
@@ -50,9 +61,15 @@ const AboutUsDetailed = () => {
                 </p>
               </div>
             </motion.div>
-            <div className="relative h-[400px] rounded-2xl overflow-hidden glass glow flex items-center justify-center">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative h-[400px] rounded-2xl overflow-hidden glass glow flex items-center justify-center border border-border/50"
+            >
                {/* Abstract visual representation */}
-               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20" />
+               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" />
                <div className="text-center p-8 relative z-10">
                  <div className="text-6xl font-bold text-primary mb-2">LLC</div>
                  <div className="text-xl text-foreground">Registered Entity</div>
@@ -63,7 +80,7 @@ const AboutUsDetailed = () => {
                     <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-primary"/> <span>Digital Strategists</span></div>
                  </div>
                </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -73,8 +90,10 @@ const AboutUsDetailed = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
             <motion.div 
-              whileHover={{ scale: 1.03, y: -5 }}
-              className="p-8 rounded-2xl glass glow border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:glow-strong"
+              initial="rest"
+              whileHover="hover"
+              variants={softHover}
+              className="p-8 rounded-2xl glass glow border border-primary/10 hover:border-primary/40 transition-colors duration-500"
             >
               <Target className="w-12 h-12 text-primary mb-6" />
               <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
@@ -83,8 +102,10 @@ const AboutUsDetailed = () => {
               </p>
             </motion.div>
             <motion.div 
-              whileHover={{ scale: 1.03, y: -5 }}
-              className="p-8 rounded-2xl glass glow border border-primary/20 hover:border-primary/50 transition-all duration-300 hover:glow-strong"
+              initial="rest"
+              whileHover="hover"
+              variants={softHover}
+              className="p-8 rounded-2xl glass glow border border-primary/10 hover:border-primary/40 transition-colors duration-500"
             >
               <Zap className="w-12 h-12 text-primary mb-6" />
               <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
@@ -127,8 +148,10 @@ const AboutUsDetailed = () => {
             ].map((item, i) => (
               <motion.div 
                 key={i} 
-                whileHover={{ scale: 1.03, y: -5 }}
-                className="bg-background p-6 rounded-xl border border-border/50 hover:border-primary/50 transition-all duration-300 glow hover:glow-strong"
+                initial="rest"
+                whileHover="hover"
+                variants={softHover}
+                className="bg-background p-6 rounded-xl border border-border/50 hover:border-primary/40 transition-colors duration-300 shadow-sm hover:shadow-xl hover:shadow-primary/5"
               >
                 <h3 className="font-bold text-lg mb-3 text-primary">{item.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
@@ -138,7 +161,7 @@ const AboutUsDetailed = () => {
           
           {/* Visit Services Button */}
           <div className="text-center mt-12">
-            <Button asChild size="lg" className="glow text-lg px-8">
+            <Button asChild size="lg" className="glow text-lg px-8 hover:scale-105 transition-transform duration-300">
               <Link to="/services">
                 Visit Services <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
@@ -153,27 +176,24 @@ const AboutUsDetailed = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-12">Our Philosophy</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-bold text-xl">Quality First</h3>
-                <p className="text-sm text-muted-foreground">We never compromise on code quality or security. If it's not robust, it doesn't leave our lab.</p>
-              </div>
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <Users className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-bold text-xl">Partnership</h3>
-                <p className="text-sm text-muted-foreground">We don't just have clients; we have partners. Your growth is the only metric of our success.</p>
-              </div>
-              <div className="space-y-4">
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
-                  <Zap className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="font-bold text-xl">Innovation</h3>
-                <p className="text-sm text-muted-foreground">We stay ahead of the curve so you don't have to. We bring the latest tech to your doorstep.</p>
-              </div>
+              {[
+                { icon: Shield, title: "Quality First", text: "We never compromise on code quality or security. If it's not robust, it doesn't leave our lab." },
+                { icon: Users, title: "Partnership", text: "We don't just have clients; we have partners. Your growth is the only metric of our success." },
+                { icon: Zap, title: "Innovation", text: "We stay ahead of the curve so you don't have to. We bring the latest tech to your doorstep." }
+              ].map((item, index) => (
+                <motion.div 
+                  key={index}
+                  whileHover={{ y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="space-y-4 p-4 rounded-xl hover:bg-muted/30 transition-colors"
+                >
+                  <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                    <item.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <h3 className="font-bold text-xl">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.text}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -186,7 +206,7 @@ const AboutUsDetailed = () => {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join the hundreds of businesses that have trusted HyvenTech with their digital future.
           </p>
-          <Button size="lg" className="glow text-lg px-8" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
+          <Button size="lg" className="glow text-lg px-8 hover:scale-105 transition-transform duration-300" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
             Start Your Journey <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </div>

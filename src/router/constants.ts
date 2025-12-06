@@ -1,7 +1,8 @@
+// fileName: constants.ts
+
 /**
  * Route Path Constants
- * 
- * Centralized source of truth for all route paths.
+ * * Centralized source of truth for all route paths.
  * Using this prevents typos and makes refactoring easier.
  */
 
@@ -66,13 +67,14 @@ export const SECTION_ROUTES = [
 ] as const;
 
 // Map section paths to their corresponding element IDs
+// Keys must match the ROUTES values above
 export const SECTION_IDS: Record<string, string> = {
-  '/': 'hero',
-  '/hero': 'hero',
-  '/about': 'about',
-  '/services': 'services',
-  '/key-sectors': 'key-sectors',
-  '/contact': 'contact',
+  [ROUTES.HOME]: 'hero',
+  [ROUTES.HERO]: 'hero',
+  [ROUTES.ABOUT]: 'about',
+  [ROUTES.SERVICES]: 'services',
+  [ROUTES.KEY_SECTORS]: 'key-sectors',
+  [ROUTES.CONTACT]: 'contact',
 };
 
 // Type for all valid routes

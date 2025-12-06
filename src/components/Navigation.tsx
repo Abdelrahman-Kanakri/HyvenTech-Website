@@ -1,8 +1,9 @@
+// fileName: Navigation.tsx
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom"; // Added Link
 import { navItems } from "@/constants/navigation";
 import { ROUTES } from "@/router/constants";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -60,40 +61,57 @@ const Navigation = () => {
     setOpenDropdown(null);
   }, []);
 
+  // Updated Logo Click
   const handleLogoClick = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent hard reload
     handleLinkClick();
     navigateTo(ROUTES.HOME, 'hero');
   }, [handleLinkClick, navigateTo]);
 
   // Smart section navigation handler
   const handleSectionClick = useCallback((e: React.MouseEvent, path: string, sectionId: string) => {
-    e.preventDefault();
+    e.preventDefault(); // CRITICAL: Prevents full page reload
     handleLinkClick();
     navigateTo(path, sectionId);
   }, [handleLinkClick, navigateTo]);
 
   const renderedNavItems = useMemo(() => navItems.map((item) => {
-    // Determine if this is a section link
     const isSectionLink = item.name === "Services" || item.name === "Key Sectors" || item.name === "Company" || item.name === "Contact";
     
+    // Helper to get correct route for section links
+    const getSectionRoute = (name: string) => {
+      if (name === "Services") return ROUTES.SERVICES;
+      if (name === "Key Sectors") return ROUTES.KEY_SECTORS;
+      if (name === "Contact") return ROUTES.CONTACT;
+      return ROUTES.ABOUT;
+    };
+
+    // Helper to get section ID
+    const getSectionId = (name: string) => {
+      if (name === "Services") return 'services';
+      if (name === "Key Sectors") return 'key-sectors';
+      if (name === "Contact") return 'contact';
+      return 'about';
+    };
+
     return (
       <div key={item.name} className="relative">
         {item.dropdown ? (
           <div className="flex items-center gap-1">
-            <a
-              href={item.name === "Services" ? ROUTES.SERVICES : item.name === "Key Sectors" ? ROUTES.KEY_SECTORS : ROUTES.ABOUT}
+            {/* Main Dropdown Link */}
+            <Link
+              to={getSectionRoute(item.name)}
               onClick={(e) => handleSectionClick(
                 e,
-                item.name === "Services" ? ROUTES.SERVICES : item.name === "Key Sectors" ? ROUTES.KEY_SECTORS : ROUTES.ABOUT,
-                item.name === "Services" ? 'services' : item.name === "Key Sectors" ? 'key-sectors' : 'about'
+                getSectionRoute(item.name),
+                getSectionId(item.name)
               )}
               className="text-base transition-colors relative group cursor-pointer text-foreground/80 hover:text-primary"
-              aria-label={`Navigate to ${item.name} section`}
+              aria-label={`Maps to ${item.name} section`}
             >
               {item.name}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-            </a>
+            </Link>
           
             <button
               onClick={(e) => {
@@ -117,7 +135,6 @@ const Navigation = () => {
                   transition={{ duration: 0.2 }}
                   className="absolute top-full mt-2 left-0 min-w-[220px] bg-background/95 md:glass md:backdrop-blur-3xl border border-border/50 rounded-lg shadow-xl overflow-hidden"
                   role="menu"
-                  aria-label={`${item.name} submenu`}
                 >
                   {item.dropdown.map((dropItem, index) => (
                     <NavLink
@@ -141,15 +158,15 @@ const Navigation = () => {
             </AnimatePresence>
           </div>
         ) : item.name === "Contact" ? (
-          <a
-            href={ROUTES.CONTACT}
+          <Link
+            to={ROUTES.CONTACT}
             onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
             className="text-base transition-colors relative group cursor-pointer text-foreground/80 hover:text-primary"
             aria-label="Navigate to Contact"
           >
             {item.name}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-          </a>
+          </Link>
         ) : (
           <NavLink
             to={item.href}
@@ -157,7 +174,7 @@ const Navigation = () => {
             className={({ isActive }) => `text-base transition-colors relative group cursor-pointer ${
               isActive ? 'text-primary' : 'text-foreground/80 hover:text-primary'
             }`}
-            aria-label={`Navigate to ${item.name}`}
+            aria-label={`Maps to ${item.name}`}
           >
             {item.name}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
@@ -181,9 +198,9 @@ const Navigation = () => {
           <div className="lg:glass lg:backdrop-blur-xl lg:bg-background/70 lg:border lg:border-border/50 lg:rounded-3xl lg:shadow-2xl lg:shadow-primary/5 lg:px-6 lg:py-2">
             <div className="flex items-center justify-between w-full" ref={dropdownRef}>
               
-              {/* Desktop Logo - Visible only on LG+ */}
-              <a 
-                href={ROUTES.HOME}
+              {/* Desktop Logo */}
+              <Link 
+                to={ROUTES.HOME}
                 className="hidden lg:flex items-center gap-3 group p-2 px-3 rounded-xl bg-background/50 border border-border/30 hover:border-primary/50 transition-all" 
                 aria-label="HyvenTech Home"
                 onClick={handleLogoClick}
@@ -193,25 +210,22 @@ const Navigation = () => {
                   alt="HyvenTech Logo" 
                   className="w-32 h-auto object-contain group-hover:scale-110 transition-transform rounded-xl"
                 />
-              </a>
+              </Link>
 
-              {/* Desktop Navigation Links - Visible only on LG+ */}
+              {/* Desktop Navigation Links */}
               <div className="hidden lg:flex items-center gap-6 xl:gap-8">
                 {renderedNavItems}
-                
-                {/* Theme Toggle */}
                 <ThemeToggle />
-                
-                <a
-                  href={ROUTES.CONTACT}
+                <Link
+                  to={ROUTES.CONTACT}
                   onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
                   className="glow transition-all hover:scale-105 bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-md inline-flex items-center justify-center font-medium text-sm"
                 >
                   Get Started
-                </a>
+                </Link>
               </div>
 
-              {/* Mobile/Tablet Menu Button - Floating Icon (Visible < LG) */}
+              {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden ml-auto p-3 bg-background/95 border border-border/50 rounded-full shadow-lg text-foreground hover:text-primary transition-all active:scale-95"
@@ -242,13 +256,11 @@ const Navigation = () => {
               exit={{ y: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="absolute left-0 right-0 top-0 bg-background border-b border-border/50 shadow-2xl overflow-y-auto max-h-screen"
-              role="dialog"
-              aria-label="Mobile navigation menu"
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-8">
-                  <a 
-                    href={ROUTES.HOME}
+                  <Link 
+                    to={ROUTES.HOME}
                     className="flex items-center gap-2"
                     onClick={handleLogoClick}
                   >
@@ -257,7 +269,7 @@ const Navigation = () => {
                       alt="HyvenTech Logo" 
                       className="w-24 h-auto object-contain"
                     />
-                  </a>
+                  </Link>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
                     className="p-2 rounded-full hover:bg-primary/10 transition-colors"
@@ -273,7 +285,6 @@ const Navigation = () => {
                           <button
                             onClick={() => handleDropdownToggle(item.name)}
                             className="w-full flex items-center justify-between text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
-                            aria-expanded={openDropdown === item.name}
                           >
                             {item.name}
                             <ChevronDown className={`h-5 w-5 transition-transform duration-300 ${openDropdown === item.name ? 'rotate-180' : ''}`} />
@@ -310,13 +321,13 @@ const Navigation = () => {
                           </AnimatePresence>
                         </div>
                       ) : item.name === "Contact" ? (
-                        <a
-                          href={ROUTES.CONTACT}
+                        <Link
+                          to={ROUTES.CONTACT}
                           onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
                           className="block text-lg font-medium transition-colors py-2 text-foreground hover:text-primary"
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       ) : (
                         <NavLink
                           to={item.href}
@@ -339,13 +350,13 @@ const Navigation = () => {
                     </div>
                   </div>
                   
-                  <a
-                    href={ROUTES.CONTACT}
+                  <Link
+                    to={ROUTES.CONTACT}
                     onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
                     className="w-full glow mt-6 bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-3 rounded-md inline-flex items-center justify-center font-medium"
                   >
                     Get Started
-                  </a>
+                  </Link>
                 </nav>
               </div>
             </motion.div>

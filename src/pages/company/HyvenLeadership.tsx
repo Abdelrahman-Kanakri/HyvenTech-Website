@@ -19,29 +19,35 @@ const LeaderCard = memo(({
 }) => {
   return (
     <motion.div
+      layout // CRITICAL: This makes the box resize smoothly
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ 
-        duration: 0.4, 
-        delay: index * 0.1
+        layout: { duration: 0.3, ease: "easeOut" },
+        opacity: { duration: 0.4, delay: index * 0.1 }
       }}
       className={`
         relative overflow-hidden rounded-2xl border border-border/50 
-        bg-card/95 cursor-pointer glow will-change-transform
-        transition-shadow duration-300
-        ${isExpanded ? 'shadow-2xl shadow-primary/10 ring-1 ring-primary/20 glow-strong' : 'hover:shadow-lg hover:shadow-primary/5'}
+        bg-card/95 cursor-pointer
+        transition-all duration-500 ease-out
+        ${isExpanded 
+          ? 'shadow-2xl shadow-primary/10 ring-1 ring-primary/20' 
+          : 'hover:shadow-lg hover:shadow-primary/5 hover:border-primary/30'
+        }
       `}
       onClick={onToggle}
     >
       {/* Collapsed State */}
       <motion.div 
+        layout="position"
         className="flex items-center gap-4 p-4 sm:p-5"
       >
         {/* Avatar */}
         <motion.div 
+          layout
           className={`
             relative flex-shrink-0 rounded-full overflow-hidden
-            border-2 transition-all duration-300 will-change-transform
+            border-2 transition-all duration-500 ease-out
             ${isExpanded ? 'border-primary w-16 h-16 sm:w-20 sm:h-20' : 'border-primary/30 w-12 h-12 sm:w-14 sm:h-14'}
           `}
         >
@@ -52,20 +58,23 @@ const LeaderCard = memo(({
             decoding="async"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          {/* Smoother overlay fade */}
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </motion.div>
 
         {/* Basic Info */}
         <div className="flex-1 min-w-0">
           <motion.h3 
+            layout="position"
             className={`
-              font-bold text-foreground truncate transition-all
+              font-bold text-foreground truncate transition-all duration-300
               ${isExpanded ? 'text-lg sm:text-xl' : 'text-base sm:text-lg'}
             `}
           >
             {leader.name}
           </motion.h3>
           <motion.p 
+            layout="position"
             className="text-primary text-sm sm:text-base font-medium truncate"
           >
             {leader.role}
@@ -74,8 +83,9 @@ const LeaderCard = memo(({
 
         {/* Expand/Collapse Icon */}
         <motion.div
+          layout
           animate={{ rotate: isExpanded ? 90 : 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.3, ease: "backOut" }}
           className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center"
         >
           {isExpanded ? (
@@ -87,7 +97,7 @@ const LeaderCard = memo(({
       </motion.div>
 
       {/* Expanded Content */}
-      <AnimatePresence>
+      <AnimatePresence mode="sync">
         {isExpanded && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
@@ -95,7 +105,7 @@ const LeaderCard = memo(({
               height: "auto", 
               opacity: 1,
               transition: {
-                height: { type: "spring", stiffness: 200, damping: 25 },
+                height: { duration: 0.3, ease: "easeOut" },
                 opacity: { duration: 0.3, delay: 0.1 }
               }
             }}
@@ -103,8 +113,8 @@ const LeaderCard = memo(({
               height: 0, 
               opacity: 0,
               transition: {
-                height: { duration: 0.3 },
-                opacity: { duration: 0.15 }
+                height: { duration: 0.2, ease: "easeIn" },
+                opacity: { duration: 0.1 }
               }
             }}
             className="overflow-hidden"
@@ -117,7 +127,7 @@ const LeaderCard = memo(({
               <motion.p 
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.15 }}
+                transition={{ delay: 0.1 }}
                 className="text-muted-foreground text-sm sm:text-base leading-relaxed"
               >
                 {leader.bio}
@@ -127,7 +137,7 @@ const LeaderCard = memo(({
               <motion.div
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.15 }}
                 className="flex flex-wrap gap-2"
               >
                 {leader.skills.map((skill, idx) => (
@@ -135,7 +145,7 @@ const LeaderCard = memo(({
                     key={skill}
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.25 + idx * 0.05 }}
+                    transition={{ delay: 0.2 + idx * 0.05 }}
                     className="px-3 py-1 text-xs sm:text-sm font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
                   >
                     {skill}
@@ -147,7 +157,7 @@ const LeaderCard = memo(({
               <motion.div
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.25 }}
                 className="space-y-2"
               >
                 <h4 className="flex items-center gap-2 text-sm font-bold text-primary uppercase tracking-wide">
@@ -160,7 +170,7 @@ const LeaderCard = memo(({
                       key={idx}
                       initial={{ x: -10, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.35 + idx * 0.1 }}
+                      transition={{ delay: 0.3 + idx * 0.1 }}
                       className="flex items-start gap-2 text-sm text-muted-foreground"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
@@ -174,7 +184,7 @@ const LeaderCard = memo(({
               <motion.div
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.4 }}
                 className="flex gap-3 pt-2"
                 onClick={(e) => e.stopPropagation()}
               >
@@ -183,7 +193,7 @@ const LeaderCard = memo(({
                     href={leader.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0077B5] text-white text-sm font-medium hover:bg-[#0077B5]/90 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0077B5] text-white text-sm font-medium hover:bg-[#0077B5]/90 transition-colors shadow-sm hover:shadow-md"
                   >
                     <Linkedin className="w-4 h-4" />
                     LinkedIn
@@ -191,7 +201,7 @@ const LeaderCard = memo(({
                 )}
                 <a
                   href={`mailto:${leader.email}`}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted text-foreground text-sm font-medium hover:bg-muted/80 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted text-foreground text-sm font-medium hover:bg-muted/80 transition-colors shadow-sm hover:shadow-md"
                 >
                   <Mail className="w-4 h-4" />
                   Email

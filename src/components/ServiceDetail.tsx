@@ -6,7 +6,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import Navigation from "@/components/Navigation";
 import BottomNavigation from "@/components/BottomNavigation";
 import Footer from "@/components/Footer";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface ServiceDetailProps {
   title: string;
@@ -41,17 +41,17 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.5 }}
-              className="w-16 h-16 sm:w-20 sm:h-20 mx-auto glass md:backdrop-blur-xl bg-gradient-glow rounded-2xl flex items-center justify-center mb-6 sm:mb-8 glow shadow-lg shadow-primary/20 group will-change-transform"
+              whileHover={{ scale: 1.05, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              className="w-16 h-16 sm:w-20 sm:h-20 mx-auto glass md:backdrop-blur-xl bg-gradient-glow rounded-2xl flex items-center justify-center mb-6 sm:mb-8 glow shadow-lg shadow-primary/20 group will-change-transform cursor-pointer"
             >
-              <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary group-hover:scale-110 transition-transform" />
+              <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary transition-transform duration-500 ease-out group-hover:scale-110" />
             </motion.div>
             
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
               className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6"
             >
               <span className="rounded-xl px-3 sm:px-4 py-2 inline-block">
@@ -62,7 +62,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
               className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto"
             >
               {description}
@@ -71,10 +71,10 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
               className="flex flex-wrap justify-center gap-4"
             >
-              <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
+              <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all hover:scale-105 duration-300" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
                 Get Started <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </motion.div>
@@ -100,9 +100,15 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
+                    whileHover={{ x: 6 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3 sm:gap-4"
+                    transition={{ 
+                      type: "spring", 
+                      stiffness: 400, 
+                      damping: 20,
+                      delay: index * 0.1 
+                    }}
+                    className="flex items-start gap-3 sm:gap-4 p-2 rounded-lg hover:bg-white/5 transition-colors duration-300"
                   >
                     <CheckCircle className="w-6 h-6 sm:w-7 sm:h-7 text-primary flex-shrink-0 mt-0.5" />
                     <span className="text-base sm:text-lg lg:text-xl text-foreground/90 leading-relaxed">{benefit}</span>
@@ -118,12 +124,17 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  whileHover={{ scale: 1.03, y: -5 }}
+                  whileHover={{ y: -6 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="glass glow p-5 sm:p-6 lg:p-8 rounded-xl border border-white/10 hover:glow-strong transition-all duration-300 group h-full flex flex-col"
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 300, 
+                    damping: 20,
+                    delay: index * 0.1 
+                  }}
+                  className="glass glow p-5 sm:p-6 lg:p-8 rounded-xl border border-white/10 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 group h-full flex flex-col"
                 >
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{feature.title}</h3>
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">{feature.title}</h3>
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed flex-grow">{feature.description}</p>
                 </motion.div>
               ))}
@@ -137,14 +148,14 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div 
             whileHover={{ scale: 1.01 }}
-            transition={{ duration: 0.3 }}
-            className="max-w-4xl mx-auto glass md:backdrop-blur-xl bg-primary/10 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-primary/20 glow shadow-xl"
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="max-w-4xl mx-auto glass md:backdrop-blur-xl bg-primary/10 rounded-2xl sm:rounded-3xl p-8 sm:p-12 border border-primary/20 glow shadow-xl hover:shadow-2xl hover:shadow-primary/10 transition-shadow duration-300"
           >
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">Ready to Transform Your Business?</h2>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
               Contact us today to discuss how our {title} solutions can help you achieve your goals.
             </p>
-            <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
+            <Button size="lg" className="h-11 sm:h-12 w-full sm:w-auto px-8 glow hover:glow-strong transition-all hover:scale-105 duration-300" onClick={() => navigate('/', { state: { scrollToContact: true } })}>
               Schedule a Consultation
             </Button>
           </motion.div>
@@ -161,4 +172,4 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
   );
 };
 
-export default ServiceDetail;
+export default ServiceDetail; 

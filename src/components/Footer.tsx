@@ -1,10 +1,22 @@
-import { Linkedin, Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Linkedin, Mail, Phone, MapPin, Facebook, Instagram } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const logoLight = "/Logo/Assets-03.png";
 const logoDark = "/Logo/Assets-04.png";
+
+// Custom X (formerly Twitter) Icon
+const XIcon = ({ className }: { className?: string }) => (
+  <svg 
+    role="img" 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
+    className={className} 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+  </svg>
+);
 
 const Footer = () => {
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
@@ -27,10 +39,26 @@ const Footer = () => {
   }, []);
   
   const socialLinks = [
-    { icon: Linkedin, label: "LinkedIn", href: "#" },
-    { icon: Facebook, label: "Facebook", href: "#" },
-    { icon: Twitter, label: "Twitter", href: "#" },
-    { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/hyventech" },
+    { 
+      icon: Linkedin, 
+      label: "LinkedIn", 
+      href: "https://www.linkedin.com/company/hyventechnology/posts/?feedView=all" 
+    },
+    { 
+      icon: Facebook, 
+      label: "Facebook", 
+      href: "https://www.facebook.com/profile.php?id=61584788093638" 
+    },
+    { 
+      icon: XIcon, 
+      label: "X", 
+      href: "https://x.com/HyvenTech" 
+    },
+    { 
+      icon: Instagram, 
+      label: "Instagram", 
+      href: "https://www.instagram.com/hyventech/" 
+    },
   ];
 
   const contactItems = [
@@ -151,6 +179,8 @@ const Footer = () => {
                   <a
                     key={index}
                     href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-muted/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                     aria-label={link.label}
                   >

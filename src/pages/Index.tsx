@@ -1,13 +1,12 @@
 import React, { Suspense, lazy } from "react";
-import { useLocation } from "react-router-dom";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 
 import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
 
-// Lazy load below-the-fold components to reduce initial bundle size
+// Lazy load below-the-fold components
 const Services = lazy(() => import("@/components/Services"));
-const Industries = lazy(() => import("@/components/Industries"));
+const Industries = lazy(() => import("@/components/Industries")); // Maps to "Key Sectors"
 const WhyChooseUs = lazy(() => import("@/components/WhyChooseUs"));
 const Process = lazy(() => import("@/components/Process"));
 const Team = lazy(() => import("@/components/Team"));
@@ -18,9 +17,7 @@ const Footer = lazy(() => import("@/components/Footer"));
 const LoadingFallback = () => <div className="py-20" />;
 
 const Index = () => {
-  const location = useLocation();
-  
-  // Enable scroll-spy for automatic URL updates
+  // Keep scroll spy for active state highlighting
   useScrollSpy([
     'hero',
     'services', 
@@ -29,56 +26,25 @@ const Index = () => {
     'contact'
   ]);
 
-  // Scroll-to-Path Logic: Handle page refresh/direct access
-  React.useEffect(() => {
-    const sectionMap: Record<string, string> = {
-      '/': 'hero',
-      '/hero': 'hero',
-      '/services': 'services',
-      '/key-sectors': 'key-sectors',
-      '/about': 'about',
-      '/contact': 'contact',
-    };
-
-    const sectionId = sectionMap[location.pathname];
-    
-    if (sectionId) {
-      // Small delay to ensure DOM is ready
-      const timer = setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const headerOffset = 80;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }, 100);
-
-      return () => clearTimeout(timer);
-    }
-  }, []); // Only run on mount
-
   return (
-    <div className="min-h-screen relative">
-      <section id="hero">
+    <div className="min-h-screen relative flex flex-col w-full overflow-x-hidden">
+      {/* CRITICAL: These IDs must match SECTION_IDS in constants.ts */}
+      <section id="hero" className="w-full">
         <Hero />
       </section>
+      
       <div className="divider-glow" />
       <ClientLogos />
       <div className="divider-glow" />
       
-      <section id="services">
+      <section id="services" className="w-full">
         <Suspense fallback={<LoadingFallback />}>
           <Services />
         </Suspense>
       </section>
       <div className="divider-glow" />
       
-      <section id="key-sectors">
+      <section id="key-sectors" className="w-full">
         <Suspense fallback={<LoadingFallback />}>
           <Industries />
         </Suspense>
@@ -95,7 +61,7 @@ const Index = () => {
       </Suspense>
       <div className="divider-glow" />
       
-      <section id="about">
+      <section id="about" className="w-full">
         <Suspense fallback={<LoadingFallback />}>
           <About />
         </Suspense>
@@ -107,7 +73,7 @@ const Index = () => {
       </Suspense>
       <div className="divider-glow" />
       
-      <section id="contact">
+      <section id="contact" className="w-full">
         <Suspense fallback={<LoadingFallback />}>
           <Contact />
         </Suspense>
