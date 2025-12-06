@@ -1,9 +1,7 @@
-// fileName: Navigation.tsx
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { NavLink, Link, useLocation } from "react-router-dom"; // Added Link
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { navItems } from "@/constants/navigation";
 import { ROUTES } from "@/router/constants";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -61,53 +59,56 @@ const Navigation = () => {
     setOpenDropdown(null);
   }, []);
 
-  // Updated Logo Click
+  // LOGO CLICK: Force scroll to top using 'hero' ID logic
   const handleLogoClick = useCallback((e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent hard reload
+    e.preventDefault();
     handleLinkClick();
-    navigateTo(ROUTES.HOME, 'hero');
+    navigateTo(ROUTES.HOME, 'hero'); 
   }, [handleLinkClick, navigateTo]);
 
-  // Smart section navigation handler
-  const handleSectionClick = useCallback((e: React.MouseEvent, path: string, sectionId: string) => {
-    e.preventDefault(); // CRITICAL: Prevents full page reload
+  // SMART LINK CLICK: Handles both scrolling and navigation
+  const handleSmartClick = useCallback((e: React.MouseEvent, path: string, sectionId: string) => {
+    e.preventDefault();
     handleLinkClick();
     navigateTo(path, sectionId);
   }, [handleLinkClick, navigateTo]);
 
   const renderedNavItems = useMemo(() => navItems.map((item) => {
-    const isSectionLink = item.name === "Services" || item.name === "Key Sectors" || item.name === "Company" || item.name === "Contact";
-    
-    // Helper to get correct route for section links
-    const getSectionRoute = (name: string) => {
-      if (name === "Services") return ROUTES.SERVICES;
-      if (name === "Key Sectors") return ROUTES.KEY_SECTORS;
-      if (name === "Contact") return ROUTES.CONTACT;
-      return ROUTES.ABOUT;
+    // Identify special links that need smart scrolling
+    const isHome = item.href === ROUTES.HOME;
+    const isContact = item.name === "Contact";
+    const isServices = item.name === "Services";
+    const isSectors = item.name === "Key Sectors";
+    const isCompany = item.name === "Company" || item.name === "About Us";
+
+    // Helper to determine route and ID
+    const getSmartProps = () => {
+      if (isHome) return { path: ROUTES.HOME, id: 'hero' };
+      if (isContact) return { path: ROUTES.CONTACT, id: 'contact' };
+      if (isServices) return { path: ROUTES.SERVICES, id: 'services' };
+      if (isSectors) return { path: ROUTES.KEY_SECTORS, id: 'key-sectors' };
+      if (isCompany) return { path: ROUTES.ABOUT, id: 'about' };
+      return null;
     };
 
-    // Helper to get section ID
-    const getSectionId = (name: string) => {
-      if (name === "Services") return 'services';
-      if (name === "Key Sectors") return 'key-sectors';
-      if (name === "Contact") return 'contact';
-      return 'about';
-    };
+    const smartProps = getSmartProps();
 
     return (
       <div key={item.name} className="relative">
         {item.dropdown ? (
           <div className="flex items-center gap-1">
-            {/* Main Dropdown Link */}
+            {/* Dropdown Parent Link */}
             <Link
-              to={getSectionRoute(item.name)}
-              onClick={(e) => handleSectionClick(
-                e,
-                getSectionRoute(item.name),
-                getSectionId(item.name)
-              )}
+              to={item.href}
+              onClick={(e) => {
+                 if (smartProps) {
+                   handleSmartClick(e, smartProps.path, smartProps.id);
+                 } else {
+                   handleLinkClick();
+                 }
+              }}
               className="text-base transition-colors relative group cursor-pointer text-foreground/80 hover:text-primary"
-              aria-label={`Maps to ${item.name} section`}
+              aria-label={`Navigate to ${item.name}`}
             >
               {item.name}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
@@ -120,8 +121,6 @@ const Navigation = () => {
               }}
               className="text-foreground/80 hover:text-primary transition-colors cursor-pointer p-1"
               aria-label={`Toggle ${item.name} dropdown menu`}
-              aria-expanded={openDropdown === item.name}
-              aria-haspopup="true"
             >
               <ChevronDown className={`h-4 w-4 transition-transform ${openDropdown === item.name ? 'rotate-180' : ''}`} />
             </button>
@@ -134,7 +133,6 @@ const Navigation = () => {
                   exit={{ opacity: 0, y: 10 }}
                   transition={{ duration: 0.2 }}
                   className="absolute top-full mt-2 left-0 min-w-[220px] bg-background/95 md:glass md:backdrop-blur-3xl border border-border/50 rounded-lg shadow-xl overflow-hidden"
-                  role="menu"
                 >
                   {item.dropdown.map((dropItem, index) => (
                     <NavLink
@@ -148,7 +146,6 @@ const Navigation = () => {
                             ? 'bg-primary/10 text-primary'
                             : 'text-foreground/80 hover:bg-primary/10 hover:text-primary'
                       }`}
-                      role="menuitem"
                     >
                       {dropItem.name}
                     </NavLink>
@@ -157,24 +154,24 @@ const Navigation = () => {
               )}
             </AnimatePresence>
           </div>
-        ) : item.name === "Contact" ? (
+        ) : smartProps ? (
+          // Handle Single Links that are actually Homepage Sections (Home, Contact, etc)
           <Link
-            to={ROUTES.CONTACT}
-            onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
+            to={smartProps.path}
+            onClick={(e) => handleSmartClick(e, smartProps.path, smartProps.id)}
             className="text-base transition-colors relative group cursor-pointer text-foreground/80 hover:text-primary"
-            aria-label="Navigate to Contact"
           >
             {item.name}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
           </Link>
         ) : (
+          // Standard Links (Privacy Policy, Blog, etc)
           <NavLink
             to={item.href}
             onClick={handleLinkClick}
             className={({ isActive }) => `text-base transition-colors relative group cursor-pointer ${
               isActive ? 'text-primary' : 'text-foreground/80 hover:text-primary'
             }`}
-            aria-label={`Maps to ${item.name}`}
           >
             {item.name}
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
@@ -182,7 +179,7 @@ const Navigation = () => {
         )}
       </div>
     );
-  }), [openDropdown, handleLinkClick, handleDropdownToggle, handleSectionClick]);
+  }), [openDropdown, handleLinkClick, handleDropdownToggle, handleSmartClick]);
 
   return (
     <>
@@ -202,8 +199,8 @@ const Navigation = () => {
               <Link 
                 to={ROUTES.HOME}
                 className="hidden lg:flex items-center gap-3 group p-2 px-3 rounded-xl bg-background/50 border border-border/30 hover:border-primary/50 transition-all" 
-                aria-label="HyvenTech Home"
                 onClick={handleLogoClick}
+                aria-label="HyvenTech Home"
               >
                 <img 
                   src={theme === 'light' ? logoLight : logoDark} 
@@ -218,7 +215,7 @@ const Navigation = () => {
                 <ThemeToggle />
                 <Link
                   to={ROUTES.CONTACT}
-                  onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
+                  onClick={(e) => handleSmartClick(e, ROUTES.CONTACT, 'contact')}
                   className="glow transition-all hover:scale-105 bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-md inline-flex items-center justify-center font-medium text-sm"
                 >
                   Get Started
@@ -230,7 +227,6 @@ const Navigation = () => {
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="lg:hidden ml-auto p-3 bg-background/95 border border-border/50 rounded-full shadow-lg text-foreground hover:text-primary transition-all active:scale-95"
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-                aria-expanded={mobileMenuOpen}
               >
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -277,8 +273,23 @@ const Navigation = () => {
                     <X className="h-6 w-6 text-foreground" />
                   </button>
                 </div>
-                <nav className="space-y-4" role="navigation">
-                  {navItems.map((item) => (
+                <nav className="space-y-4">
+                  {navItems.map((item) => {
+                    const isHome = item.href === ROUTES.HOME;
+                    const isContact = item.name === "Contact";
+                    
+                    // Simple smart props logic for mobile too
+                    const getSmartProps = () => {
+                      if (isHome) return { path: ROUTES.HOME, id: 'hero' };
+                      if (isContact) return { path: ROUTES.CONTACT, id: 'contact' };
+                      if (item.name === "Services") return { path: ROUTES.SERVICES, id: 'services' };
+                      if (item.name === "Key Sectors") return { path: ROUTES.KEY_SECTORS, id: 'key-sectors' };
+                      if (item.name === "Company") return { path: ROUTES.ABOUT, id: 'about' };
+                      return null;
+                    };
+                    const smartProps = getSmartProps();
+
+                    return (
                     <div key={item.name} className="border-b border-border/30 pb-2 last:border-0">
                       {item.dropdown ? (
                         <div>
@@ -320,10 +331,10 @@ const Navigation = () => {
                             )}
                           </AnimatePresence>
                         </div>
-                      ) : item.name === "Contact" ? (
+                      ) : smartProps ? (
                         <Link
-                          to={ROUTES.CONTACT}
-                          onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
+                          to={smartProps.path}
+                          onClick={(e) => handleSmartClick(e, smartProps.path, smartProps.id)}
                           className="block text-lg font-medium transition-colors py-2 text-foreground hover:text-primary"
                         >
                           {item.name}
@@ -340,7 +351,8 @@ const Navigation = () => {
                         </NavLink>
                       )}
                     </div>
-                  ))}
+                  );
+                })}
                   
                   {/* Theme Toggle */}
                   <div className="pt-4 pb-2 border-t border-border/30">
@@ -352,7 +364,7 @@ const Navigation = () => {
                   
                   <Link
                     to={ROUTES.CONTACT}
-                    onClick={(e) => handleSectionClick(e, ROUTES.CONTACT, 'contact')}
+                    onClick={(e) => handleSmartClick(e, ROUTES.CONTACT, 'contact')}
                     className="w-full glow mt-6 bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-3 rounded-md inline-flex items-center justify-center font-medium"
                   >
                     Get Started

@@ -1,13 +1,17 @@
-// fileName: src/hooks/useSmoothNav.ts
 import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SECTION_IDS } from '@/router/constants';
+import { isSectionRoute, SECTION_IDS } from '@/router/constants';
 
 /**
  * Smart Smooth Navigation Hook
- * * Simplified to work in harmony with ScrollToTop.tsx.
- * It delegates "Navigation" to the router and "Scrolling" to the ScrollToTop component
- * (except when clicking a link to the page you are already on).
+ * 
+ * Prevents "scroll fighting" by handling navigation intelligently:
+ * - If already on a section route, updates URL and scrolls without re-rendering
+ * - If on a different page, navigates normally
+ * 
+ * @param targetPath - The path to navigate to (e.g., "/contact")
+ * @param sectionId - The section ID to scroll to (e.g., "contact")
+ * @returns Navigation handler function
  */
 export const useSmoothNav = () => {
   const location = useLocation();
@@ -16,7 +20,7 @@ export const useSmoothNav = () => {
   const scrollToSection = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerOffset = 80; // Height of your fixed header
+      const headerOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
@@ -28,22 +32,28 @@ export const useSmoothNav = () => {
   }, []);
 
   const navigateTo = useCallback((targetPath: string, sectionId?: string) => {
+    // Determine section ID from path if not provided
     const scrollTarget = sectionId || SECTION_IDS[targetPath];
 
-    // Case 1: We are already on the target path (e.g. clicking 'Services' while on /services)
-    if (location.pathname === targetPath) {
+    // Scenario A: Already on a section route (Homepage variants)
+    if (isSectionRoute(location.pathname)) {
+      // Update URL silently without triggering navigation
+      window.history.pushState(null, '', targetPath);
+      
+      // Scroll to section
       if (scrollTarget) {
         scrollToSection(scrollTarget);
       }
-      return;
+    } 
+    // Scenario B: On a subpage - use normal navigation
+    else {
+      navigate(targetPath);
+      // After navigation, scroll to section
+      if (scrollTarget) {
+        setTimeout(() => scrollToSection(scrollTarget), 100);
+      }
     }
-
-    // Case 2: Changing routes (e.g. Home -> Services, or Contact -> Services)
-    // We just navigate. The ScrollToTop.tsx component will detect the 
-    // route change and handle the scrolling automatically.
-    navigate(targetPath);
-    
   }, [location.pathname, navigate, scrollToSection]);
 
-  return { navigateTo };
+  return { navigateTo, scrollToSection };
 };

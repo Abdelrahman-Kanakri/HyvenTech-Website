@@ -1,8 +1,8 @@
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform, MotionValue } from "framer-motion";
-import { Home, Briefcase, Layers, Mail, Users, Bot } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform, MotionValue, AnimatePresence } from "framer-motion";
+import { Home, Briefcase, Mail, Users, Bot } from "lucide-react";
 import { useLocation } from "react-router-dom";
-import { ROUTES } from "@/router/constants";
+import { ROUTES, isSectionRoute } from "@/router/constants";
 import { useSmoothNav } from "@/hooks/useSmoothNav";
 
 const navItems = [
@@ -13,14 +13,13 @@ const navItems = [
   { name: "Chat", href: "#", icon: Bot, isChat: true },
 ];
 
-function DockItem({ mouseX, item, onChatClick, onNavigate }: { 
+function DockItem({ mouseX, item, isActive, onClick }: { 
   mouseX: MotionValue; 
   item: typeof navItems[0]; 
-  onChatClick?: () => void;
-  onNavigate?: (path: string, sectionId?: string) => void;
+  isActive: boolean;
+  onClick: (e: React.MouseEvent) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const location = useLocation();
 
   const distance = useTransform(mouseX, (val) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -30,61 +29,56 @@ function DockItem({ mouseX, item, onChatClick, onNavigate }: {
   const widthSync = useTransform(distance, [-150, 0, 150], [40, 60, 40]);
   const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
 
-  // Check if this item is active based on current path
-  const isActive = 
-    item.isChat ||
-    (item.href === "/" && location.pathname === "/") ||
-    (location.pathname === item.href) ||
-    (item.additionalMatches?.some(match => location.pathname.startsWith(match)));
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    
-    if (item.isChat) {
-      onChatClick?.();
-    } else if (onNavigate && item.sectionId) {
-      // Special handling for Home to ensure it resets to top
-      if (item.href === "/" || item.name === "Home") {
-        onNavigate(ROUTES.HOME, "hero");
-      } else {
-        onNavigate(item.href, item.sectionId);
-      }
-    }
-  };
-
-  const content = (
-    <motion.div
-      ref={ref}
-      style={{ width, height: width }}
-      className={`aspect-square rounded-2xl flex items-center justify-center mb-1 transition-colors ${
-        isActive 
-          ? "bg-primary/20 border-primary/50 shadow-[0_0_20px_rgba(76,201,240,0.3)]" 
-          : "bg-white/5 border-white/10 hover:bg-white/10"
-      } md:backdrop-blur-md border`}
-    >
-      <motion.div
-        whileHover={{ scale: 1.2, rotate: 5 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
-        className="w-full h-full flex items-center justify-center"
-      >
-        <item.icon className={`w-1/2 h-1/2 ${isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"}`} />
-      </motion.div>
-    </motion.div>
-  );
-
   return (
-    <div className="relative group">
+    <div className="relative group flex flex-col items-center">
       <a
         href={item.href}
-        onClick={handleClick}
-        className="cursor-pointer"
+        onClick={onClick}
+        className="cursor-pointer relative z-10"
         aria-label={item.name}
       >
-        {content}
+        {/* Container: Added subtle background to ALL items for uniform size */}
+        <motion.div
+          ref={ref}
+          style={{ width, height: width }}
+          className={`aspect-square rounded-2xl flex items-center justify-center relative transition-all duration-300 ${
+            isActive ? "" : "bg-white/5 border border-white/5" // Inactive items now have a box too
+          }`}
+        >
+          {/* SLIDING BACKGROUND (The Glow) - Shows only when active */}
+          <AnimatePresence>
+            {isActive && (
+              <motion.div
+                layoutId="dock-active-bg"
+                className="absolute inset-0 rounded-2xl bg-primary/20 border border-primary/50 shadow-[0_0_20px_rgba(76,201,240,0.3)]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+            )}
+          </AnimatePresence>
+
+          {/* Icon */}
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="z-20 w-full h-full flex items-center justify-center"
+          >
+            <item.icon 
+              className={`w-5 h-5 transition-colors duration-300 ${isActive ? "text-primary" : "text-muted-foreground"}`} 
+            />
+          </motion.div>
+        </motion.div>
       </a>
+
+      {/* SLIDING DOT */}
       {isActive && (
-        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary shadow-[0_0_10px_rgba(76,201,240,0.8)]" />
+        <motion.div 
+          layoutId="dock-dot"
+          className="absolute -bottom-2 w-1 h-1 rounded-full bg-primary shadow-[0_0_10px_rgba(76,201,240,0.8)]"
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        />
       )}
     </div>
   );
@@ -93,17 +87,75 @@ function DockItem({ mouseX, item, onChatClick, onNavigate }: {
 const BottomNavigation = () => {
   const mouseX = useMotionValue(Infinity);
   const { navigateTo } = useSmoothNav();
+  const location = useLocation();
+  const [chatOpen, setChatOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+  const [isAtTop, setIsAtTop] = useState(true); // Track if we are at the top
   
-  // Detect if device supports hover (desktop) vs touch (mobile)
-  // This prevents the "dock effect" from interfering with touch
   const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
 
+  // SCROLL SPY LOGIC
+  useEffect(() => {
+    const handleScroll = () => {
+      // Force "At Top" state when scroll is near 0
+      setIsAtTop(window.scrollY < 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Check immediately
+
+    if (location.pathname !== '/' && !isSectionRoute(location.pathname)) {
+      setActiveSection(""); 
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { 
+        // Trigger when the element hits the middle 20% of the screen
+        rootMargin: "-40% 0px -40% 0px" 
+      }
+    );
+
+    const observeElements = () => {
+      navItems.forEach((item) => {
+        if (item.sectionId) {
+          const element = document.getElementById(item.sectionId);
+          if (element) observer.observe(element);
+        }
+      });
+    };
+
+    observeElements();
+    const timer = setTimeout(observeElements, 500);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, [location.pathname]);
+
   const handleChatClick = () => {
+    setChatOpen(!chatOpen);
     const event = new CustomEvent('toggleChatbot');
     window.dispatchEvent(event);
   };
 
+  useEffect(() => {
+    const handleClose = () => setChatOpen(false);
+    window.addEventListener('closeChatbot', handleClose);
+    return () => window.removeEventListener('closeChatbot', handleClose);
+  }, []);
+
   const handleNavigate = (path: string, sectionId?: string) => {
+    if (chatOpen) setChatOpen(false); 
     navigateTo(path, sectionId);
   };
 
@@ -112,17 +164,48 @@ const BottomNavigation = () => {
       <motion.div
         onMouseMove={isTouchDevice ? undefined : (e) => mouseX.set(e.pageX)}
         onMouseLeave={isTouchDevice ? undefined : () => mouseX.set(Infinity)}
-        className="flex items-end gap-2 px-3 py-2 rounded-2xl glass border border-white/10 shadow-2xl bg-black/95 md:backdrop-blur-xl"
+        className="flex items-end gap-2 px-3 py-2 rounded-2xl glass border border-white/10 shadow-2xl bg-black/80 md:backdrop-blur-xl"
       >
-        {navItems.map((item) => (
-          <DockItem 
-            key={item.name} 
-            mouseX={mouseX} 
-            item={item} 
-            onChatClick={item.isChat ? handleChatClick : undefined}
-            onNavigate={!item.isChat ? handleNavigate : undefined}
-          />
-        ))}
+        {navItems.map((item) => {
+          const isActive = (() => {
+            if (chatOpen) return item.isChat || false;
+            if (item.isChat) return false;
+            
+            // Priority 1: If at very top, force Home active
+            if (isAtTop && (item.href === "/" || item.href === ROUTES.HOME)) return true;
+            if (isAtTop && item.sectionId !== 'hero') return false;
+
+            // Priority 2: Scroll Spy
+            if (activeSection) return item.sectionId === activeSection;
+
+            // Priority 3: Path Match
+            if (location.pathname === item.href || location.pathname.startsWith(`${item.href}/`)) return true;
+            if (item.additionalMatches?.some(match => location.pathname.startsWith(match))) return true;
+            
+            return false;
+          })();
+
+          return (
+            <DockItem 
+              key={item.name} 
+              mouseX={mouseX} 
+              item={item}
+              isActive={isActive}
+              onClick={(e) => {
+                e.preventDefault();
+                if (item.isChat) {
+                  handleChatClick();
+                } else if (item.sectionId) {
+                  if (item.href === "/" || item.name === "Home") {
+                    handleNavigate(ROUTES.HOME, "hero");
+                  } else {
+                    handleNavigate(item.href, item.sectionId);
+                  }
+                }
+              }}
+            />
+          );
+        })}
       </motion.div>
     </div>
   );

@@ -1,20 +1,21 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 
-// CRITICAL FIX: Standard imports for ALL homepage sections.
-// We removed 'lazy' and 'Suspense' to prevent layout shifts.
-// This ensures the page height is calculated correctly immediately,
-// fixing the "wrong section" scroll bug.
+// Critical components loaded immediately for LCP (Largest Contentful Paint)
 import Hero from "@/components/Hero";
 import ClientLogos from "@/components/ClientLogos";
-import Services from "@/components/Services";
-import Industries from "@/components/Industries"; // Key Sectors
-import Process from "@/components/Process";      // Methodology
-import WhyChooseUs from "@/components/WhyChooseUs";
-import Team from "@/components/Team";
-import About from "@/components/About";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+
+// Lazy load below-the-fold components to reduce initial bundle size
+const Services = lazy(() => import("@/components/Services"));
+const Industries = lazy(() => import("@/components/Industries")); // Maps to "Key Sectors"
+const WhyChooseUs = lazy(() => import("@/components/WhyChooseUs"));
+const Process = lazy(() => import("@/components/Process"));
+const Team = lazy(() => import("@/components/Team"));
+const About = lazy(() => import("@/components/About"));
+const Contact = lazy(() => import("@/components/Contact"));
+const Footer = lazy(() => import("@/components/Footer"));
+
+const LoadingFallback = () => <div className="py-20 min-h-[50vh]" />;
 
 const Index = () => {
   // Keep scroll spy for active state highlighting
@@ -28,10 +29,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative flex flex-col w-full overflow-x-hidden">
-      {/* CRITICAL: The IDs below must match SECTION_IDS in constants.ts.
-         Because we are using standard imports, the browser can now 
-         find these IDs at their correct pixel positions immediately.
-      */}
+      {/* CRITICAL: These IDs must match SECTION_IDS in constants.ts */}
 
       <section id="hero" className="w-full">
         <Hero />
@@ -42,40 +40,50 @@ const Index = () => {
       <div className="divider-glow" />
       
       <section id="services" className="w-full">
-        <Services />
+        <Suspense fallback={<LoadingFallback />}>
+          <Services />
+        </Suspense>
       </section>
       <div className="divider-glow" />
       
       <section id="key-sectors" className="w-full">
-        <Industries />
+        <Suspense fallback={<LoadingFallback />}>
+          <Industries />
+        </Suspense>
       </section>
       <div className="divider-glow" />
       
-      <section className="w-full">
+      <Suspense fallback={<LoadingFallback />}>
         <Process />
-      </section>
+      </Suspense>
       <div className="divider-glow" />
       
-      <section className="w-full">
+      <Suspense fallback={<LoadingFallback />}>
         <WhyChooseUs />
-      </section>
+      </Suspense>
       <div className="divider-glow" />
       
       <section id="about" className="w-full">
-        <About />
+        <Suspense fallback={<LoadingFallback />}>
+          <About />
+        </Suspense>
       </section>
       <div className="divider-glow" />
       
-      <section className="w-full">
+      <Suspense fallback={<LoadingFallback />}>
         <Team />
-      </section>
+      </Suspense>
       <div className="divider-glow" />
       
       <section id="contact" className="w-full">
-        <Contact />
+        <Suspense fallback={<LoadingFallback />}>
+          <Contact />
+        </Suspense>
       </section>
       
-      <Footer />
+      <Suspense fallback={<LoadingFallback />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

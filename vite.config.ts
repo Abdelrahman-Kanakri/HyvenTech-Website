@@ -1,20 +1,53 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
+import { VitePWA } from "vite-plugin-pwa";
 import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // 1. Load environment variables manually so we can "see" them in the config
+  // 1. Load environment variables manually
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
-    // CRITICAL: Must match GitHub repository name exactly for Pages deployment
     base: "/",
     server: {
       host: "::",
       port: 8080,
     },
-    plugins: [react()],
+    plugins: [
+      react(),
+      // CRITICAL FIX: Generates sw.js to fix the Service Worker error
+      VitePWA({
+        registerType: 'autoUpdate',
+        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+        manifest: {
+          name: 'HyvenTech',
+          short_name: 'HyvenTech',
+          description: 'HyvenTech - Integrated Technology Solutions',
+          theme_color: '#ffffff',
+          background_color: '#ffffff',
+          display: 'standalone',
+          icons: [
+            {
+              src: 'pwa-192x192.png', // Ensure these images exist in your public folder eventually
+              sizes: '192x192',
+              type: 'image/png'
+            },
+            {
+              src: 'pwa-512x512.png',
+              sizes: '512x512',
+              type: 'image/png'
+            }
+          ]
+        },
+        workbox: {
+            // These settings prevent the service worker from trying to cache
+            // the index.html file incorrectly, which causes infinite loops.
+            navigateFallback: '/index.html',
+            globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+        }
+      })
+    ],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
@@ -30,8 +63,6 @@ export default defineConfig(({ mode }) => {
     build: {
       target: "es2020",
       cssCodeSplit: true,
-      // Removed "terser" and "treeshake" settings to prevent "forwardRef" errors.
-      // Default esbuild minification is safer and faster.
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
@@ -41,7 +72,6 @@ export default defineConfig(({ mode }) => {
             if (assetInfo.name?.endsWith('.css')) {
               return 'assets/css/[name]-[hash][extname]';
             }
-            // Optimize image assets
             if (assetInfo.name?.match(/\.(png|jpe?g|svg|gif|webp|avif)$/)) {
               return 'assets/img/[name]-[hash][extname]';
             }
@@ -49,12 +79,10 @@ export default defineConfig(({ mode }) => {
           },
         },
       },
-      // Additional optimizations
       reportCompressedSize: true,
       sourcemap: false, 
       cssMinify: true,
     },
-    // Optimize dependencies
     optimizeDeps: {
       include: ['react', 'react-dom', 'react-router-dom'],
       exclude: [],
