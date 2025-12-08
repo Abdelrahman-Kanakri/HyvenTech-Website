@@ -259,6 +259,7 @@ const HyvenLeadership = memo(() => {
         </div>
       </main>
 
+      <div className="divider-glow" />
       <Footer />
     </div>
   );

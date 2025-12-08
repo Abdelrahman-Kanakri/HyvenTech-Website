@@ -83,6 +83,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
       </section>
 
       {/* Challenges & Solutions Grid - Matching ServiceDetail Layout */}
+      <div className="divider-glow" />
       <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-7xl mx-auto">
@@ -122,6 +123,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
             </div>
 
             {/* Right Column: Solutions (Card Style like Features) */}
+            
             <div className="mt-8 lg:mt-0">
                <div className="flex items-center gap-3 mb-6 sm:mb-8 lg:hidden">
                 <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-primary flex-shrink-0" />
@@ -155,6 +157,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
       </section>
 
       {/* CTA Section - Matching ServiceDetail */}
+      <div className="divider-glow" />
       <section className="py-12 sm:py-16 lg:py-20 mb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div 
@@ -173,6 +176,7 @@ const IndustryDetail: React.FC<IndustryDetailProps> = ({
         </div>
       </section>
 
+      <div className="divider-glow" />
       {isMobile && <BottomNavigation />}
       <Footer />
     </div>

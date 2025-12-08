@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform, MotionValue, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Home, Briefcase, Mail, Users, Bot } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { ROUTES, isSectionRoute } from "@/router/constants";
@@ -13,22 +13,11 @@ const navItems = [
   { name: "Chat", href: "#", icon: Bot, isChat: true },
 ];
 
-function DockItem({ mouseX, item, isActive, onClick }: { 
-  mouseX: MotionValue; 
+function DockItem({ item, isActive, onClick }: { 
   item: typeof navItems[0]; 
   isActive: boolean;
   onClick: (e: React.MouseEvent) => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const distance = useTransform(mouseX, (val) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    return val - bounds.x - bounds.width / 2;
-  });
-
-  const widthSync = useTransform(distance, [-150, 0, 150], [40, 60, 40]);
-  const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
-
   return (
     <div className="relative group flex flex-col items-center">
       <a
@@ -37,10 +26,9 @@ function DockItem({ mouseX, item, isActive, onClick }: {
         className="cursor-pointer relative z-10"
         aria-label={item.name}
       >
-        <motion.div
-          ref={ref}
-          style={{ width, height: width }}
-          className={`aspect-square rounded-2xl flex items-center justify-center relative transition-all duration-300 ${
+        {/* Changed motion.div to standard div with fixed width/height */}
+        <div
+          className={`w-12 h-12 rounded-2xl flex items-center justify-center relative transition-all duration-300 ${
             isActive ? "" : "bg-white/5 border border-white/5" 
           }`}
         >
@@ -60,15 +48,14 @@ function DockItem({ mouseX, item, isActive, onClick }: {
 
           {/* Icon */}
           <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.9 }}
             className="z-20 w-full h-full flex items-center justify-center"
           >
             <item.icon 
               className={`w-5 h-5 transition-colors duration-300 ${isActive ? "text-primary" : "text-muted-foreground"}`} 
             />
           </motion.div>
-        </motion.div>
+        </div>
       </a>
 
       {/* SLIDING DOT */}
@@ -84,27 +71,23 @@ function DockItem({ mouseX, item, isActive, onClick }: {
 }
 
 const BottomNavigation = () => {
-  const mouseX = useMotionValue(Infinity);
   const { navigateTo } = useSmoothNav();
   const location = useLocation();
   const [chatOpen, setChatOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const [isAtTop, setIsAtTop] = useState(true);
   
-  const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
-
-  // 1. SYNC STATE: Listen for updates directly from the ChatBot component
+  // 1. SYNC STATE
   useEffect(() => {
     const handleStateChange = (e: CustomEvent) => {
       setChatOpen(e.detail);
     };
     
-    // We explicitly cast the event type to handle TS warning or just ignore in JS
     window.addEventListener('chatbotStateChange', handleStateChange as EventListener);
     return () => window.removeEventListener('chatbotStateChange', handleStateChange as EventListener);
   }, []);
 
-  // 2. SCROLL SPY LOGIC (Maintained from previous fixes)
+  // 2. SCROLL SPY LOGIC
   useEffect(() => {
     const handleScroll = () => {
       setIsAtTop(window.scrollY < 100);
@@ -126,9 +109,7 @@ const BottomNavigation = () => {
           }
         });
       },
-      { 
-        rootMargin: "-40% 0px -40% 0px" 
-      }
+      { rootMargin: "-40% 0px -40% 0px" }
     );
 
     const observeElements = () => {
@@ -153,32 +134,23 @@ const BottomNavigation = () => {
   }, [location.pathname]);
 
   const handleChatClick = () => {
-    // We emit the toggle event. The ChatBot will receive it, 
-    // update its state, and emit a 'chatbotStateChange' event back to us.
     const event = new CustomEvent('toggleChatbot');
     window.dispatchEvent(event);
   };
 
   const handleNavigate = (path: string, sectionId?: string) => {
-    // If navigating, we assume the chat should close visually, 
-    // but we let the ScrollToTop logic handle the actual movement.
-    // Note: navigateTo usually doesn't close chat automatically unless logic added,
-    // but the 'chatbotStateChange' will keep us accurate.
     navigateTo(path, sectionId);
   };
 
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[95vw] lg:hidden">
-      <motion.div
-        onMouseMove={isTouchDevice ? undefined : (e) => mouseX.set(e.pageX)}
-        onMouseLeave={isTouchDevice ? undefined : () => mouseX.set(Infinity)}
-        className="flex items-end gap-2 px-3 py-2 rounded-2xl glass border border-white/10 shadow-2xl bg-black/80 md:backdrop-blur-xl"
-      >
+      {/* Container - Removed onMouseMove/onMouseLeave logic */}
+      <div className="flex items-center gap-2 px-3 py-2 rounded-2xl glass border border-white/10 shadow-2xl bg-black/80 md:backdrop-blur-xl">
         {navItems.map((item) => {
           const isActive = (() => {
-            // Priority 1: Chat State (Synced with ChatBot component)
+            // Priority 1: Chat State
             if (item.isChat) return chatOpen;
-            if (chatOpen) return false; // If chat is open, other tabs are inactive
+            if (chatOpen) return false;
 
             // Priority 2: Home at Top
             if (isAtTop && (item.href === "/" || item.href === ROUTES.HOME)) return true;
@@ -197,7 +169,6 @@ const BottomNavigation = () => {
           return (
             <DockItem 
               key={item.name} 
-              mouseX={mouseX} 
               item={item}
               isActive={isActive}
               onClick={(e) => {
@@ -211,7 +182,7 @@ const BottomNavigation = () => {
             />
           );
         })}
-      </motion.div>
+      </div>
     </div>
   );
 };

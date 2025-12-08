@@ -44,6 +44,7 @@ const AboutUsDetailed = () => {
       </section>
 
       {/* Who We Are */}
+      <div className="divider-glow" />
       <section className="py-16 md:py-24 bg-card/50">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -69,6 +70,7 @@ const AboutUsDetailed = () => {
               className="relative h-[400px] rounded-2xl overflow-hidden glass glow flex items-center justify-center border border-border/50"
             >
                {/* Abstract visual representation */}
+               
                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" />
                <div className="text-center p-8 relative z-10">
                  <div className="text-6xl font-bold text-primary mb-2">LLC</div>
@@ -86,6 +88,7 @@ const AboutUsDetailed = () => {
       </section>
 
       {/* Mission & Vision */}
+      
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8">
@@ -118,6 +121,7 @@ const AboutUsDetailed = () => {
       </section>
 
       {/* The Ecosystem (What We Do) */}
+      <div className="divider-glow" />
       <section className="py-16 md:py-24 bg-muted/20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-16">
@@ -171,6 +175,7 @@ const AboutUsDetailed = () => {
       </section>
 
       {/* Philosophy */}
+      <div className="divider-glow" />
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -197,9 +202,11 @@ const AboutUsDetailed = () => {
             </div>
           </div>
         </div>
+              
       </section>
 
       {/* CTA */}
+      <div className="divider-glow" />
       <section className="py-20 bg-primary/5">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Transform Your Business?</h2>
@@ -212,6 +219,7 @@ const AboutUsDetailed = () => {
         </div>
       </section>
 
+      <div className="divider-glow" />
       <Footer />
     </div>
   );

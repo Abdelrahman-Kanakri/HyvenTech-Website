@@ -48,7 +48,7 @@ const steps = [
   },
 ];
 
-const Methodology = () => {
+const OurApproach = () => {
   return (
     <div className="min-h-screen py-12 sm:py-16 md:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,7 +60,7 @@ const Methodology = () => {
           className="text-center mb-20 mt-8 sm:mt-12 md:mt-16"
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-          <span className="rounded-xl px-4 py-2 inline-block"><span className="text-primary">Our Methodolgy</span></span>
+          <span className="rounded-xl px-4 py-2 inline-block"><span className="text-primary">Our Approach</span></span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             A proven, structured approach to digital transformation. We combine agile flexibility with enterprise-grade rigor to deliver exceptional results.
@@ -145,9 +145,11 @@ const Methodology = () => {
           })}
         </div>
       </div>
+      
+      <div className="divider-glow mt-20" />
       <Footer />
     </div>
   );
 };
 
-export default Methodology;
+export default OurApproach;

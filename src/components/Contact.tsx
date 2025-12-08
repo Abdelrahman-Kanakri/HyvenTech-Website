@@ -163,10 +163,13 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
-
+            
       {/* Background decoration - responsive */}
+      
       <div className="absolute bottom-0 right-0 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-accent/20 rounded-full blur-[80px] sm:blur-[100px] md:blur-[120px] pointer-events-none -z-10" />
+    
     </section>
+    
   );
 };
 

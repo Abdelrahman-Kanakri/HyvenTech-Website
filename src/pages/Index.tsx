@@ -9,7 +9,6 @@ import ClientLogos from "@/components/ClientLogos";
 const Services = lazy(() => import("@/components/Services"));
 const Industries = lazy(() => import("@/components/Industries")); // Maps to "Key Sectors"
 const WhyChooseUs = lazy(() => import("@/components/WhyChooseUs"));
-const Process = lazy(() => import("@/components/Process"));
 const Team = lazy(() => import("@/components/Team"));
 const About = lazy(() => import("@/components/About"));
 const Contact = lazy(() => import("@/components/Contact"));
@@ -51,11 +50,6 @@ const Index = () => {
           <Industries />
         </Suspense>
       </section>
-      <div className="divider-glow" />
-      
-      <Suspense fallback={<LoadingFallback />}>
-        <Process />
-      </Suspense>
       <div className="divider-glow" />
       
       <Suspense fallback={<LoadingFallback />}>

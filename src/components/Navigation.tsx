@@ -211,7 +211,7 @@ const Navigation = () => {
 
               {/* Desktop Navigation Links */}
               <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-                {renderedNavItems}
+                {renderedNavItems.filter(item => item.key !== 'Contact')}
                 <ThemeToggle />
                 <Link
                   to={ROUTES.CONTACT}

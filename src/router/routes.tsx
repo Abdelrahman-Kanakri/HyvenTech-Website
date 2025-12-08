@@ -22,7 +22,7 @@ const Careers = lazy(() => import('@/pages/Careers'));
 // Company Pages
 const AboutUsDetailed = lazy(() => import('@/pages/company/AboutUsDetailed'));
 const HyvenLeadership = lazy(() => import('@/pages/company/HyvenLeadership'));
-const Methodology = lazy(() => import('@/pages/company/Methodology'));
+const OurApproach = lazy(() => import('@/pages/company/OurApproach'));
 const WhyUs = lazy(() => import('@/pages/company/WhyUs'));
 
 // Services
@@ -127,7 +127,7 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.COMPANY_METHODOLOGY,
-        element: <Methodology />,
+        element: <OurApproach />,
       },
       {
         path: ROUTES.COMPANY_WHY_US,

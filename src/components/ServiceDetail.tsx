@@ -83,6 +83,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
       </section>
 
       {/* Benefits & Features Section */}
+      <div className="divider-glow" />
       <section className="py-12 sm:py-16 lg:py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-7xl mx-auto">
@@ -144,6 +145,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
       </section>
 
       {/* CTA Section */}
+      <div className="divider-glow" />
       <section className="py-12 sm:py-16 lg:py-20 mb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div 
@@ -166,7 +168,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({
       <div className="lg:hidden">
         <BottomNavigation />
       </div>
-      
+      <div className="divider-glow" />
       <Footer />
     </div>
   );

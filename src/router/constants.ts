@@ -31,7 +31,7 @@ export const ROUTES = {
   // Company Pages
   COMPANY_PROFILE: '/company/profile',
   COMPANY_LEADERSHIP: '/company/leadership',
-  COMPANY_METHODOLOGY: '/company/methodology',
+  COMPANY_METHODOLOGY: '/company/our_approach',
   COMPANY_WHY_US: '/company/why-us',
   
   // Services

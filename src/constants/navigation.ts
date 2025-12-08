@@ -78,7 +78,7 @@ export const navItems = [
       { name: "About HyvenTech", href: ROUTES.COMPANY_PROFILE, isHighlight: true },
       { name: "Leadership", href: ROUTES.COMPANY_LEADERSHIP, isHighlight: false },
       {
-        name: "Our Methodology",
+        name: "Our Approach",
         href: ROUTES.COMPANY_METHODOLOGY,
         isHighlight: false,
       },
@@ -89,5 +89,5 @@ export const navItems = [
       },
     ],
   },
-  { name: "Contact", href: ROUTES.CONTACT },
+  { name: "Careers", href: ROUTES.CAREERS },
 ];
