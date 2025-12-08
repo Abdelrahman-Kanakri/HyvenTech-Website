@@ -64,7 +64,7 @@ const Footer = () => {
   const contactItems = [
     { icon: MapPin, label: "Amman, Jordan", href: "https://www.google.com/maps/search/?api=1&query=Amman,Jordan" },
     { icon: Mail, label: "info@hyventechjo.com", href: "mailto:info@hyventechjo.com" },
-    ...(isCareerPage ? [{ icon: Mail, label: "career@hyventechjo.com", href: "mailto:career@hyventechjo.com" }] : []),
+    ...(isCareerPage ? [{ icon: Mail, label: "careers@hyventechjo.com", href: "mailto:career@hyventechjo.com" }] : []),
     { icon: Phone, label: "+962 7993 3392", href: "tel:+96279933392" },
   ];
 
