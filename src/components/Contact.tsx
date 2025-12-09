@@ -17,7 +17,7 @@ const contactInfo = [
     icon: Phone,
     label: "Phone",
     value: "+962 7993 3392",
-    href: "tel:+96279933392",
+    href: "tel:+962799333392",
     ariaLabel: "Call +962 7993 3392",
   },
   {
