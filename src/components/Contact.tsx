@@ -16,9 +16,9 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Phone",
-    value: "+962 7993 3392",
-    href: "tel:+962799333392",
-    ariaLabel: "Call +962 7993 3392",
+    value: "+962 7 8118 0308",
+    href: "tel:+962781180308",
+    ariaLabel: "Call +962 7 8118 0308",
   },
   {
     icon: MapPin,

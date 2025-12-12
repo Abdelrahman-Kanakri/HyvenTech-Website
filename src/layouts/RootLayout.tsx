@@ -6,7 +6,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import Navigation from '@/components/Navigation';
 import LoadingScreen from '@/components/LoadingScreen';
 import LoadingBar from '@/components/LoadingBar';
-import ChatBot from '@/components/ChatBot';
+import ChatBot from '@/components/Chatbot';
 import BottomNavigation from '@/components/BottomNavigation';
 import ScrollToTop from '@/components/ScrollToTop';
 import { Toaster } from '@/components/ui/toaster';
