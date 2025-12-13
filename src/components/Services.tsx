@@ -10,6 +10,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
 const services = [
   {
@@ -109,39 +110,41 @@ const Services = () => {
             const Icon = service.icon;
             return (
               <motion.div key={index} variants={itemVariants}>
-                <Card 
-                  className="glass glow h-full group hover:glow-strong active:scale-[0.98] transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2 touch-manipulation flex flex-col relative z-10 will-change-transform"
-                >
-                  <CardHeader className="pb-3 lg:pb-4">
-                    <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 lg:mb-4 group-hover:scale-110 transition-transform">
-                      <Icon className="h-5 w-5 lg:h-7 lg:w-7 text-primary" />
-                    </div>
-                    <CardTitle className="text-base lg:text-xl">{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-1 flex flex-col">
-                    <CardDescription className="text-sm sm:text-base leading-relaxed mb-4 flex-1">
-                      {service.description}
-                    </CardDescription>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleConsultation}
-                        className="flex-1 glow hover:glow-strong transition-all"
-                      >
-                        Get Consultation
-                      </Button>
-                      <Button
-                        variant="default"
-                        size="sm"
-                        asChild
-                        className="flex-1 glow bg-primary hover:bg-primary/90 transition-all"
-                      >
-                        <Link to={service.link}>Learn More</Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                <SpotlightCard className="h-full">
+                  <Card 
+                    className="glass glow h-full group hover:glow-strong active:scale-[0.98] transition-all duration-300 hover:-translate-y-1 sm:hover:-translate-y-2 touch-manipulation flex flex-col relative z-10 will-change-transform bg-transparent border-0"
+                  >
+                    <CardHeader className="pb-3 lg:pb-4">
+                      <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 lg:mb-4 group-hover:scale-110 transition-transform">
+                        <Icon className="h-5 w-5 lg:h-7 lg:w-7 text-primary" />
+                      </div>
+                      <CardTitle className="text-base lg:text-xl">{service.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-1 flex flex-col">
+                      <CardDescription className="text-sm sm:text-base leading-relaxed mb-4 flex-1">
+                        {service.description}
+                      </CardDescription>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleConsultation}
+                          className="flex-1 glow hover:glow-strong transition-all"
+                        >
+                          Get Consultation
+                        </Button>
+                        <Button
+                          variant="default"
+                          size="sm"
+                          asChild
+                          className="flex-1 glow bg-primary hover:bg-primary/90 transition-all"
+                        >
+                          <Link to={service.link}>Learn More</Link>
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </SpotlightCard>
               </motion.div>
             );
           })}

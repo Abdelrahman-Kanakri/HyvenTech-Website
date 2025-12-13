@@ -11,6 +11,7 @@ import BottomNavigation from '@/components/BottomNavigation';
 import ScrollToTop from '@/components/ScrollToTop';
 import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
+import { ScrollProgressIndicator } from '@/components/ui/ScrollProgressIndicator';
 
 const RootLayout = () => {
   const isMobile = useIsMobile();
@@ -34,6 +35,9 @@ const RootLayout = () => {
           {isMobile && <BottomNavigation />}
           <ChatBot />
         </Suspense>
+        
+        {/* Scroll Progress Indicator - Desktop only */}
+        <ScrollProgressIndicator />
         
         <Toaster />
         <Sonner position="top-center" />

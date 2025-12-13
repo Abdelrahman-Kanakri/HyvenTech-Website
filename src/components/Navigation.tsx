@@ -14,6 +14,8 @@ const Navigation = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { navigateTo } = useSmoothNav();
@@ -31,6 +33,29 @@ const Navigation = () => {
     
     return () => observer.disconnect();
   }, []);
+
+  // Auto-hide navbar on scroll down, show on scroll up
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Only hide after scrolling down past 100px
+      if (currentScrollY < 100) {
+        setIsScrollingDown(false);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down
+        setIsScrollingDown(true);
+      } else {
+        // Scrolling up
+        setIsScrollingDown(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -185,8 +210,8 @@ const Navigation = () => {
     <>
       <motion.nav
         initial={{ y: 0 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.3 }}
+        animate={{ y: isScrollingDown ? -120 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
         className="fixed top-4 inset-x-0 z-50 block"
         role="navigation"
         aria-label="Main navigation"

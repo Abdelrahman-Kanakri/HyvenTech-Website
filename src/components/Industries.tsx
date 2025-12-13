@@ -4,50 +4,72 @@ import { Rocket } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { industries } from "@/constants/industries";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Industries = () => {
-  const renderedIndustries = useMemo(() => industries.map((industry, index) => {
+  const isMobile = useIsMobile();
+
+  const sectorCards = useMemo(() => industries.map((industry, index) => {
     const Icon = industry.icon;
+    const isEven = index % 2 === 0;
+
     return (
       <motion.div
         key={industry.name}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.05, duration: 0.5 }}
+        initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ delay: index * 0.1, duration: 0.6 }}
+        className={`flex flex-col ${isMobile ? '' : isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-6 md:gap-8 lg:gap-12 max-w-5xl mx-auto`}
       >
-        <Card className="glass glow h-full hover:glow-strong transition-all duration-300 group relative">
+        {/* Icon/Logo Section */}
+        <motion.div 
+          className="flex-shrink-0"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+        >
+          <div className="w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-2xl bg-gradient-glow flex items-center justify-center glow-strong">
+            <Icon className="h-12 w-12 sm:h-16 sm:w-16 lg:h-20 lg:w-20 text-primary" />
+          </div>
+        </motion.div>
+
+        {/* Card Section */}
+        <Card className="glass glow flex-1 hover:glow-strong transition-all duration-300 group relative w-full">
           <CardHeader className="pb-3">
-            <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-lg bg-gradient-glow flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-              <Icon className="h-5 w-5 lg:h-7 lg:w-7 text-primary" />
-            </div>
-            <CardTitle className="text-sm lg:text-lg">{industry.name}</CardTitle>
+            <CardTitle className="text-lg lg:text-2xl">{industry.name}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-3">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
               {industry.description}
             </p>
-            <div className="space-y-1">
-              {industry.solutions.map((solution, sIndex) => (
-                <div key={sIndex} className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-primary" />
-                  <span className="text-xs text-foreground">{solution}</span>
-                </div>
-              ))}
+            <div className="space-y-2">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                Solutions:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {industry.solutions.map((solution, sIndex) => (
+                  <span
+                    key={sIndex}
+                    className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-foreground border border-primary/20"
+                  >
+                    {solution}
+                  </span>
+                ))}
+              </div>
             </div>
           </CardContent>
           
           {/* Rocket Icon Link */}
           <Link 
             to={industry.link}
-            className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-primary/10 hover:bg-primary/20 flex items-center justify-center transition-all group-hover:scale-110"
+            className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-primary/10 hover:bg-primary/20 flex items-center justify-center transition-all group-hover:scale-110 group-hover:rotate-12"
           >
-            <Rocket className="h-4 w-4 text-primary" />
+            <Rocket className="h-5 w-5 text-primary" />
           </Link>
         </Card>
       </motion.div>
     );
-  }), []);
+  }), [isMobile]);
 
   return (
     <section id="key-sectors" className="py-12 sm:py-16 md:py-20 bg-muted/20">
@@ -67,8 +89,8 @@ const Industries = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
-          {renderedIndustries}
+        <div className="space-y-8 md:space-y-12 lg:space-y-16">
+          {sectorCards}
         </div>
       </div>
     </section>
@@ -76,4 +98,3 @@ const Industries = () => {
 };
 
 export default Industries;
-

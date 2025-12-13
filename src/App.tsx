@@ -11,6 +11,7 @@ import { router } from "@/router/routes";
 import ErrorBoundary from "./components/ErrorBoundary";
 import LoadingScreen from "./components/LoadingScreen";
 import LoadingBar from "./components/LoadingBar";
+import { LenisProvider } from "@/providers/lenis-provider";
 
 /**
  * Main App Component
@@ -29,15 +30,17 @@ const App = () => {
   }, []);
 
   return (
-    <TooltipProvider>
-      {isLoading ? (
-        <LoadingScreen onComplete={handleLoadingComplete} />
-      ) : (
-        <ErrorBoundary>
-          <RouterProvider router={router} />
-        </ErrorBoundary>
-      )}
-    </TooltipProvider>
+    <LenisProvider>
+      <TooltipProvider>
+        {isLoading ? (
+          <LoadingScreen onComplete={handleLoadingComplete} />
+        ) : (
+          <ErrorBoundary>
+            <RouterProvider router={router} />
+          </ErrorBoundary>
+        )}
+      </TooltipProvider>
+    </LenisProvider>
   );
 };
 

@@ -1,12 +1,50 @@
 import { motion } from "framer-motion";
+import { InfiniteMarquee } from "@/components/ui/InfiniteMarquee";
+
 const knowbe4Logo = "/knowbe4-logo.svg";
 
-const clients = [
+// Partner and technology logos
+const logos = [
   { 
     name: "KnowBe4", 
-    industry: "Cybersecurity", 
+    type: "partner",
     logo: knowbe4Logo, 
     link: "https://www.knowbe4.com/" 
+  },
+  {
+    name: "React",
+    type: "technology",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  },
+  {
+    name: "TypeScript",
+    type: "technology",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+  },
+  {
+    name: "Python",
+    type: "technology",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  },
+  {
+    name: "AWS",
+    type: "technology",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+  },
+  {
+    name: "Google Cloud",
+    type: "technology",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
+  },
+  {
+    name: "Firebase",
+    type: "technology",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+  },
+  {
+    name: "Vite",
+    type: "technology",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg",
   },
 ];
 
@@ -22,64 +60,50 @@ const ClientLogos = () => {
           className="text-center mb-8 sm:mb-10 md:mb-12"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-3 md:mb-4">
-            <span className="rounded-xl px-4 py-2 inline-block"><span className="text-primary">Trusted By</span></span>
+            <span className="rounded-xl px-4 py-2 inline-block"><span className="text-primary">Partners</span> & Technologies</span>
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground">
-            Partnering with organizations across multiple sectors
+            Powered by industry-leading partnerships and cutting-edge technologies
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-4 sm:gap-8 max-w-5xl mx-auto">
-          {clients.map((client, index) => (
-            <motion.div
+        <InfiniteMarquee duration={50}>
+          {logos.map((item, index) => (
+            <div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
               className="flex items-center justify-center"
             >
-              {client.link ? (
+              {item.link ? (
                 <a 
-                  href={client.link} 
+                  href={item.link} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-full"
+                  className="flex items-center justify-center"
                 >
-                  <div className="glass p-4 sm:p-6 md:p-8 rounded-lg w-full sm:w-64 md:w-80 h-24 sm:h-32 md:h-40 flex flex-col items-center justify-center hover:glow-strong transition-all duration-300 group cursor-pointer relative overflow-hidden">
-                    {client.logo ? (
-                      <img 
-                        src={client.logo} 
-                        alt={client.name} 
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                      />
-                    ) : (
-                      <>
-                        <p className="font-bold text-sm sm:text-base md:text-lg text-foreground group-hover:text-primary transition-colors text-center">
-                          {client.name}
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {client.industry}
-                        </p>
-                      </>
-                    )}
+                  <div className="glass p-6 rounded-lg w-40 h-28 flex items-center justify-center hover:glow-strong transition-all duration-300 group cursor-pointer">
+                    <img 
+                      src={item.logo} 
+                      alt={item.name} 
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                    />
                   </div>
                 </a>
               ) : (
-                <div className="glass p-4 sm:p-6 rounded-lg w-full h-24 sm:h-28 flex flex-col items-center justify-center hover:glow-strong transition-all duration-300 group">
-                  <p className="font-bold text-sm sm:text-base md:text-lg text-foreground group-hover:text-primary transition-colors text-center">
-                    {client.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {client.industry}
-                  </p>
+                <div className="glass p-6 rounded-lg w-40 h-28 flex items-center justify-center hover:glow-strong transition-all duration-300 group">
+                  <img 
+                    src={item.logo} 
+                    alt={item.name} 
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                  />
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </InfiniteMarquee>
       </div>
     </section>
   );

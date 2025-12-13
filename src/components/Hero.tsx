@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle } from "lucide-react";
 import { lazy, Suspense, useCallback } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useShouldAnimate } from "@/hooks/use-reduced-motion";
+import { ScrambleText } from "@/components/ui/ScrambleText";
 
 const Hero = () => {
   const isMobile = useIsMobile();
@@ -45,8 +46,20 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="text-foreground">Custom Software Solutions for </span>
-                <span className="text-primary">Enterprise Digital Transformation</span>
+                <span className="text-foreground">
+                  <ScrambleText 
+                    text="Custom Software Solutions for " 
+                    speed={40}
+                    scrambleSpeed={20}
+                  />
+                </span>
+                <span className="text-primary">
+                  <ScrambleText 
+                    text="Enterprise Digital Transformation" 
+                    speed={40}
+                    scrambleSpeed={20}
+                  />
+                </span>
               </motion.h1>
             ) : (
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
