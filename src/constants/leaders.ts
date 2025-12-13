@@ -30,7 +30,7 @@ export const leaders: Leader[] = [
       "Architected scalable ERP solution serving 10,000+ concurrent users"
     ],
     linkedin: "https://www.linkedin.com/in/hamza-a-jowher-5723b3124/",
-    email: "hamzah@hyventech.com"
+    email: "hamza@hyventechjo.com"
   },
   {
     id: 2,
@@ -45,7 +45,7 @@ export const leaders: Leader[] = [
       "Built ML pipeline infrastructure reducing model deployment time by 80%"
     ],
     linkedin: "https://www.linkedin.com/in/abdelrahman-kanakri-909654247/",
-    email: "abdelrahman@hyventech.com"
+    email: "abdelrahman.kanakri@hyventechjo.com"
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ export const leaders: Leader[] = [
       "Built and nurtured engaged community of 50,000+ active followers"
     ],
     linkedin: "https://www.linkedin.com/in/%D9%85%D8%AD%D9%85%D9%88%D8%AF-%D8%A7%D9%84%D8%AE%D8%B6%D9%88%D8%B1-809808391/",
-    email: "mahmoud@hyventech.com"
+    email: "sales@hyventechjo.com"
   },
   {
     id: 4,
@@ -75,7 +75,7 @@ export const leaders: Leader[] = [
       "Launched viral marketing campaign achieving 5M+ organic impressions"
     ],
     linkedin: "https://www.linkedin.com/in/rakan-masadeh-783859383/",
-    email: "rakan@hyventech.com"
+    email: "rakan@hyventechjo.com"
   },
   
 ];

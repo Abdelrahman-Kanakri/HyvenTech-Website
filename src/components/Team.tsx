@@ -7,21 +7,21 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const team = [
   {
     name: "Hamzah Abu Jawhar",
-    role: "Chief Technology Officer",
+    role: "CEO • ERP Developer",
     expertise:  ["ERP Solutions","IT Security", "IT technical Support Specialist"],
     initials: "HAJ",
     linkedin: "https://www.linkedin.com/in/hamza-a-jowher-5723b3124/",
   },
   {
     name: "Abdelrahman Kanakri",
-    role: "Lead AI Engineer",
+    role: "CTO • Lead AI Engineer",
     expertise: ["AI Model Development", "AI Automations", "Data Science"],
     initials: "AK",
     linkedin: "https://www.linkedin.com/in/abdelrahman-kanakri-909654247/",
   },
   {
     name: "Mahmoud Al-Khdoor",
-    role: "Social Media Manager",
+    role: "CMO • Social Media Manager ",
     expertise: ["Strategic Planning", "Sales", "Marketing"],
     initials: "MAK",
     linkedin: "https://www.linkedin.com/in/%D9%85%D8%AD%D9%85%D9%88%D8%AF-%D8%A7%D9%84%D8%AE%D8%B6%D9%88%D8%B1-809808391/",
