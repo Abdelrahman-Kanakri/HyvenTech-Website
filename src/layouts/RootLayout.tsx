@@ -4,7 +4,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 // Components
 import Navigation from '@/components/Navigation';
-import LoadingScreen from '@/components/LoadingScreen';
 import LoadingBar from '@/components/LoadingBar';
 import ChatBot from '@/components/Chatbot';
 import BottomNavigation from '@/components/BottomNavigation';
@@ -26,7 +25,7 @@ const RootLayout = () => {
         <Navigation />
         
         <div className="flex-1 flex flex-col w-full min-h-[60vh]">
-          <Suspense fallback={<LoadingScreen onComplete={() => {}} />}>
+          <Suspense fallback={<div className="min-h-[60vh]" />}>
             <Outlet />
           </Suspense>
         </div>

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { isSectionRoute } from "@/router/constants";
 
 interface Section {
   id: string;
@@ -19,18 +20,18 @@ const sections: Section[] = [
 export function ScrollProgressIndicator() {
   const [activeSection, setActiveSection] = useState<string>("home");
   const location = useLocation();
-  const isHomePage = location.pathname === "/"; // Added this line
+  const isOnLandingPage = isSectionRoute(location.pathname);
 
   // Handle scroll tracking
   useEffect(() => {
     // Reset active section when returning to homepage
-    if (isHomePage) { // Changed from location.pathname === "/"
+    if (isOnLandingPage) {
       setActiveSection("home");
     }
 
     const handleScroll = () => {
       // Only update if we're on the homepage
-      if (!isHomePage) { // Changed from location.pathname !== "/"
+      if (!isOnLandingPage) { // Changed from location.pathname !== "/"
         return;
       }
 
@@ -52,7 +53,7 @@ export function ScrollProgressIndicator() {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHomePage, location.pathname]); // Added isHomePage to dependency array
+  }, [isOnLandingPage, location.pathname]); // Added isHomePage to dependency array
 
   const handleClick = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -63,8 +64,8 @@ export function ScrollProgressIndicator() {
 
   return (
     <div 
-      className={`fixed right-8 top-1/2 -translate-y-1/2 z-50 transition-opacity duration-300 ${
-        isHomePage ? 'opacity-100 lg:block' : 'opacity-0 pointer-events-none'
+      className={`fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden lg:flex transition-opacity duration-500 ${
+        isOnLandingPage ? 'opacity-100' : 'opacity-0 pointer-events-none'
       }`}
     >
       <nav className="flex flex-col gap-4" aria-label="Page sections">
